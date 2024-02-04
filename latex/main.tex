@@ -1,0 +1,212 @@
+\documentclass[12pt]{article}
+\usepackage{preamble}
+\begin{document}
+
+%%%%%%%%%%%%%%%%%frond page%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{titlepage}
+\title{Generalized Synthetic Control Method: Causal Inference with Instrumented Principal Component Analysis}
+\author{ Cong Wang\thanks{Department of Economics and Law, Sapienza University of Rome}}
+\date{\today}
+\maketitle
+\begin{abstract}
+\noindent To address the limitations posed by the parallel trend assumption (PTA) required by prevalent methods such as difference-in-differences (DID), synthetic control methods (SCM) leverage data from the control group to impute the missing counterfactual for the treated group post-treatment. However, the original SCM and many of its derivatives primarily rely on outcome data to impute these missing counterfactuals, thereby underutilizing the information contained in covariates. This paper extends the linear interactive fixed effects model by incorporating covariates through unit-time specific intercepts interacted with time-varying coefficients, instrumented for additional robustness. This approach offers several advantages: firstly, it permits the treatment assignment to correlate with unobserved unit and time heterogeneities under plausible modeling assumptions. Secondly, it obviates the need for correct functional form assumptions. Thirdly, by harnessing the dimension reduction capability of principal component analysis (PCA), it efficiently manages high-dimensional data, enhancing the value extracted from numerous covariates. \\
+
+\noindent\textbf{Keywords:} Synthetic Control, Principal Component Analysis, Causal Inference\\
+
+\noindent\textbf{JEL Codes:} G11, G12, G30\\
+\bigskip
+\end{abstract}
+\setcounter{page}{0}
+\thispagestyle{empty}
+\end{titlepage}
+\pagebreak \newpage
+
+\doublespacing
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction} 
+\label{sec:introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In this paper, we propose a new counterfactual imputation method that leverage the dimension reduction capability of instrumented principal component analysis (IPCA) to enhance the value extracted from numerous covariates. We name the newly proposed method the generalized synthetic control with instrumented principal component analysis (GSC-IPCA) in line with the original generalized synthetic control method with interactive fixed effects (GSC-IFE) proposed by \cite{xu2017generalized}. The GSC-IPCA estimator is designed to overcome the constraints of the PTA, a requirement for widely adopted methodologies such as DID. Furthermore, it addresses the limitation observed in the original SCM and its variants, which predominantly depend on outcome data to impute missing counterfactuals, thus not fully leveraging the available covariate information. The GSC-IPCA estimator extends the linear interactive fixed effects model by incorporating covariates through unit-time specific intercepts interacted with time-varying coefficients, instrumented for additional robustness.
+
+Causal inference in economics and other social sciences is often complicated by the absence of a counterfactual, which is essential for evaluating the impact of a treatment or policy intervention. The counterfactual represents the outcome that would have been observed in the absence of the treatment. The most common approach to estimating the counterfactual is the DID, which compares the average change in the outcome variable for the treated group with the average change for the control group. However, DID requires the PTA, which posits that, in the absence of the treatment, the average outcomes for the treated and control groups would have followed the same trend. This assumption is often difficult to verify and may be violated in practice. In contrast, SCM utilize control group data to estimate the missing counterfactuals for the treated group after treatment, functioning akin to a vertical regression, thereby offering an alternative when DID's underlying assumptions are untenable. 
+
+The SCM estimates missing counterfactuals for treated units by constructing a weighted average of outcomes from control units. These weights are selected to ensure that pre-treatment outcomes for the control group closely align with those of the treated units. Diverging from the original SCM and its derivatives, which rely predominantly on outcome data for imputing post-treatment counterfactuals without requiring a comprehensive estimation of the data-generating process (DGP), the GSC-IFE seeks to explicitly model the DGP. Our proposed method advances the GSC-IFE framework by introducing a distinctive strategy for integrating covariates, thereby enhancing the method's capability to generate more accurate counterfactual predictions.
+
+
+
+
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Framework} 
+\label{sec: framework}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Consider $Y_{it}$ as the observed outcome for a specific unit $i$ at time $t$. The total number of units is $N = N_{treat} + N_{\text{ctrl}}$, where $N_{treat}$ indicates the number of units in the treatment group, and $N_{\text{ctrl}}$ represents those in the control group. Each unit is observed over $T$ time periods, ranging from period 1 to period $T$. Let $T_{\text{pre}}$ denote the number of pre-treatment periods, and $T_{\text{post}}$ the number of post-treatment periods. The treatment effect is initially observed at time $T_{\text{pre}} + 1$ and continues to be observed thereafter, a scenario commonly referred to as staggered adoption.
+
+\textbf{Assumptions 1.} The outcome is generated as:
+
+\begin{equation}
+\begin{aligned}
+& Y_{it} = D_{it} \circ \delta_{it} + B_{it}F_{t} + \mu_{it}, \\
+& B_{it} = X_{it}\Gamma + H_{it}
+\end{aligned}
+\tag{1}
+\label{eq: functional form}
+\end{equation}
+
+\noindent where $D_{it}$ is a binary treatment indicator and $\delta_{it}$ signifies the treatment effect, which exhibits variation across units and through time. The expression $B_{it} = [\beta_{it}^1, \ldots, \beta_{it}^K]$ represents a vector of factor loadings (the number of common factors is $K$.), whereas $F_{t} = [f_{t}^1, \ldots, f_{t}^K]'$ corresponds to a vector of time-varying common factors, and $\mu_{it}$ is the idiosyncratic error term. A key distinction of the proposed model from that delineated in \cite{xu2017generalized} is the incorporation of factor loadings $B_{it}$, which are instrumented by observed covariates $X_{it}$. This integration permits $B_{it}$ to exhibit variability across time and units, thereby introducing an additional layer of heterogeneity into the model.
+
+The vector $X_{it} = [x_{it}^1, \ldots, x_{it}^L]$ consists of observed covariates, where $L$ denotes the number of covariates. The factor loadings $B_{it}$ are theorized to be a linear function of these observed covariates $X_{it}$, with $\Gamma$ acting as the $L\times K$ coefficient matrix, and $H_{it} = [\eta_{it}^1, \ldots, \eta_{it}^L]$ comprising the vector of error terms.
+
+Upon examining the functional form presented in Equation \ref{eq: functional form}, we can amalgamate the two segments to formulate the ensuing equation:
+
+
+\begin{equation}
+Y_{it} = D_{it} \circ \delta_{it} + (X_{it}\Gamma) F_{t} + \epsilon_{it}, \quad \epsilon_{it} = \mu_{it} + H_{it}F_t.
+\tag{2}
+\label{eq: combined}
+\end{equation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Assumptions for identification}
+\textbf{Assumptions 2.} Unconfoundedness:
+\begin{equation*}
+\epsilon_{it} \perp D_{js}, X_{js}, F_s \quad \forall i, j, s, t.
+\end{equation*}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Estimation}
+\label{sec: estimation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The GSC-IPCA estimator of the treatment effect for a treated unit $i$ at time $t$ is defined as the difference between the observed outcome and its estimated counterfactual: $\delta_{it} = Y_{it}(1) - \hat{Y}_{it}(0)$, where $\hat{Y}_{it}(0)$ is derived through a three-step imputation process.
+
+\textbf{Step 1:} The initial step entails estimating the time-varying factors $\hat{F}_t$ and the coefficient matrix $\hat{\Gamma}_{\text{ctrl}}$ utilizing an Alternating Least Squares (ALS) algorithm, based exclusively on data from the control group.
+
+\begin{equation}
+(\hat{\Gamma}_{ctrl}, \hat{F_t}) = \underset{\Gamma, F_t}{\arg\min} \sum_{i \in N_{ctrl}} \sum_{t \in T}\left( Y_{it} - (X_{it}\Gamma) F_{t} \right)'\left( Y_{it} - (X_{it}\Gamma) F_{t} \right).
+\tag{3}
+\label{eq: optimization}
+\end{equation}
+
+\textbf{Step 2:} The subsequent step involves estimating the coefficient matrix $\hat{\Gamma}_{treat}$ for treated unit $i$ at time $t$, employing the previously estimated time-varying factors $\hat{F}_t$ and the observed covariates $X_{it}$, using only pretreatment data from the treated units.
+
+\begin{equation}
+\hat{\Gamma}_{treat} = \underset{\Gamma}{\arg\min} \sum_{i \in N_{treat}} \sum_{t \in T_{pre}} \left( Y_{it} - (X_{it} \Gamma) \hat{F}_{t} \right)' \left( Y_{it} - (X_{it} \Gamma) \hat{F}_{t} \right).
+\tag{4}
+\end{equation}
+
+\textbf{Step 3:} The final step involves imputing the counterfactual outcome $\hat{Y}_{it}(0)$ for treated unit $i$ at time $t$ by substituting the estimated coefficient matrix $\hat{\Gamma}_{treat}$ and the time-varying factors $\hat{F}_t$ into the following equation:
+
+\begin{equation}
+\hat{Y}_{it}(0) = (X_{it} \hat{\Gamma}_{treat}) \hat{F}_{t}, \quad \forall i \in N_{treat}, \forall t \in T_{post}.
+\tag{5}
+\end{equation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Monte Carlo Simulation}
+\label{sec: simulation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In this section, we employ Monte Carlo simulations to assess the performance of the GSC-IPCA estimator in finite sample settings. We juxtapose the GSC-IPCA estimator against the GSC-IFE estimator, as introduced by \cite{xu2017generalized}, alongside other prominent methodologies in the realm of causal inference, such as the DID estimator and the original SC estimator. Our comparative analysis focuses on key metrics including bias, mean squared error (MSE), and coverage probability. 
+
+We initiate our analysis with a data generating process that incorporates $L=10$ and $K=3$ time-varying covariates and common factors, along with unit and time fixed effects:
+
+\begin{equation}
+Y_{it} = D_{i} \delta_{t} + X_{it}\Lambda + (X_{it}\Gamma) F_{t} + \alpha_i + \xi_t + \epsilon_{it}.
+\tag{6}
+\label{eq: dgp}
+\end{equation}
+
+\noindent where $X_{it} = [x_{it}^1, \ldots, x_{it}^{10}]$ denotes the vector of time-varying covariates, which follows a VAR(1) process. $X_{it} = \mu_i + A_i X_{i,t-1} + \nu_{it}$, where $A_i$ is a $ L \times L$ variance-covariance matrix\footnote{In our methodology, the variance-covariance matrix is not constrained to be diagonal, thus allowing covariates within each unit to be correlated, reflecting the typical scenario in most economic time series data. To emphasize the independence among different units, we generate $N$ unique variance-covariance matrices, each corresponding to a unit, ensuring cross-sectional independence and preserving time-series correlation. Moreover, we impose a condition on these matrices by requiring the eigenvalues of $A_i$ to have characteristic roots that reside inside the unit circle, thereby assuring the stationarity of the VAR(1) process.}, The drift term $\mu_i$ equals 0 for control units and 2 for treated units,\footnote{This configuration underscores that the treatment assignment is not random; rather, it depends on the covariates $X_{it}$.}, and $\nu_{it}$ is a $L \times 1$ vector of i.i.d. standard normal errors. While $F_t = [f_t^1, \ldots, f_t^3]^\prime$ denotes the vector of time-varying common factors, adhering to a similar VAR(1) process, the variable $\epsilon_{it}$ represents the idiosyncratic error term. Unit and time fixed effects, $\alpha_i$ and $\xi_{t}$ respectively, are uniformly drawn from the interval $(0,1)$. The coefficient vector $\Lambda = [\lambda^1, \ldots, \lambda^{10}]^\prime$ associated with the covariates is drawn uniformly from $(0,1)$, and $\Gamma$, the $L \times K$ coefficient matrix for the factor loadings, is drawn uniformly from $(0,0.1)$, with these covariates serving as instruments. The treatment indicator $D_{it}$ is binary, defined as $D_{it} = 1$ for treated units during post-treatment periods, and $D_{it} = 0$ otherwise. The heterogeneous treatment effect is modeled as $\delta_{it} = \bar{\delta_t} + e_{it}$, where $e_{it}$ is i.i.d as standard normal, and $\bar{\delta_t} = [0, \cdots, 0, 1,2,\ldots,T_{post}]$ represents a time-varying treatment effect. Only the outcome $Y_{it}$, the covariates $X_{it}$, and the treatment indicator $D_{it}$ are observed, while all other variables remain unobserved.
+
+\begin{table}[ht]
+\centering
+\caption{Data Generating Process}
+\begin{tabular}{clcl}
+\hline
+Variables & Description & Dimension & DGPs \\ \hline
+$D_{i}$ & treated unit indicator & $N\times T$ & $D_i=1 \: \forall i \in N_{treat}$\\ 
+$\delta_{t}$ & treatment effects & $N\times T$ & $\bar{\delta_t} = [0,\cdots, 0, 1,2,\ldots,T_{post}]$ \\ 
+$X_{it}$ & covariates & $N\times T\times L$ & $X_{it} = \mu_i + A_i X_{i,t-1} + \nu_{it}$\\ 
+$A_i$ & VAR(1) coefficients & $N\times L\times L$ & $A_i \sim N(0,1), \: \forall \lambda \in \text{{eigen}}(A_i), \: |\lambda| \leq 1
+$\\ 
+$\Lambda$ & coefficients & $L\times 1$ & $\Lambda \sim Uniform(0, 1)$\\ 
+$\Gamma$ & coefficient matrix & $L\times K$ & $\Gamma \sim Uniform(0, 1)$\\ 
+$F_t$ & factors & $K\times 1$ & $F_t = AF_{t-1} + \nu_{t}$\\ 
+$A$ & VAR(1) coefficients & $K\times K$ & $A \sim N(0,1), \: \forall \lambda \in \text{{eigen}}(A), \: |\lambda| \leq 1
+$\\ 
+$\alpha_i$ & unit FE & $N\times 1$ & $\alpha_i \sim Uniform(0, 1)$\\ 
+$\xi_t$ & time FE & $1\times T$ & $\xi_t \sim Uniform(0, 1)$\\ 
+$\epsilon_{it}$ & error term & $N\times T$ & $\epsilon_{it} \sim N(0, 1)$\\ 
+$Y_{it}$ & outcome & $N\times T$ & Equation \ref{eq: dgp}\\ 
+\hline
+\end{tabular}
+\label{table: dgp}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Empirical Application}
+\label{sec: application}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In this section, we
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion} 
+\label{sec: conclusion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Firms' 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begingroup
+\setstretch{1.0}
+\bibliographystyle{plainnat}
+\bibliography{citation}
+\endgroup
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%  Appendix  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% By default figure number is continuous on appendix. You can change this by the following two lines
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\renewcommand\thetable{\Alph{section}.\arabic{table}}
+\renewcommand\thefigure{\Alph{section}.\arabic{figure}}
+
+\subsection*{A.1 Estimation of the GSC-IPCA Estimator Using the ALS Algorithm}
+
+As outlined in Equation \ref{eq: combined}, the data generating process can be described by:
+
+\begin{equation*}
+Y_{it} = (X_{it}\Gamma) F_{t} + \epsilon_{it}, \quad \epsilon_{it} = \mu_{it} + H_{it} F_t.
+\end{equation*}
+
+Equation \ref{eq: optimization} details the derivation of the GSC-IPCA estimator from the minimization problem:
+
+\begin{equation*}
+(\hat{\Gamma}, \hat{F}_t) = \underset{\Gamma, F_t}{\arg\min} \sum_{i \in N} \sum_{t \in T} \left( Y_{it} - (X_{it}\Gamma) F_{t} \right)' \left( Y_{it} - (X_{it}\Gamma) F_{t} \right).
+\end{equation*}
+
+The Alternating Least Squares (ALS) method is employed for the numerical solution of this optimization problem. Unlike PCA, the IPCA optimization challenge cannot be resolved through eigen-decomposition. The optimization, as defined in Equation \ref{eq: optimization}, is quadratic with respect to either $\Gamma$ or $F_t$, when the other is held constant. This characteristic permits the analytical optimization of $\Gamma$ and $F_t$ sequentially. With a fixed $\Gamma$, the solutions for $F_t$ are t-separable and can be obtained via cross-sectional OLS for each $t$:
+
+\begin{equation*}
+\hat{F}_t(\Gamma) = (\Gamma' X'_t X_t \Gamma)^{-1} \Gamma' X'_t Y_t.
+\end{equation*}
+
+Conversely, with known $F_{t}$, the optimal $\Gamma$ (vectorized as $\gamma$) is derived through pooled panel OLS of $y_{it}$ against $LK$ regressors, $x_{it} \otimes f_t$:
+
+\begin{equation*}
+\hat{\gamma} = \left( \sum_{i,t} (x_{i,t}' \otimes f_t) (x_{i,t} \otimes f_t') \right)^{-1} \left( \sum_{i,t} (x_{i,t}' \otimes f_t) y_{i,t} \right).
+\end{equation*}
+
+Inspired by PCA, the initial guess for $F_t$ is the first $K$ principal components of the outcome matrix $Y_{it}$. The ALS algorithm alternates between these two steps until convergence is achieved, typically reaching a local minimum rapidly. The convergence criterion, based on the relative change in the optimization problem from Equation \ref{eq: optimization}, ensures termination when this change falls below a predefined threshold, set at $10e^{-6}$ in our implementation.
+
+\end{document}
