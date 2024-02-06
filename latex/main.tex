@@ -1,6 +1,7 @@
 \documentclass[12pt]{article}
 \usepackage{preamble}
 \begin{document}
+\newtheorem{assumption}{Assumption}
 
 %%%%%%%%%%%%%%%%%frond page%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{titlepage}
@@ -9,7 +10,7 @@
 \date{\today}
 \maketitle
 \begin{abstract}
-\noindent To address the limitations posed by the parallel trend assumption (PTA) required by prevalent methods such as difference-in-differences (DID), synthetic control methods (SCM) leverage data from the control group to impute the missing counterfactual for the treated group post-treatment. However, the original SCM and many of its derivatives primarily rely on outcome data to impute these missing counterfactuals, thereby underutilizing the information contained in covariates. This paper extends the linear interactive fixed effects model by incorporating covariates through unit-time specific intercepts interacted with time-varying coefficients, instrumented for additional robustness. This approach offers several advantages: firstly, it permits the treatment assignment to correlate with unobserved unit and time heterogeneities under plausible modeling assumptions. Secondly, it obviates the need for correct functional form assumptions. Thirdly, by harnessing the dimension reduction capability of principal component analysis (PCA), it efficiently manages high-dimensional data, enhancing the value extracted from numerous covariates. \\
+\noindent To address the limitations imposed by the parallel trend assumption (PTA) required by prevalent methods such as difference-in-differences (DID), synthetic control methods (SCM) leverage data from the control group to impute the missing counterfactual for the treated group post-treatment. However, the original SCM and its derivatives primarily rely on outcome data for these imputations, requiring that the outcomes of treated units fall within or close to the convex hull of the donor pool. Yet, in many instances, treated units are poorly represented by the donor pool. This paper expands the linear interactive fixed effects model by integrating covariates into dynamic factor loadings that interact with time-varying factors. This methodology confers multiple benefits: firstly, it incorporates the strengths of previous SCM approaches, such as the relaxation of the PTA and conditional randomization of treatment assignment. Secondly, it eliminates the need for correct functional form assumptions. Thirdly, by utilizing the dimension reduction capability of principal component analysis (PCA), it efficiently manages high-dimensional data, enhancing the value extracted from numerous covariates. \\
 
 \noindent\textbf{Keywords:} Synthetic Control, Principal Component Analysis, Causal Inference\\
 
@@ -29,7 +30,7 @@
 \label{sec:introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this paper, we propose a new counterfactual imputation method that leverage the dimension reduction capability of instrumented principal component analysis (IPCA) to enhance the value extracted from numerous covariates. We name the newly proposed method the generalized synthetic control with instrumented principal component analysis (GSC-IPCA) in line with the original generalized synthetic control method with interactive fixed effects (GSC-IFE) proposed by \cite{xu2017generalized}. The GSC-IPCA estimator is designed to overcome the constraints of the PTA, a requirement for widely adopted methodologies such as DID. Furthermore, it addresses the limitation observed in the original SCM and its variants, which predominantly depend on outcome data to impute missing counterfactuals, thus not fully leveraging the available covariate information. The GSC-IPCA estimator extends the linear interactive fixed effects model by incorporating covariates through unit-time specific intercepts interacted with time-varying coefficients, instrumented for additional robustness.
+In this paper, we propose a new counterfactual imputation method that leverage the dimension reduction capability of instrumented principal component analysis (IPCA) to enhance the value extracted from numerous covariates. We name the newly proposed method the generalized synthetic control with instrumented principal component analysis (GSC-IPCA) in line with the privious generalized synthetic control method with interactive fixed effects (GSC-IFE) proposed by \cite{xu2017generalized}. The GSC-IPCA estimator is designed to overcome the constraints of the PTA, a requirement for widely adopted methodologies such as DID. Furthermore, it addresses the limitation observed in the original SCM and its variants, which predominantly depend on outcome data to impute missing counterfactuals, thus not fully leveraging the available covariate information. The GSC-IPCA estimator extends the linear interactive fixed effects model by incorporating covariates through unit-time-varying factor loadings interacted with time-varying factors, instrumented for additional robustness\footnote{The functional form of the data generating process in \cite{xu2017generalized} only sepcifies unit-varying factor loadings.}.
 
 Causal inference in economics and other social sciences is often complicated by the absence of a counterfactual, which is essential for evaluating the impact of a treatment or policy intervention. The counterfactual represents the outcome that would have been observed in the absence of the treatment. The most common approach to estimating the counterfactual is the DID, which compares the average change in the outcome variable for the treated group with the average change for the control group. However, DID requires the PTA, which posits that, in the absence of the treatment, the average outcomes for the treated and control groups would have followed the same trend. This assumption is often difficult to verify and may be violated in practice. In contrast, SCM utilize control group data to estimate the missing counterfactuals for the treated group after treatment, functioning akin to a vertical regression, thereby offering an alternative when DID's underlying assumptions are untenable. 
 
@@ -45,20 +46,22 @@ The SCM estimates missing counterfactuals for treated units by constructing a we
 \label{sec: framework}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Consider $Y_{it}$ as the observed outcome for a specific unit $i$ at time $t$. The total number of units is $N = N_{treat} + N_{\text{ctrl}}$, where $N_{treat}$ indicates the number of units in the treatment group, and $N_{\text{ctrl}}$ represents those in the control group. Each unit is observed over $T$ time periods, ranging from period 1 to period $T$. Let $T_{\text{pre}}$ denote the number of pre-treatment periods, and $T_{\text{post}}$ the number of post-treatment periods. The treatment effect is initially observed at time $T_{\text{pre}} + 1$ and continues to be observed thereafter, a scenario commonly referred to as staggered adoption.
+Consider $Y_{it}$ as the observed outcome for a specific unit $i$ at time $t$. The total number of units is $N = N_{treat} + N_{\text{ctrl}}$, where $N_{treat}$ indicates the number of units in the treatment group, and $N_{\text{ctrl}}$ represents those in the control group. Each unit is observed over $T$ time periods, ranging from period 1 to period $T$. Let $T_{\text{pre}}$ denote the number of pre-treatment periods, and $T_{\text{post}}$ the number of post-treatment periods. The unit is treated at time $T_{\text{pre}} + 1$, and the treatment effect is initially observed at time $T_{\text{pre}} + 1$ and continues to be observed thereafter, a scenario commonly referred to as staggered adoption.
 
-\textbf{Assumptions 1.} The outcome is generated as:
+\begin{assumption}
+Functional form:
+\label{ass: function}
+\end{assumption}
 
 \begin{equation}
 \begin{aligned}
 & Y_{it} = D_{it} \circ \delta_{it} + B_{it}F_{t} + \mu_{it}, \\
 & B_{it} = X_{it}\Gamma + H_{it}
 \end{aligned}
-\tag{1}
 \label{eq: functional form}
 \end{equation}
 
-\noindent where $D_{it}$ is a binary treatment indicator and $\delta_{it}$ signifies the treatment effect, which exhibits variation across units and through time. The expression $B_{it} = [\beta_{it}^1, \ldots, \beta_{it}^K]$ represents a vector of factor loadings (the number of common factors is $K$.), whereas $F_{t} = [f_{t}^1, \ldots, f_{t}^K]'$ corresponds to a vector of time-varying common factors, and $\mu_{it}$ is the idiosyncratic error term. A key distinction of the proposed model from that delineated in \cite{xu2017generalized} is the incorporation of factor loadings $B_{it}$, which are instrumented by observed covariates $X_{it}$. This integration permits $B_{it}$ to exhibit variability across time and units, thereby introducing an additional layer of heterogeneity into the model.
+\noindent where $D_{it}$ is a binary treatment indicator and $\delta_{it}$ signifies the treatment effect, which exhibits variation across units and through times\footnote{The symble ``$\circ$'' represents point-wise product.}. The expression $B_{it} = [\beta_{it}^1, \ldots, \beta_{it}^K]$ represents a vector of factor loadings (the number of common factors is $K$.), whereas $F_{t} = [f_{t}^1, \ldots, f_{t}^K]'$ corresponds to a vector of time-varying common factors, and $\mu_{it}$ is the idiosyncratic error term. A key distinction of the proposed model from that delineated in \cite{xu2017generalized} is the incorporation of factor loadings $B_{it}$, which are instrumented by observed covariates $X_{it}$. This integration permits $B_{it}$ to exhibit variability across time and units, thereby introducing an additional layer of heterogeneity into the model.
 
 The vector $X_{it} = [x_{it}^1, \ldots, x_{it}^L]$ consists of observed covariates, where $L$ denotes the number of covariates. The factor loadings $B_{it}$ are theorized to be a linear function of these observed covariates $X_{it}$, with $\Gamma$ acting as the $L\times K$ coefficient matrix, and $H_{it} = [\eta_{it}^1, \ldots, \eta_{it}^L]$ comprising the vector of error terms.
 
@@ -67,16 +70,50 @@ Upon examining the functional form presented in Equation \ref{eq: functional for
 
 \begin{equation}
 Y_{it} = D_{it} \circ \delta_{it} + (X_{it}\Gamma) F_{t} + \epsilon_{it}, \quad \epsilon_{it} = \mu_{it} + H_{it}F_t.
-\tag{2}
 \label{eq: combined}
+\end{equation}
+
+The factor component of the model, $B_{it}F_{t} = \beta_{it1}f_{1t} + \beta_{it2}f_{2t} + \cdots + \beta_{itk}f_{kt}$, where $B_{it} = X_{it}\Gamma$, is assumed to adopt a linear, additive form. Despite appearing to be restrictively structured, this approach is capable of capturing a vast array of unobserved heterogeneities. It is inclusive of all specifications present in the interactive fixed effects model within the GS-IFE, such as unit and time fixed effects, unit-specific linear or quadratic time trends, and autoregressive processes. Beyond the additive integration of the treatment effect as delineated in Equation \ref{eq: combined}, the model imposes no additional constraints on the functional form of the treatment effect. This level of flexibility enables the straightforward application of PCA for estimating the factor loadings and common factors, thereby facilitating the imputation of counterfactual outcomes for treated units.
+
+The main quantity of interest of this paper is the average treatment effect (ATE) for the treated, which is defined as:
+
+\begin{equation}
+\widehat{ATT}_{t} = \frac{1}{N_{treat}}\sum_{it} \left( Y_{it}(1) - \hat{Y}_{it}(0) \right) = \frac{1}{N_{treat}}\sum_{it}\hat{\delta}_{it}. \quad for \quad \forall i > N_{co}, \: \forall t > T_{pre}.
 \end{equation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Assumptions for identification}
-\textbf{Assumptions 2.} Unconfoundedness:
-\begin{equation*}
-\epsilon_{it} \perp D_{js}, X_{js}, F_s \quad \forall i, j, s, t.
-\end{equation*}
 
+\begin{assumption}
+Unconfoundedness:
+\label{ass: unconfoundedess} 
+\end{assumption}
+
+\begin{equation}
+\epsilon_{it} \perp D_{js}, X_{js}, F_s \quad \forall i, j, s, t.
+\label{eq: unconfoundedess}
+\end{equation}
+
+Assumption \ref{ass: unconfoundedess} stipulates that the error term for any unit at any time period is independent of treatment assignment, observed covariates, and unobserved time-varying factors. This independence is a crucial condition that lends substance to model Equation \ref{eq: combined} and is imperative for the consistent estimation of $\Gamma$.
+
+\begin{assumption}
+Regularity conditions: (1) $\Gamma$ is bounded and has a finite second moment, (2) $F_t$ is bounded and has a finite second moment, (3) $X_{it}$ is bounded and has a finite second moment.
+\label{ass: regularity}
+\end{assumption}
+
+The regularity conditions outlined in Assumption \ref{ass: regularity} are essential for the consistent estimation of $\Gamma$ and $F_{t}$. Specifically, these conditions ensure that the matrix $\Gamma'X'_tX_t\Gamma$, which is involved in inversion processes, remains nonsingular (where $X_t$ denotes the $N \times L$ matrix consisting of the cross-section of $x_{i,t}$).
+
+\begin{assumption}
+Asymptotic normality:
+\begin{enumerate}
+\renewcommand*\labelenumi{(\theenumi)}
+\item $\text{As } N, T \to \infty, \: \frac{1}{\sqrt{NT}} \sum_{i,t} \text{vect}\left( X'_{i,t} \epsilon_{i,t} F'_{t} \right) \xrightarrow{d} \text{Normal} \left(0, \Omega^{x\epsilon f} \right)$,
+\item $\text{As } N \to \infty, \: \frac{1}{\sqrt{N}} \sum_{i} \text{vect}\left( X'_{i} \epsilon_{i} \right) \xrightarrow{d} \text{Normal} \left(0, \Omega^{x\epsilon} \right) \: \text{for} \: \forall t$,
+\item $\text{As } N, T \to \infty, \: \frac{1}{\sqrt{T}} \sum_{t} \text{vect}\left( F_{t}F'_{t} - E[F_{t}F'_{t}] \right) \xrightarrow{d} \text{Normal} \left(0, \Omega^{f} \right)$.
+\end{enumerate}
+\label{ass: asy normal}
+\end{assumption}
+
+Assumption \ref{ass: asy normal} simply containes central limit theorems with respect to different variables, which are satisfied by various mixing processes.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -130,7 +167,7 @@ Y_{it} = D_{i} \delta_{t} + X_{it}\Lambda + (X_{it}\Gamma) F_{t} + \alpha_i + \x
 \begin{tabular}{clcl}
 \hline
 Variables & Description & Dimension & DGPs \\ \hline
-$D_{i}$ & treated unit indicator & $N\times T$ & $D_i=1 \: \forall i \in N_{treat}$\\ 
+$D_{i}$ & treatment indicator & $N\times T$ & $D_i=1 \: \forall i \in N_{treat}$\\ 
 $\delta_{t}$ & treatment effects & $N\times T$ & $\bar{\delta_t} = [0,\cdots, 0, 1,2,\ldots,T_{post}]$ \\ 
 $X_{it}$ & covariates & $N\times T\times L$ & $X_{it} = \mu_i + A_i X_{i,t-1} + \nu_{it}$\\ 
 $A_i$ & VAR(1) coefficients & $N\times L\times L$ & $A_i \sim N(0,1), \: \forall \lambda \in \text{{eigen}}(A_i), \: |\lambda| \leq 1
@@ -148,6 +185,19 @@ $Y_{it}$ & outcome & $N\times T$ & Equation \ref{eq: dgp}\\
 \end{tabular}
 \label{table: dgp}
 \end{table}
+
+\subsection{A simulated example}
+In this simulated example, we demonstrate the efficacy of the GSC-IPCA estimator within a framework comprising $N_{\text{treat}} = 5$ treated units and $N_{\text{ctrl}} = 45$ control units, across $T_0=20$ pre-treatment and $T_1=10$ post-treatment periods. The simulation includes $L=10$ covariates and $K=3$ common factors. Figure \ref{fig: sim} illustrates both the raw data and the imputed counterfactual outcomes as estimated by the GSC-IPCA method. In the upper panel, control units are represented in gray and treated units in light blue, with the average outcome for treated units highlighted in orange. The imputed synthetic average for treated outcomes is also shown, delineated by an orange dashed line. The GSC-IPCA method is capable of capturing the trajectory of the average outcome for treated units before treatement.
+
+The lower panel of Figure \ref{fig: sim} shows the estimated ATT (dashed line) with the true ATT (solid line). The GSC-IPCA method is able to capture the true ATT, as evidenced by the close alignment between the dashed and solid lines.
+
+\begin{figure}[!ht]
+\centering
+\caption{\textbf{GSC-IPCA estimation for simulated data}}
+\includegraphics{figs/simulation.png}
+\label{fig: sim}
+\caption*{\footnotesize{This graphic plots the GSC-IPCA method estimated ATT for simulated data $N_{treat} = 5, N_{ctrl} = 45, T_0=20, T_1=10, L=10$.}}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
