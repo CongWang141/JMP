@@ -26,8 +26,6 @@ class gsc_ife(object):
         # create post_period and tr_group columns
         self.df['post_period'] = self.df.groupby(self.year)[self.treated].transform('max')
         self.df['tr_group'] = self.df.groupby(self.id)[self.treated].transform('max')
-        self.df['const'] = 1
-        self.covariates_with_const = self.covariates + ['const']
 
         # compute number of treated and control units
         # compute number of treated and control units
@@ -42,20 +40,20 @@ class gsc_ife(object):
         # compute Y10 and X10 to estimate L1: factor loading for treated units
         # prepare pre-treatment treated data for estimation -- L1(factor loading for treated units)
         self.Y10_wide = self.df[(self.df['tr_group']==1) & (self.df['post_period']==0)].pivot(index=self.year, columns=self.id, values=self.outcome).values
-        self.X10_wide = np.empty((self.L+1, self.N_tr, self.T0))
+        self.X10_wide = np.empty((self.L, self.N_tr, self.T0))
 
         iter = 0
-        for x in self.covariates_with_const:
+        for x in self.covariates:
             self.X10_wide[iter, :, :] = self.df[(self.df['tr_group']==1) & (self.df['post_period']==0)].pivot(index=self.id, columns=self.year, values=x).values
             iter += 1
 
         # compute Y0 and X0 wide format
         # prepare contorl data for estimation--beta, F
         Y0_wide = self.df.query("tr_group==0").pivot(index=self.year, columns=self.id, values=self.outcome).values
-        X0_wide = np.empty((self.L+1, self.N_co, self.T))
+        X0_wide = np.empty((self.L, self.N_co, self.T))
 
         iter = 0
-        for x in self.covariates_with_const:
+        for x in self.covariates:
             X0_wide[iter, :, :] = self.df.query("tr_group==0").pivot(index=self.id, columns=self.year, values=x).values
             iter += 1
 
@@ -68,7 +66,7 @@ class gsc_ife(object):
 
         # compute Y0 and X0, to estimate Fac and Gamma_ctrl
         Y0 = self.df[self.df['tr_group'] == 0][self.outcome].values
-        X0 = self.df[self.df['tr_group'] == 0][self.covariates_with_const].values
+        X0 = self.df[self.df['tr_group'] == 0][self.covariates].values
 
         prev_fun_val = float('inf')
         # estimate the IFE model
@@ -117,9 +115,9 @@ class gsc_ife(object):
         self.run_gsc_ife(verbose=verbose, MinTol=MinTol, MaxIter=MaxIter)
 
     # reshape covariates X for treated units all time periods
-        X1 = np.zeros((len(self.covariates_with_const), self.N_tr, self.T))
+        X1 = np.zeros((len(self.covariates), self.N_tr, self.T))
         iter = 0
-        for x in self.covariates_with_const:
+        for x in self.covariates:
             X1[iter, :, :] = self.df[self.df['tr_group'] == 1].pivot(index=self.id, columns=self.year, values=x).values
             iter += 1
         Y_syn = (X1.T @ self.beta).reshape(self.T, self.N_tr) + self.F1 @ self.L1
