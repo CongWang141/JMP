@@ -1,9 +1,68 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{13}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Abadie and Imbens(2006)]{abadie2006large}
+Alberto Abadie and Guido~W Imbens.
+\newblock Large sample properties of matching estimators for average treatment effects.
+\newblock \emph{econometrica}, 74\penalty0 (1):\penalty0 235--267, 2006.
+
+\bibitem[Abadie and Imbens(2011)]{abadie2011bias}
+Alberto Abadie and Guido~W Imbens.
+\newblock Bias-corrected matching estimators for average treatment effects.
+\newblock \emph{Journal of Business \& Economic Statistics}, 29\penalty0 (1):\penalty0 1--11, 2011.
+
+\bibitem[Abadie et~al.(2010)Abadie, Diamond, and Hainmueller]{abadie2010synthetic}
+Alberto Abadie, Alexis Diamond, and Jens Hainmueller.
+\newblock Synthetic control methods for comparative case studies: Estimating the effect of california’s tobacco control program.
+\newblock \emph{Journal of the American statistical Association}, 105\penalty0 (490):\penalty0 493--505, 2010.
+
+\bibitem[Arkhangelsky et~al.(2021)Arkhangelsky, Athey, Hirshberg, Imbens, and Wager]{arkhangelsky2021synthetic}
+Dmitry Arkhangelsky, Susan Athey, David~A Hirshberg, Guido~W Imbens, and Stefan Wager.
+\newblock Synthetic difference-in-differences.
+\newblock \emph{American Economic Review}, 111\penalty0 (12):\penalty0 4088--4118, 2021.
+
+\bibitem[Athey et~al.(2021)Athey, Bayati, Doudchenko, Imbens, and Khosravi]{athey2021matrix}
+Susan Athey, Mohsen Bayati, Nikolay Doudchenko, Guido Imbens, and Khashayar Khosravi.
+\newblock Matrix completion methods for causal panel data models.
+\newblock \emph{Journal of the American Statistical Association}, 116\penalty0 (536):\penalty0 1716--1730, 2021.
+
+\bibitem[Bai and Perron(2003)]{bai2003computation}
+Jushan Bai and Pierre Perron.
+\newblock Computation and analysis of multiple structural change models.
+\newblock \emph{Journal of applied econometrics}, 18\penalty0 (1):\penalty0 1--22, 2003.
+
+\bibitem[Ben-Michael et~al.(2021)Ben-Michael, Feller, and Rothstein]{ben2021augmented}
+Eli Ben-Michael, Avi Feller, and Jesse Rothstein.
+\newblock The augmented synthetic control method.
+\newblock \emph{Journal of the American Statistical Association}, 116\penalty0 (536):\penalty0 1789--1803, 2021.
+
+\bibitem[Card and Krueger(1993)]{card1993minimum}
+David Card and Alan~B Krueger.
+\newblock Minimum wages and employment: A case study of the fast food industry in new jersey and pennsylvania, 1993.
+
+\bibitem[Imbens and Rubin(2015)]{imbens2015causal}
+Guido~W Imbens and Donald~B Rubin.
+\newblock \emph{Causal inference in statistics, social, and biomedical sciences}.
+\newblock Cambridge University Press, 2015.
+
+\bibitem[Jollife and Cadima(2016)]{jollife2016principal}
+Ian~T Jollife and Jorge Cadima.
+\newblock Principal component analysis: A review and recent developments.
+\newblock \emph{Philos. Trans. R. Soc. A Math. Phys. Eng. Sci}, 374\penalty0 (2065):\penalty0 20150202, 2016.
+
+\bibitem[Kelly et~al.(2019)Kelly, Pruitt, and Su]{kelly2019characteristics}
+Bryan~T Kelly, Seth Pruitt, and Yinan Su.
+\newblock Characteristics are covariances: A unified model of risk and return.
+\newblock \emph{Journal of Financial Economics}, 134\penalty0 (3):\penalty0 501--524, 2019.
+
+\bibitem[Kelly et~al.(2020)Kelly, Pruitt, and Su]{kelly2020instrumented}
+Bryan~T Kelly, Seth Pruitt, and Yinan Su.
+\newblock Instrumented principal component analysis.
+\newblock \emph{Available at SSRN 2983919}, 2020.
 
 \bibitem[Xu(2017)]{xu2017generalized}
 Yiqing Xu.

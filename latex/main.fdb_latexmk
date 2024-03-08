@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex main"] 1707132106 "main.aux" "main.bbl" "main" 1707218134 0
-  "./citation.bib" 1707033656 685 a61cefdf1e191e30e91533bc9421e570 ""
+["bibtex main"] 1709884476 "main.aux" "main.bbl" "main" 1709884868 0
+  "./citation.bib" 1709751552 3893 bb3f15cf31fc5720554a30c9f744d5fd ""
   "/usr/local/texlive/2023/texmf-dist/bibtex/bst/natbib/plainnat.bst" 1233624470 26816 ffe5423d2019860bad9f54bc402fac15 ""
-  "main.aux" 1707218134 3286 1388121c7dad486a7b4a7b05e24962c6 "pdflatex"
+  "main.aux" 1709884867 5144 ebc40241e614c600c7a3a02ee9f21306 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1707218133 "/Users/wang/Desktop/JMP/latex/main.tex" "main.pdf" "main" 1707218134 0
-  "/Users/wang/Desktop/JMP/latex/main.tex" 1707218133 22713 c7e77e6cd7bc273956ce4664e99496f6 ""
+["pdflatex"] 1709884866 "/Users/wang/Desktop/JMP/latex/main.tex" "main.pdf" "main" 1709884868 0
+  "/Users/wang/Desktop/JMP/latex/main.tex" 1709884866 23939 46cdefb96a295c9bc3040b9ab043c19a ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/jknappen/ec/tcrm0700.tfm" 1136768653 1536 73da8e8f1d2a4c957d51ca133585586b ""
@@ -145,11 +145,13 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1705995870 4623355 b8cad38412faebe1ce5b780a45db67bd ""
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1705995816 7883461 09833a2d5504c1761d5645a957e131e3 ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
-  "figs/simulation.png" 1707139491 585682 b0e9c51ff087eda015f047e404fd5be9 ""
-  "main.aux" 1707218134 3286 1388121c7dad486a7b4a7b05e24962c6 "pdflatex"
-  "main.bbl" 1707132106 506 c1902b2d1f39e4a94df7e94fed0bfdb3 "bibtex main"
-  "main.out" 1707218134 1058 4a598c99ab8027b7ab1210b66c414e5a "pdflatex"
-  "main.tex" 1707218133 22713 c7e77e6cd7bc273956ce4664e99496f6 ""
+  "figs/bias_compar1.png" 1709743682 108176 310ae1e4556ec451e123e1ec152cfc5c ""
+  "figs/data_plot.png" 1709796417 530615 993b7a6859f34bf756d1a97231b4c0a1 ""
+  "figs/estimation.png" 1709743682 581463 021d04db4e5c7b715b0e98fb8cee75e1 ""
+  "main.aux" 1709884867 5144 ebc40241e614c600c7a3a02ee9f21306 "pdflatex"
+  "main.bbl" 1709884476 3832 51c8d816d81e1d0cc2707fa871940b47 "bibtex main"
+  "main.out" 1709884867 1382 ce57d259c5ee2575045a71ff7bac25b1 "pdflatex"
+  "main.tex" 1709884866 23939 46cdefb96a295c9bc3040b9ab043c19a ""
   "preamble.sty" 1706896466 1704 9f27880042c6f758a3efa79521921920 ""
   (generated)
   "main.aux"

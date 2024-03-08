@@ -10,7 +10,7 @@
 \date{\today}
 \maketitle
 \begin{abstract}
-\noindent To address the limitations imposed by the parallel trend assumption (PTA) required by prevalent methods such as difference-in-differences (DID), synthetic control methods (SCM) leverage data from the control group to impute the missing counterfactual for the treated group post-treatment. However, the original SCM and its derivatives primarily rely on outcome data for these imputations, requiring that the outcomes of treated units fall within or close to the convex hull of the donor pool. Yet, in many instances, treated units are poorly represented by the donor pool. This paper expands the linear interactive fixed effects model by integrating covariates into dynamic factor loadings that interact with time-varying factors. This methodology confers multiple benefits: firstly, it incorporates the strengths of previous SCM approaches, such as the relaxation of the PTA and conditional randomization of treatment assignment. Secondly, it eliminates the need for correct functional form assumptions. Thirdly, by utilizing the dimension reduction capability of principal component analysis (PCA), it efficiently manages high-dimensional data, enhancing the value extracted from numerous covariates. \\
+\noindent The fundamental problem of causal inference is missing data. Based on identification assumptions such as unconfoundedness, traditional methodologies impute the missing counterfactuals either implicitly or explicitly. However, the required assumptions are either too strong or untestable. Synthetic control methods (SCM) leverage data from the control group to impute the missing counterfactual for the treated post-treatment. Eventhough SCM relaxes these strict assumptions, it requires the treated unit to be inside the convex hull formulated by control units, in avoiding extrapolation. In recent advances, researchers modelling the entire data generating process (DGP) to impute the missing counterfactual explicitly. This paper expands the interactive fixed effect model by integrating covariates into dynamic factor loadings adding additional robustness. This methodology confers multiple benefits: firstly, it incorporates the strengths of previous SCM approaches, such as the relaxation of the Parallel Trends Assumption (PTA) and conditional randomization of treatment assignment. Secondly, it does not require the targeted outcomes inside the convex hull formulated by control units. Thirdly, it eliminates the need for correct functional form assumptions required by IFE. Finally, it efficiently manages high-dimensional data and enhances the value extracted from numerous covariates.\\
 
 \noindent\textbf{Keywords:} Synthetic Control, Principal Component Analysis, Causal Inference\\
 
@@ -30,11 +30,13 @@
 \label{sec:introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this paper, we propose a new counterfactual imputation method that leverage the dimension reduction capability of instrumented principal component analysis (IPCA) to enhance the value extracted from numerous covariates. We name the newly proposed method the generalized synthetic control with instrumented principal component analysis (GSC-IPCA) in line with the privious generalized synthetic control method with interactive fixed effects (GSC-IFE) proposed by \cite{xu2017generalized}. The GSC-IPCA estimator is designed to overcome the constraints of the PTA, a requirement for widely adopted methodologies such as DID. Furthermore, it addresses the limitation observed in the original SCM and its variants, which predominantly depend on outcome data to impute missing counterfactuals, thus not fully leveraging the available covariate information. The GSC-IPCA estimator extends the linear interactive fixed effects model by incorporating covariates through unit-time-varying factor loadings interacted with time-varying factors, instrumented for additional robustness\footnote{The functional form of the data generating process in \cite{xu2017generalized} only sepcifies unit-varying factor loadings.}.
+In this paper, we propose a new counterfactual imputation method that leverages the dimension reduction capability of PCA method (\cite{jollife2016principal}) and the flexibility of the IFE model (\cite{bai2003computation}) to both enhance the value extracted from numerous covariates and improve the predictive accuracy. We name the newly proposed method the generalized synthetic control method with instrumented principal component analysis (GSC-IPCA), aligning with the previous generalized synthetic control method with interactive fixed effects (GSC-IFE) proposed by \cite{xu2017generalized}. To model the entire data generating process, the GSC-IPCA estimator is designed to overcome the constraints of unconfoundedess assumption required by methodologies such as matching (\cite{abadie2011bias, abadie2006large}), diffference-in-differences (DID) (\cite{card1993minimum}), and others. Furthermore, it addresses the limitation observed in the original SCM (\cite{abadie2010synthetic}) and its variants (\cite{ben2021augmented}, \cite{arkhangelsky2021synthetic}), which necessitate the outcomes of treated units to lie inside or not far from the convex hull formed by control units. 
 
-Causal inference in economics and other social sciences is often complicated by the absence of a counterfactual, which is essential for evaluating the impact of a treatment or policy intervention. The counterfactual represents the outcome that would have been observed in the absence of the treatment. The most common approach to estimating the counterfactual is the DID, which compares the average change in the outcome variable for the treated group with the average change for the control group. However, DID requires the PTA, which posits that, in the absence of the treatment, the average outcomes for the treated and control groups would have followed the same trend. This assumption is often difficult to verify and may be violated in practice. In contrast, SCM utilize control group data to estimate the missing counterfactuals for the treated group after treatment, functioning akin to a vertical regression, thereby offering an alternative when DID's underlying assumptions are untenable. 
+Causal inference in economics and other social sciences is frequently complicated by the absence of a counterfactual, which is essential for evaluating the impact of a treatment or policy intervention. \cite{imbens2015causal} state that at some level, all methods for causal inference can be viewed as imputation methods, although some are more explicitly than others. For instance, under certain assumptions, the matching method implicitly imputes the missing counterfactuals for treated units with meticulously selected control units. While SCM method explicitly imputes the missing counterfactual with weighted average of control units. Our method aligns with the recent trend in causal inference literature, aiming to explicitly impute the missing counterfactual by modeling the entire data generating process, a strategy also highlighted by \cite{athey2021matrix}.
 
-The SCM estimates missing counterfactuals for treated units by constructing a weighted average of outcomes from control units. These weights are selected to ensure that pre-treatment outcomes for the control group closely align with those of the treated units. Diverging from the original SCM and its derivatives, which rely predominantly on outcome data for imputing post-treatment counterfactuals without requiring a comprehensive estimation of the data-generating process (DGP), the GSC-IFE seeks to explicitly model the DGP. Our proposed method advances the GSC-IFE framework by introducing a distinctive strategy for integrating covariates, thereby enhancing the method's capability to generate more accurate counterfactual predictions.
+The GSC-IPCA estimator builds upon the instrumented principal component analysis first introduced by \cite{kelly2020instrumented, kelly2019characteristics} in the context of predicting stock returns. It extends the linear IFE model by first performing a dimension reduction operation to distill information from multiple covariates, thus obtaining unit-specific factor loadings, which inherit time-varying properties\footnote{The functional form of the data generating process in \cite{xu2017generalized} only sepcifies unit-varying factor loadings. Here we make the unit specific factor loadings to accomandate time-variying property.}. Subsequently, these factor loadings are interacted with time-varying factors. A critical feature of our approach is that the unit-specific factor loadings are instrumented by covariates, which provide additional robustness. Our simulations reveal that the GSC-IPCA estimator maintains its unbiasedness even in scenarios where some covariates remain unobserved, in contrast to the GSC-IFE estimator, which tends to exhibit bias under comparable conditions.
+
+
 
 
 
@@ -149,55 +151,51 @@ The GSC-IPCA estimator of the treatment effect for a treated unit $i$ at time $t
 \label{sec: simulation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this section, we employ Monte Carlo simulations to assess the performance of the GSC-IPCA estimator in finite sample settings. We juxtapose the GSC-IPCA estimator against the GSC-IFE estimator, as introduced by \cite{xu2017generalized}, alongside other prominent methodologies in the realm of causal inference, such as the DID estimator and the original SC estimator. Our comparative analysis focuses on key metrics including bias, mean squared error (MSE), and coverage probability. 
+In this section, we employ Monte Carlo simulations to assess the performance of the GSC-IPCA estimator in finite sample settings. We juxtapose the GSC-IPCA estimator against the GSC-IFE and the original SC estimators. Our comparative analysis focuses on key metrics including bias, mean squared error (MSE), and coverage probability. 
 
 We initiate our analysis with a data generating process that incorporates $L=10$ and $K=3$ time-varying covariates and common factors, along with unit and time fixed effects:
 
 \begin{equation}
-Y_{it} = D_{i} \delta_{t} + X_{it}\Lambda + (X_{it}\Gamma) F_{t} + \alpha_i + \xi_t + \epsilon_{it}.
+Y_{it} = D_{i} \delta_{t} + X_{it}\beta + (X_{it}\Gamma) F_{t} + \alpha_i + \xi_t + \epsilon_{it}.
 \tag{6}
 \label{eq: dgp}
 \end{equation}
 
-\noindent where $X_{it} = [x_{it}^1, \ldots, x_{it}^{10}]$ denotes the vector of time-varying covariates, which follows a VAR(1) process. $X_{it} = \mu_i + A_i X_{i,t-1} + \nu_{it}$, where $A_i$ is a $ L \times L$ variance-covariance matrix\footnote{In our methodology, the variance-covariance matrix is not constrained to be diagonal, thus allowing covariates within each unit to be correlated, reflecting the typical scenario in most economic time series data. To emphasize the independence among different units, we generate $N$ unique variance-covariance matrices, each corresponding to a unit, ensuring cross-sectional independence and preserving time-series correlation. Moreover, we impose a condition on these matrices by requiring the eigenvalues of $A_i$ to have characteristic roots that reside inside the unit circle, thereby assuring the stationarity of the VAR(1) process.}, The drift term $\mu_i$ equals 0 for control units and 2 for treated units,\footnote{This configuration underscores that the treatment assignment is not random; rather, it depends on the covariates $X_{it}$.}, and $\nu_{it}$ is a $L \times 1$ vector of i.i.d. standard normal errors. While $F_t = [f_t^1, \ldots, f_t^3]^\prime$ denotes the vector of time-varying common factors, adhering to a similar VAR(1) process, the variable $\epsilon_{it}$ represents the idiosyncratic error term. Unit and time fixed effects, $\alpha_i$ and $\xi_{t}$ respectively, are uniformly drawn from the interval $(0,1)$. The coefficient vector $\Lambda = [\lambda^1, \ldots, \lambda^{10}]^\prime$ associated with the covariates is drawn uniformly from $(0,1)$, and $\Gamma$, the $L \times K$ coefficient matrix for the factor loadings, is drawn uniformly from $(0,0.1)$, with these covariates serving as instruments. The treatment indicator $D_{it}$ is binary, defined as $D_{it} = 1$ for treated units during post-treatment periods, and $D_{it} = 0$ otherwise. The heterogeneous treatment effect is modeled as $\delta_{it} = \bar{\delta_t} + e_{it}$, where $e_{it}$ is i.i.d as standard normal, and $\bar{\delta_t} = [0, \cdots, 0, 1,2,\ldots,T_{post}]$ represents a time-varying treatment effect. Only the outcome $Y_{it}$, the covariates $X_{it}$, and the treatment indicator $D_{it}$ are observed, while all other variables remain unobserved.
-
-\begin{table}[ht]
-\centering
-\caption{Data Generating Process}
-\begin{tabular}{clcl}
-\hline
-Variables & Description & Dimension & DGPs \\ \hline
-$D_{i}$ & treatment indicator & $N\times T$ & $D_i=1 \: \forall i \in N_{treat}$\\ 
-$\delta_{t}$ & treatment effects & $N\times T$ & $\bar{\delta_t} = [0,\cdots, 0, 1,2,\ldots,T_{post}]$ \\ 
-$X_{it}$ & covariates & $N\times T\times L$ & $X_{it} = \mu_i + A_i X_{i,t-1} + \nu_{it}$\\ 
-$A_i$ & VAR(1) coefficients & $N\times L\times L$ & $A_i \sim N(0,1), \: \forall \lambda \in \text{{eigen}}(A_i), \: |\lambda| \leq 1
-$\\ 
-$\Lambda$ & coefficients & $L\times 1$ & $\Lambda \sim Uniform(0, 1)$\\ 
-$\Gamma$ & coefficient matrix & $L\times K$ & $\Gamma \sim Uniform(0, 1)$\\ 
-$F_t$ & factors & $K\times 1$ & $F_t = AF_{t-1} + \nu_{t}$\\ 
-$A$ & VAR(1) coefficients & $K\times K$ & $A \sim N(0,1), \: \forall \lambda \in \text{{eigen}}(A), \: |\lambda| \leq 1
-$\\ 
-$\alpha_i$ & unit FE & $N\times 1$ & $\alpha_i \sim Uniform(0, 1)$\\ 
-$\xi_t$ & time FE & $1\times T$ & $\xi_t \sim Uniform(0, 1)$\\ 
-$\epsilon_{it}$ & error term & $N\times T$ & $\epsilon_{it} \sim N(0, 1)$\\ 
-$Y_{it}$ & outcome & $N\times T$ & Equation \ref{eq: dgp}\\ 
-\hline
-\end{tabular}
-\label{table: dgp}
-\end{table}
-
-\subsection{A simulated example}
-In this simulated example, we demonstrate the efficacy of the GSC-IPCA estimator within a framework comprising $N_{\text{treat}} = 5$ treated units and $N_{\text{ctrl}} = 45$ control units, across $T_0=20$ pre-treatment and $T_1=10$ post-treatment periods. The simulation includes $L=10$ covariates and $K=3$ common factors. Figure \ref{fig: sim} illustrates both the raw data and the imputed counterfactual outcomes as estimated by the GSC-IPCA method. In the upper panel, control units are represented in gray and treated units in light blue, with the average outcome for treated units highlighted in orange. The imputed synthetic average for treated outcomes is also shown, delineated by an orange dashed line. The GSC-IPCA method is capable of capturing the trajectory of the average outcome for treated units before treatement.
-
-The lower panel of Figure \ref{fig: sim} shows the estimated ATT (dashed line) with the true ATT (solid line). The GSC-IPCA method is able to capture the true ATT, as evidenced by the close alignment between the dashed and solid lines.
+\noindent where $X_{it} = [x_{it}^1, \ldots, x_{it}^{L}]$ denotes a vector of $L \times 1$ time-varying covariates, which follows a VAR(1) process. $X_{it} = \mu_i + A_i X_{i,t-1} + \nu_{it}$, where $A_i$ is a $ L \times L$ variance-covariance matrix\footnote{In our methodology, the variance-covariance matrix is not constrained to be diagonal, thus allowing covariates within each unit to be correlated, reflecting the typical scenario in most economic time series data. To emphasize the independence among different units, we generate $N$ unique variance-covariance matrices, each corresponding to a unit, ensuring cross-sectional independence and preserving time-series correlation. Moreover, we impose a condition on these matrices by requiring the eigenvalues of $A_i$ to have characteristic roots that reside inside the unit circle, thereby assuring the stationarity of the VAR(1) process.}, The drift term $\mu_i$ equals 0 for control units and 2 for treated units,\footnote{This configuration underscores that the treatment assignment is not random; rather, it depends on the covariates $X_{it}$.}, and $\nu_{it}$ is a $L \times 1$ vector of i.i.d. standard normal errors. While $F_t = [f_t^1, \ldots, f_t^3]^\prime$ denotes the vector of time-varying common factors, adhering to a similar VAR(1) process, the variable $\epsilon_{it}$ represents the idiosyncratic error term. Unit and time fixed effects, $\alpha_i$ and $\xi_{t}$ respectively, are uniformly drawn from the interval $(0,1)$. The coefficient vector $\beta = [\beta^1, \ldots, \beta^{L}]^\prime$ associated with the covariates is drawn uniformly from $(0,1)$, and $\Gamma$, the $L \times K$ coefficient matrix for the factor loadings, is drawn uniformly from $(-0.1, 0.1)$, with these covariates serving as instruments. The treatment indicator $D_{it}$ is binary, defined as $D_{it} = 1$ for treated units during post-treatment periods, and $D_{it} = 0$ otherwise. The heterogeneous treatment effect is modeled as $\delta_{it} = \bar{\delta}_{it} + e_{it}$, where $e_{it}$ is i.i.d as standard normal, and $\bar{\delta_t} = [0, \cdots, 0, 1,2,\ldots,T_{post}]$ represents a time-varying treatment effect\footnote{Here we simplify the treatment effect to be constant across units, however the heterogeneous treatment effect across units can also be easily employed.}. Only the outcome $Y_{it}$, the covariates $X_{it}$, and the treatment indicator $D_{it}$ are observed, while all other variables remain unobserved.
 
 \begin{figure}[!ht]
-\centering
-\caption{\textbf{GSC-IPCA estimation for simulated data}}
-\includegraphics{figs/simulation.png}
-\label{fig: sim}
-\caption*{\footnotesize{This graphic plots the GSC-IPCA method estimated ATT for simulated data $N_{treat} = 5, N_{ctrl} = 45, T_0=20, T_1=10, L=10$.}}
-\end{figure}
+    \centering
+    \caption{\textbf{GSC-IPCA Data Generating Process}}
+    \includegraphics{figs/data_plot.png}
+    \label{fig: sim}
+    \caption*{\footnotesize{In this graphic, the upper panel plots simulated data following the above data generating process. The light blue lines represent treated units and the light gray lines represent controls. Key parameters are$N_{treat} = 5, N_{ctrl} = 45, T_0=20, T_1=10, L=10$. The lower panel plots a simple event study.}}
+    \end{figure}
+
+Figure \ref{fig: sim} represents the simulated data following our data generating process. Observations from the upper panel indicate that the parallel trend assumption is not met. To verify this, we plot a simple event study, clearly revealing a failure in the parallel trend assumption. Furthermore, outcomes for treated units are marginally higher than for control units. In such cases, the synthetic control method will be biased, as it avoids extrapolation and typically fit poorly for treated units.
+
+\subsection{A simulated example}
+Following this data generating process, figure \ref{fig: est} illustrates both the raw data and the imputed counterfactual outcomes as estimated by the GSC-IPCA method. In the upper panel, control units are represented in gray and treated units in light blue, with the average outcome for treated units highlighted in orange. The imputed synthetic average for treated outcomes is also shown, delineated by an orange dashed line. The GSC-IPCA method is capable of capturing the trajectory of the average outcome for treated units before treatement. The lower panel of Figure \ref{fig: est} shows the estimated ATT (dashed line) with the true ATT (solid line). The GSC-IPCA method is able to capture the true ATT, as evidenced by the close alignment between the dashed and solid lines.
+
+\begin{figure}[!ht]
+    \centering
+    \caption{\textbf{GSC-IPCA Estimated ATT for Simulated Sample}}
+    \includegraphics{figs/estimation.png}
+    \label{fig: est}
+    \caption*{\footnotesize{This graphic plots the GSC-IPCA method estimated ATT for simulated data $N_{treat} = 5, N_{ctrl} = 45, T_0=20, T_1=10, L=10$.}}
+    \end{figure}
+
+\subsection{Bias comparision}
+Based on the same data generating process and parameters, we compare the GSC-IPCA, GSC-IFE, and SCM estimators with 1000 simulations. Figure \ref{fig: bias} illustrates the bias among these estimation methods. In panel 1, where all covariates are observed, both GSC-IPCA and GSC-IFE demonstrate unbiasedness and effectively estimate the true ATT. However, due to the outcomes of treated units falling outside the convex hull of control units, the SCM exhibits an upward bias. This scenario is common in empirical studies where only a limited number of covariates are observed. As depicted in Figure \ref{fig: bias}, from left to right, we progressively observe all 10, then 6 (2/3), and finally 3 (1/3) covariates. With an increase in the number of unobserved covariates, both GSC-IPCA and GSC-IFE lose efficiency; however, the GSC-IPCA estimator remains unbiased.
+
+\begin{figure}[!ht]
+    \centering
+    \caption{\textbf{Bias Comparing with Other Methods}}
+    \includegraphics{figs/bias_compar1.png}
+    \label{fig: bias}
+    \caption*{\footnotesize{This graphic plots the GSC-IPCA method estimated ATT for simulated data $N_{treat} = 5, N_{ctrl} = 45, T_0=20, T_1=10, L=10$.}}
+    \end{figure}
+
+\subsection{Finate sample properties}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -214,6 +212,7 @@ In this section, we
 
 Firms' 
 
+\clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begingroup
@@ -222,6 +221,7 @@ Firms'
 \bibliography{citation}
 \endgroup
 
+\clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%  Appendix  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

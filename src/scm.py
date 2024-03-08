@@ -2,11 +2,11 @@ import numpy as np
 from scipy.optimize import minimize, Bounds, LinearConstraint
 from sklearn.utils.validation import check_X_y
 class scm(object):
-    def __init__(self, df, id, year, outcome, treated, v):
+    def __init__(self, df, id, time, outcome, treated, v):
         """
         df: pandas dataframe, panel data
         id: string, name of the id column
-        year: string, name of the year column
+        time: string, name of the time column
         outcome: string, name of the outcome column
         treated: string, name of the treatment column
         v: weigting matrix v, to assign weight to observations
@@ -14,13 +14,13 @@ class scm(object):
         # initialize the scm object with given data
         self.df = df
         self.id = id
-        self.year = year
+        self.time = time
         self.outcome = outcome
         self.treated = treated
         self.v = v
 
         # create post_period and tr_group columns
-        self.df['post_period'] = self.df.groupby(self.year)[self.treated].transform('max')
+        self.df['post_period'] = self.df.groupby(self.time)[self.treated].transform('max')
         self.df['tr_group'] = self.df.groupby(self.id)[self.treated].transform('max')
 
     def run_scm(self):
@@ -28,9 +28,9 @@ class scm(object):
         Run the synthetic control method to estimate the counterfactual.
         """
         # control group pre-treatment period
-        Y00 = self.df.query('post_period == 0 & tr_group == 0').pivot(index=self.year, columns=self.id, values=self.outcome).values
+        Y00 = self.df.query('post_period == 0 & tr_group == 0').pivot(index=self.time, columns=self.id, values=self.outcome).values
         # treated group pre-treatment period
-        Y10 = self.df.query('post_period == 0 & tr_group == 1').pivot(index=self.year, columns=self.id, values=self.outcome).mean(axis=1)
+        Y10 = self.df.query('post_period == 0 & tr_group == 1').pivot(index=self.time, columns=self.id, values=self.outcome).mean(axis=1)
 
         # Initial guess for the weights: could be 0, uniform or based on some other logic
         initial_w = (np.ones(Y00.shape[1])/Y00.shape[1])
@@ -44,7 +44,7 @@ class scm(object):
         weights = self.solve_weights(X, y, initial_w, v)
 
         # compute Y_syn
-        Y0 = self.df.query('tr_group == 0').pivot(index=self.year, columns=self.id, values=self.outcome).values
+        Y0 = self.df.query('tr_group == 0').pivot(index=self.time, columns=self.id, values=self.outcome).values
 
         Y_syn = Y0 @ weights
 

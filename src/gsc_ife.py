@@ -2,12 +2,16 @@ import pandas as pd
 import numpy as np
 import scipy.linalg as sla
 
+# matrix left/right division (following MATLAB function naming)
+_mldivide = lambda denom, numer: sla.lstsq(np.array(denom), np.array(numer))[0]
+_mrdivide = lambda numer, denom: (sla.lstsq(np.array(denom).T, np.array(numer).T)[0]).T
+
 class gsc_ife(object):
-    def __init__(self, df, id, year, outcome, covariates, treated, K):
+    def __init__(self, df, id, time, outcome, covariates, treated, K):
         """
         df: pd.DataFrame, panel data
         id: str, column name for unit id
-        year: str, column name for time period
+        time: str, column name for time period
         outcome: str, column name for outcome variable
         covariates: list of str, column names for covariates
         treated: str, column name for treated unit
@@ -17,111 +21,107 @@ class gsc_ife(object):
         """
         self.df = df
         self.id = id
-        self.year = year
+        self.time = time
         self.outcome = outcome
         self.covariates = covariates
         self.treated = treated
         self.K = K
 
         # create post_period and tr_group columns
-        self.df['post_period'] = self.df.groupby(self.year)[self.treated].transform('max')
+        self.df['post_period'] = self.df.groupby(self.time)[self.treated].transform('max')
         self.df['tr_group'] = self.df.groupby(self.id)[self.treated].transform('max')
 
-        # compute number of treated and control units
         # compute number of treated and control units
         self.N_co = self.df[self.df['tr_group'] == 0][self.id].nunique()
         self.N_tr = self.df[self.df['tr_group'] == 1][self.id].nunique()
         # compute number of pre and post periods
-        self.T0 = self.df[self.df['post_period'] == 0]['year'].nunique()
-        self.T1 = self.df[self.df['post_period'] == 1]['year'].nunique()
+        self.T0 = self.df[self.df['post_period'] == 0]['time'].nunique()
+        self.T1 = self.df[self.df['post_period'] == 1]['time'].nunique()
         self.T = self.T0 + self.T1
         self.L = len(covariates)
-
-        # compute Y10 and X10 to estimate L1: factor loading for treated units
-        # prepare pre-treatment treated data for estimation -- L1(factor loading for treated units)
-        self.Y10_wide = self.df[(self.df['tr_group']==1) & (self.df['post_period']==0)].pivot(index=self.year, columns=self.id, values=self.outcome).values
-        self.X10_wide = np.empty((self.L, self.N_tr, self.T0))
-
-        iter = 0
-        for x in self.covariates:
-            self.X10_wide[iter, :, :] = self.df[(self.df['tr_group']==1) & (self.df['post_period']==0)].pivot(index=self.id, columns=self.year, values=x).values
-            iter += 1
-
-        # compute Y0 and X0 wide format
-        # prepare contorl data for estimation--beta, F
-        Y0_wide = self.df.query("tr_group==0").pivot(index=self.year, columns=self.id, values=self.outcome).values
-        X0_wide = np.empty((self.L, self.N_co, self.T))
-
-        iter = 0
-        for x in self.covariates:
-            X0_wide[iter, :, :] = self.df.query("tr_group==0").pivot(index=self.id, columns=self.year, values=x).values
-            iter += 1
-
-        self.Y0_wide, self.X0_wide = Y0_wide, X0_wide
 
     def run_gsc_ife(self, verbose=True, MinTol=1e-6, MaxIter=1e3):
         """
         Main method to run the GSC_IFE estimation.
         """
+        # step 1: estimate F and beta use control units
+        # compute X0, Y0 to estimate F and beta
+        Y0, X0 = self._prepare_matrices(self.df.query("tr_group==0"))
 
-        # compute Y0 and X0, to estimate Fac and Gamma_ctrl
-        Y0 = self.df[self.df['tr_group'] == 0][self.outcome].values
-        X0 = self.df[self.df['tr_group'] == 0][self.covariates].values
+        # Initialize parameters
+        N, T, L = X0.shape
+        F0 = np.random.randn(T, self.K)
+        lambda0 = np.random.randn(N, self.K)
+        beta0 = np.zeros(L)
 
-        prev_fun_val = float('inf')
-        # estimate the IFE model
-        iter, tol = 0, float('inf')
+        # previous interation objective function value
+        prev_obj = float('inf')
+        tol, iter = float('inf'), 0
         while iter < MaxIter and tol > MinTol:
-            beta, F1, L1 = self.ife_est(Y0, X0)
+            beta1, lambda1, F1 = self.ife_est(Y0, X0, F0, lambda0, self.K)
+
             # compute the objective function
-            obj_fun = np.sum((self.Y0_wide-(self.X0_wide.T@beta).reshape(self.T, self.N_co) - F1@L1.T).T @ (self.Y0_wide-(self.X0_wide.T@beta).reshape(self.T, self.N_co) - F1@L1.T)**2)
-            tol = abs(prev_fun_val - obj_fun)
-            prev_fun_val = obj_fun
+            obj_fun = np.linalg.norm(Y0 - X0@beta1 - lambda1@F1.T)**2
+            tol = abs(obj_fun - prev_obj)
+
+            # update parameters
+            beta0, lambda0, F0 = beta1, lambda1, F1
+            prev_obj = obj_fun
+
             if verbose:
-                print(f'iter {iter}: tolFac = {tol:.2e}')
+                print(f'iter: {iter}, tol: {tol}')
             iter += 1
-        # store the estimated parameters    
-        self.beta, self.F1 = beta, F1
 
-        # with treated units pre-period to compute factor loading for treated units
-        F0 = self.F1[:self.T0, ]
-        L1 = np.linalg.inv(F0.T @ F0) @ F0.T @ (self.Y10_wide - (self.X10_wide.T @ self.beta).reshape(self.T0, self.N_tr))
-        self.L1 = L1
+        # step 2: use treated units before treatment to compute lambda
+        Y10, X10 = self._prepare_matrices(self.df.query("tr_group==1 & post_period==0"))
+        N_co, T0 = Y10.shape
+        numer = F1[:T0, :].T@(Y10 - (X10@beta1)).T
+        denom = F1[:T0, :].T@F1[:T0, :]
+        lambda1 = _mldivide(denom, numer).T
+
+        # step 3: compute Y_syn
+        # get X1 to compute Y_syn
+        Y1, X1 = self._prepare_matrices(self.df.query("tr_group==1"))
+        self.Y_syn = X1@beta1 + lambda1@F0.T
     
-    def ife_est(self, Y0, X0):
+    def ife_est(self, Y0, X0, F0, lambda0, K):
         """
-        Method to estimate the IFE model.
+        ALS method to estimate the IFE model.
         """
-        # initialize the factor and factor loadings
-        F0 = np.random.normal(0, 1, size=(self.T, self.K))
-        L0 = np.random.normal(0, 1, size=(self.N_co, self.K))
+        N, T, L = X0.shape
 
-        # compute beta
-        beta = np.linalg.inv(X0.T @ X0) @ (X0.T @ (Y0 - (F0@L0.T).flatten()))
+        # flatten X and Y
+        y = Y0.flatten()
+        x = X0.reshape(N*T, L)
 
-        # update F0 and L0
-        residual = (self.Y0_wide - (self.X0_wide.T @ beta).reshape(self.T, self.N_co))
-        M = (residual @ residual.T) / (self.N_co*self.T)
-        svU, svS, svV = sla.svd(M)
-        F1 = svU[:, :self.K]
-        L1 = residual.T @ F1 / self.T
+        # compute beta1
+        denom = x.T @ x
+        numer = x.T @ (y - (lambda0@F0.T).flatten())
+        beta1 = _mldivide(denom, numer)
 
-        return beta, F1, L1
+        # compute lambda1 and F1
+        residual = (y - x@beta1).reshape(N, T)
+        M = (residual.T @ residual) / (N*T)
+        s, v, d = sla.svd(M) # sigular value decomposition
+        F1 = s[:, :K]
+        lambda1 = residual @ F1 / T
+
+        return beta1, lambda1, F1
+    
+    def _prepare_matrices(self, df):
+        """
+        define a function to pivot data
+        """
+        Y = df.pivot(index=self.id, columns=self.time, values=self.outcome).values
+        X = np.array([df.pivot(index=self.id, columns=self.time, values=x).values for x in self.covariates]).transpose(1, 2, 0)
+
+        return Y, X
     
     def fit(self, verbose=True, MinTol=1e-6, MaxIter=1e3):
         """
-        Method to fit the GSC_IFE model.
+        Fit the model to the data.
         """
         self.run_gsc_ife(verbose=verbose, MinTol=MinTol, MaxIter=MaxIter)
-
-    # reshape covariates X for treated units all time periods
-        X1 = np.zeros((len(self.covariates), self.N_tr, self.T))
-        iter = 0
-        for x in self.covariates:
-            X1[iter, :, :] = self.df[self.df['tr_group'] == 1].pivot(index=self.id, columns=self.year, values=x).values
-            iter += 1
-        Y_syn = (X1.T @ self.beta).reshape(self.T, self.N_tr) + self.F1 @ self.L1
-        self.Y_syn = Y_syn
         return self
 
 
