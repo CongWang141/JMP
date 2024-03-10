@@ -13,6 +13,7 @@
 \gdef\HyperFirstAtBeginDocument#1{#1}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
+\providecommand \oddpage@label [2]{}
 \citation{jollife2016principal}
 \citation{bai2003computation}
 \citation{xu2017generalized}
@@ -31,33 +32,44 @@
 \@writefile{toc}{\contentsline {section}{\numberline {2}Framework}{2}{section.2}\protected@file@percent }
 \newlabel{sec: framework}{{2}{2}{Framework}{section.2}{}}
 \newlabel{ass: function}{{1}{2}{Framework}{assumption.1}{}}
-\newlabel{eq: functional form}{{1}{2}{Framework}{equation.2.1}{}}
-\newlabel{eq: combined}{{2}{3}{Framework}{equation.2.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Assumptions for identification}{4}{subsection.2.1}\protected@file@percent }
-\newlabel{ass: unconfoundedess}{{2}{4}{Assumptions for identification}{assumption.2}{}}
-\newlabel{eq: unconfoundedess}{{4}{4}{Assumptions for identification}{equation.2.4}{}}
+\newlabel{eqn: functional form}{{1}{2}{Framework}{equation.2.1}{}}
+\citation{splawa1990application}
+\citation{rubin1976inference,rubin2005causal}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Assumptions for identification}{3}{subsection.2.1}\protected@file@percent }
+\newlabel{ass: unconfoundedess}{{2}{3}{Assumptions for identification}{assumption.2}{}}
+\newlabel{eq: unconfoundedess}{{3}{4}{Assumptions for identification}{equation.2.3}{}}
 \newlabel{ass: regularity}{{3}{4}{Assumptions for identification}{assumption.3}{}}
 \newlabel{ass: asy normal}{{4}{4}{Assumptions for identification}{Item.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Estimation}{5}{section.3}\protected@file@percent }
-\newlabel{sec: estimation}{{3}{5}{Estimation}{section.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Estimation}{4}{section.3}\protected@file@percent }
+\newlabel{sec: estimation}{{3}{4}{Estimation}{section.3}{}}
+\citation{bai2009panel}
+\citation{jolliffe2002principal}
+\newlabel{eqn: obj}{{4}{5}{Estimation}{equation.3.4}{}}
 \newlabel{eq: optimization}{{{3}}{5}{Estimation}{AMS.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Monte Carlo Simulation}{6}{section.4}\protected@file@percent }
-\newlabel{sec: simulation}{{4}{6}{Monte Carlo Simulation}{section.4}{}}
-\newlabel{eq: dgp}{{{6}}{6}{Monte Carlo Simulation}{AMS.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {GSC-IPCA Data Generating Process}\relax }}{7}{figure.caption.5}\protected@file@percent }
+\citation{kelly2020instrumented}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Hyper parameter tuning}{6}{subsection.3.1}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces Bootstrap Hyperparameter Tuning\relax }}{7}{algocf.1}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig: sim}{{1}{7}{\textbf {GSC-IPCA Data Generating Process}\relax }{figure.caption.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}A simulated example}{8}{subsection.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Bias comparision}{8}{subsection.4.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textbf  {GSC-IPCA Estimated ATT for Simulated Sample}\relax }}{9}{figure.caption.6}\protected@file@percent }
-\newlabel{fig: est}{{2}{9}{\textbf {GSC-IPCA Estimated ATT for Simulated Sample}\relax }{figure.caption.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Finate sample properties}{9}{subsection.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5}Empirical Application}{9}{section.5}\protected@file@percent }
-\newlabel{sec: application}{{5}{9}{Empirical Application}{section.5}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{9}{section.6}\protected@file@percent }
-\newlabel{sec: conclusion}{{6}{9}{Conclusion}{section.6}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Bias Comparing with Other Methods}\relax }}{10}{figure.caption.7}\protected@file@percent }
-\newlabel{fig: bias}{{3}{10}{\textbf {Bias Comparing with Other Methods}\relax }{figure.caption.7}{}}
+\newlabel{algorithm: 1}{{1}{7}{Hyper parameter tuning}{algocf.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Inference}{7}{subsection.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Monte Carlo Simulation}{7}{section.4}\protected@file@percent }
+\newlabel{sec: simulation}{{4}{7}{Monte Carlo Simulation}{section.4}{}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {2}{\ignorespaces Leave-One-Out Cross-Validation for Hyperparameter $k$\relax }}{8}{algocf.2}\protected@file@percent }
+\newlabel{algorithm: 2}{{2}{8}{Hyper parameter tuning}{algocf.2}{}}
+\newlabel{eq: dgp}{{{6}}{8}{Monte Carlo Simulation}{AMS.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}A simulated example}{9}{subsection.4.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {GSC-IPCA Data Generating Process}\relax }}{10}{figure.caption.7}\protected@file@percent }
+\newlabel{fig: sim}{{1}{10}{\textbf {GSC-IPCA Data Generating Process}\relax }{figure.caption.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Bias comparision}{10}{subsection.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textbf  {GSC-IPCA Estimated ATT for Simulated Sample}\relax }}{11}{figure.caption.8}\protected@file@percent }
+\newlabel{fig: est}{{2}{11}{\textbf {GSC-IPCA Estimated ATT for Simulated Sample}\relax }{figure.caption.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Bias Comparing with Other Methods}\relax }}{12}{figure.caption.9}\protected@file@percent }
+\newlabel{fig: bias}{{3}{12}{\textbf {Bias Comparing with Other Methods}\relax }{figure.caption.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Finate sample properties}{12}{subsection.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Empirical Application}{12}{section.5}\protected@file@percent }
+\newlabel{sec: application}{{5}{12}{Empirical Application}{section.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{12}{section.6}\protected@file@percent }
+\newlabel{sec: conclusion}{{6}{12}{Conclusion}{section.6}{}}
 \bibstyle{plainnat}
 \bibdata{citation}
 \bibcite{abadie2006large}{{1}{2006}{{Abadie and Imbens}}{{}}}
@@ -65,12 +77,17 @@
 \bibcite{abadie2010synthetic}{{3}{2010}{{Abadie et~al.}}{{Abadie, Diamond, and Hainmueller}}}
 \bibcite{arkhangelsky2021synthetic}{{4}{2021}{{Arkhangelsky et~al.}}{{Arkhangelsky, Athey, Hirshberg, Imbens, and Wager}}}
 \bibcite{athey2021matrix}{{5}{2021}{{Athey et~al.}}{{Athey, Bayati, Doudchenko, Imbens, and Khosravi}}}
-\bibcite{bai2003computation}{{6}{2003}{{Bai and Perron}}{{}}}
-\bibcite{ben2021augmented}{{7}{2021}{{Ben-Michael et~al.}}{{Ben-Michael, Feller, and Rothstein}}}
-\bibcite{card1993minimum}{{8}{1993}{{Card and Krueger}}{{}}}
-\bibcite{imbens2015causal}{{9}{2015}{{Imbens and Rubin}}{{}}}
-\bibcite{jollife2016principal}{{10}{2016}{{Jollife and Cadima}}{{}}}
-\bibcite{kelly2019characteristics}{{11}{2019}{{Kelly et~al.}}{{Kelly, Pruitt, and Su}}}
-\bibcite{kelly2020instrumented}{{12}{2020}{{Kelly et~al.}}{{Kelly, Pruitt, and Su}}}
-\bibcite{xu2017generalized}{{13}{2017}{{Xu}}{{}}}
-\gdef \@abspage@last{14}
+\bibcite{bai2009panel}{{6}{2009}{{Bai}}{{}}}
+\bibcite{bai2003computation}{{7}{2003}{{Bai and Perron}}{{}}}
+\bibcite{ben2021augmented}{{8}{2021}{{Ben-Michael et~al.}}{{Ben-Michael, Feller, and Rothstein}}}
+\bibcite{card1993minimum}{{9}{1993}{{Card and Krueger}}{{}}}
+\bibcite{imbens2015causal}{{10}{2015}{{Imbens and Rubin}}{{}}}
+\bibcite{jollife2016principal}{{11}{2016}{{Jollife and Cadima}}{{}}}
+\bibcite{jolliffe2002principal}{{12}{2002}{{Jolliffe}}{{}}}
+\bibcite{kelly2019characteristics}{{13}{2019}{{Kelly et~al.}}{{Kelly, Pruitt, and Su}}}
+\bibcite{kelly2020instrumented}{{14}{2020}{{Kelly et~al.}}{{Kelly, Pruitt, and Su}}}
+\bibcite{splawa1990application}{{15}{1990}{{Neyman}}{{}}}
+\bibcite{rubin1976inference}{{16}{1976}{{Rubin}}{{}}}
+\bibcite{rubin2005causal}{{17}{2005}{{Rubin}}{{}}}
+\bibcite{xu2017generalized}{{18}{2017}{{Xu}}{{}}}
+\gdef \@abspage@last{17}

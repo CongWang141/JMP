@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.23)  8 MAR 2024 09:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.23)  9 MAR 2024 10:37
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -449,14 +449,61 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1373.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1374.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1375.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1376.
-)) (/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/graphicx.sty
+) (/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
 \Gin@req@height=\dimen260
 \Gin@req@width=\dimen261
+)) (/usr/local/texlive/2023/texmf-dist/tex/latex/algorithm2e/algorithm2e.sty
+Package: algorithm2e 2017/07/18 v5.2 algorithms environments
+\c@AlgoLine=\count305
+\algocf@hangindent=\skip83
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
+Package: ifoddpage 2022/10/18 v1.2 Conditionals for odd/even page detection
+\c@checkoddpage=\count306
+) (/usr/local/texlive/2023/texmf-dist/tex/latex/tools/xspace.sty
+Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
+) (/usr/local/texlive/2023/texmf-dist/tex/latex/relsize/relsize.sty
+Package: relsize 2013/03/29 ver 4.1
+)
+\skiptotal=\skip84
+\skiplinenumber=\skip85
+\skiprule=\skip86
+\skiphlne=\skip87
+\skiptext=\skip88
+\skiplength=\skip89
+\algomargin=\skip90
+\skipalgocfslide=\skip91
+\algowidth=\dimen262
+\inoutsize=\dimen263
+\inoutindent=\dimen264
+\interspacetitleruled=\dimen265
+\interspacealgoruled=\dimen266
+\interspacetitleboxruled=\dimen267
+\algocf@ruledwidth=\skip92
+\algocf@inoutbox=\box61
+\algocf@inputbox=\box62
+\AlCapSkip=\skip93
+\AlCapHSkip=\skip94
+\algoskipindent=\skip95
+\algocf@nlbox=\box63
+\algocf@hangingbox=\box64
+\algocf@untilbox=\box65
+\algocf@skipuntil=\skip96
+\algocf@capbox=\box66
+\algocf@lcaptionbox=\skip97
+\algoheightruledefault=\skip98
+\algoheightrule=\skip99
+\algotitleheightruledefault=\skip100
+\algotitleheightrule=\skip101
+\c@algocfline=\count307
+\c@algocfproc=\count308
+\c@algocf=\count309
+\algocf@algoframe=\box67
+\algocf@algobox=\box68
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count305
-\l__pdf_internal_box=\box61
+\l__color_backend_stack_int=\count310
+\l__pdf_internal_box=\box69
 ) (./main.aux)
 \openout1 = `main.aux'.
 
@@ -480,16 +527,16 @@ LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 3.
 LaTeX Font Info:    ... okay on input line 3.
  (/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count306
-\scratchdimen=\dimen262
-\scratchbox=\box62
-\nofMPsegments=\count307
-\nofMParguments=\count308
+\scratchcounter=\count311
+\scratchdimen=\dimen268
+\scratchbox=\box70
+\nofMPsegments=\count312
+\nofMParguments=\count313
 \everyMPshowfont=\toks34
-\MPscratchCnt=\count309
-\MPscratchDim=\dimen263
-\MPnumerator=\count310
-\makeMPintoPDFobject=\count311
+\MPscratchCnt=\count314
+\MPscratchDim=\dimen269
+\MPnumerator=\count315
+\makeMPintoPDFobject=\count316
 \everyMPtoPDFconversion=\toks35
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -543,7 +590,7 @@ Package hyperref Info: Link coloring ON on input line 3.
 \@outlinefile=\write4
 \openout4 = `main.out'.
 
-\c@assumption=\count312
+\c@assumption=\count317
 LaTeX Font Info:    Trying to load font information for U+msa on input line 12.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -563,69 +610,92 @@ Underfull \hbox (badness 10000) in paragraph at lines 15--16
 
 [0
 
-{/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [1] [2] [3] [4] [5
+{/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [1] [2] [3]
+
+LaTeX Warning: Reference `eq: combined' on page 4 undefined on input line 88.
+
+[4] [5
 pdfTeX warning (ext4): destination with the same identifier (name{equation.3.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.155 
-      
+l.140 
+      ]
 pdfTeX warning (ext4): destination with the same identifier (name{equation.3.5}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.155 
-      ] [6]
-<figs/data_plot.png, id=167, 484.209pt x 361.35pt>
+<to be read again> 
+                   \relax 
+l.141 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.3.5}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.141 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.3.5}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.141 \begin{equation}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{equation.3.5}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.141 \begin{equation}
+                       [6] [7] [8]
+<figs/data_plot.png, id=239, 484.209pt x 361.35pt>
 File: figs/data_plot.png Graphic file (type png)
 <use figs/data_plot.png>
-Package pdftex.def Info: figs/data_plot.png  used on input line 169.
+Package pdftex.def Info: figs/data_plot.png  used on input line 235.
 (pdftex.def)             Requested size: 484.20781pt x 361.34912pt.
 
-Overfull \hbox (14.45279pt too wide) in paragraph at lines 169--171
+Overfull \hbox (14.45279pt too wide) in paragraph at lines 235--237
  [][] 
  []
 
-[7 <./figs/data_plot.png>]
-<figs/estimation.png, id=179, 484.209pt x 361.35pt>
+[9]
+<figs/estimation.png, id=251, 484.209pt x 361.35pt>
 File: figs/estimation.png Graphic file (type png)
 <use figs/estimation.png>
-Package pdftex.def Info: figs/estimation.png  used on input line 182.
+Package pdftex.def Info: figs/estimation.png  used on input line 248.
 (pdftex.def)             Requested size: 484.20781pt x 361.34912pt.
 
-Overfull \hbox (14.45279pt too wide) in paragraph at lines 182--184
+Overfull \hbox (14.45279pt too wide) in paragraph at lines 248--250
  [][] 
  []
 
-<figs/bias_compar1.png, id=182, 484.209pt x 252.945pt>
+[10 <./figs/data_plot.png>]
+<figs/bias_compar1.png, id=260, 484.209pt x 252.945pt>
 File: figs/bias_compar1.png Graphic file (type png)
 <use figs/bias_compar1.png>
-Package pdftex.def Info: figs/bias_compar1.png  used on input line 193.
+Package pdftex.def Info: figs/bias_compar1.png  used on input line 259.
 (pdftex.def)             Requested size: 484.20781pt x 252.94438pt.
 
-Overfull \hbox (14.45279pt too wide) in paragraph at lines 193--195
+Overfull \hbox (14.45279pt too wide) in paragraph at lines 259--261
  [][] 
  []
 
-[8] [9 <./figs/estimation.png>] [10 <./figs/bias_compar1.png>] (./main.bbl) [11
+[11 <./figs/estimation.png>] [12 <./figs/bias_compar1.png>] (./main.bbl [13
 
-] [12
+]) [14] [15
 
-] [13] (./main.aux)
+] [16] (./main.aux)
+
+LaTeX Warning: There were undefined references.
+
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: CE57D259C5EE2575045A71FF7BAC25B1;1382.
+(rerunfilecheck)             Checksum: F0089D4F352E65BFAE03A9D80FEA4819;1659.
  ) 
 Here is how much of TeX's memory you used:
- 13928 strings out of 476025
- 224146 string characters out of 5790017
- 1868388 words of memory out of 5000000
- 34072 multiletter control sequences out of 15000+600000
- 524131 words of font info for 77 fonts, out of 8000000 for 9000
+ 15001 strings out of 476025
+ 242622 string characters out of 5790017
+ 1873388 words of memory out of 5000000
+ 35084 multiletter control sequences out of 15000+600000
+ 524440 words of font info for 78 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 104i,12n,106p,2556b,457s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on main.pdf (14 pages, 1032092 bytes).
+ 104i,16n,106p,2556b,629s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on main.pdf (17 pages, 1058269 bytes).
 PDF statistics:
- 315 PDF objects out of 1000 (max. 8388607)
- 252 compressed objects within 3 object streams
- 65 named destinations out of 1000 (max. 500000)
- 96 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 406 PDF objects out of 1000 (max. 8388607)
+ 337 compressed objects within 4 object streams
+ 112 named destinations out of 1000 (max. 500000)
+ 112 words of extra memory for PDF output out of 10000 (max. 10000000)
 

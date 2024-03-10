@@ -10,7 +10,7 @@
 \date{\today}
 \maketitle
 \begin{abstract}
-\noindent The fundamental problem of causal inference is missing data. Based on identification assumptions such as unconfoundedness, traditional methodologies impute the missing counterfactuals either implicitly or explicitly. However, the required assumptions are either too strong or untestable. Synthetic control methods (SCM) leverage data from the control group to impute the missing counterfactual for the treated post-treatment. Eventhough SCM relaxes these strict assumptions, it requires the treated unit to be inside the convex hull formulated by control units, in avoiding extrapolation. In recent advances, researchers modelling the entire data generating process (DGP) to impute the missing counterfactual explicitly. This paper expands the interactive fixed effect model by integrating covariates into dynamic factor loadings adding additional robustness. This methodology confers multiple benefits: firstly, it incorporates the strengths of previous SCM approaches, such as the relaxation of the Parallel Trends Assumption (PTA) and conditional randomization of treatment assignment. Secondly, it does not require the targeted outcomes inside the convex hull formulated by control units. Thirdly, it eliminates the need for correct functional form assumptions required by IFE. Finally, it efficiently manages high-dimensional data and enhances the value extracted from numerous covariates.\\
+\noindent The fundamental problem of causal inference is missing data. Based on identification assumptions such as unconfoundedness, traditional methodologies impute the missing counterfactuals either implicitly or explicitly. However, the required assumptions are either too strong or untestable. Synthetic control methods (SCM) leverage data from the control group to impute the missing counterfactual for the treated post-treatment. Eventhough SCM relaxes these strict assumptions, it requires the treated unit to be inside the convex hull formulated by control units, in avoiding extrapolation. In recent advances, researchers modelling the entire data generating process (DGP) to impute the missing counterfactual explicitly. This paper expands the interactive fixed effect model by integrating covariates into dynamic factor loadings adding additional robustness. This methodology confers multiple benefits: firstly, it incorporates the strengths of previous SCM approaches, such as the relaxation of the Parallel Trends Assumption (PTA) and conditional randomization of treatment assignment. Secondly, it does not require the targeted outcomes inside the convex hull formulated by control units. Thirdly, it eliminates the need for correct functional form assumptions required by interactive fixed effect (IFE) model. Finally, it efficiently manages high-dimensional data and enhances the value extracted from numerous covariates.\\
 
 \noindent\textbf{Keywords:} Synthetic Control, Principal Component Analysis, Causal Inference\\
 
@@ -30,9 +30,9 @@
 \label{sec:introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this paper, we propose a new counterfactual imputation method that leverages the dimension reduction capability of PCA method (\cite{jollife2016principal}) and the flexibility of the IFE model (\cite{bai2003computation}) to both enhance the value extracted from numerous covariates and improve the predictive accuracy. We name the newly proposed method the generalized synthetic control method with instrumented principal component analysis (GSC-IPCA), aligning with the previous generalized synthetic control method with interactive fixed effects (GSC-IFE) proposed by \cite{xu2017generalized}. To model the entire data generating process, the GSC-IPCA estimator is designed to overcome the constraints of unconfoundedess assumption required by methodologies such as matching (\cite{abadie2011bias, abadie2006large}), diffference-in-differences (DID) (\cite{card1993minimum}), and others. Furthermore, it addresses the limitation observed in the original SCM (\cite{abadie2010synthetic}) and its variants (\cite{ben2021augmented}, \cite{arkhangelsky2021synthetic}), which necessitate the outcomes of treated units to lie inside or not far from the convex hull formed by control units. 
+In this paper, we propose a new counterfactual imputation method that leverages the dimension reduction capability of principal component analysis (PCA) method (\cite{jollife2016principal}) and the flexibility of the IFE model (\cite{bai2003computation}) to both enhance the value extracted from numerous covariates and improve the predictive accuracy. We name the newly proposed method the generalized synthetic control method with instrumented principal component analysis (GSC-IPCA), aligning with the previous generalized synthetic control method with interactive fixed effects (GSC-IFE) proposed by \cite{xu2017generalized}. To model the entire data generating process, the GSC-IPCA estimator is designed to overcome the constraints of unconfoundedess assumption required by methodologies such as matching (\cite{abadie2011bias, abadie2006large}), diffference-in-differences (DID) (\cite{card1993minimum}), and others. Furthermore, it addresses the limitation observed in the original SCM (\cite{abadie2010synthetic}) and its variants (\cite{ben2021augmented}, \cite{arkhangelsky2021synthetic}), which necessitate the outcomes of treated units to lie inside or not far from the convex hull formed by control units. 
 
-Causal inference in economics and other social sciences is frequently complicated by the absence of a counterfactual, which is essential for evaluating the impact of a treatment or policy intervention. \cite{imbens2015causal} state that at some level, all methods for causal inference can be viewed as imputation methods, although some are more explicitly than others. For instance, under certain assumptions, the matching method implicitly imputes the missing counterfactuals for treated units with meticulously selected control units. While SCM method explicitly imputes the missing counterfactual with weighted average of control units. Our method aligns with the recent trend in causal inference literature, aiming to explicitly impute the missing counterfactual by modeling the entire data generating process, a strategy also highlighted by \cite{athey2021matrix}.
+Causal inference in economics and other social sciences is frequently complicated by the absence of a counterfactual, which is essential for evaluating the impact of a treatment or policy intervention. \cite{imbens2015causal} state that at some level, all methods for causal inference can be viewed as imputation methods, although some are more explicitly than others. For instance, under certain assumptions, the matching method implicitly imputes the missing counterfactuals for treated units with meticulously selected control units. While SCM method explicitly imputes the missing counterfactual with weighted average of control units. Our method aligns with the recent trend in causal inference literature, aiming to explicitly impute the missing counterfactual by modeling the entire data generating process, a strategy also highlighted by \cite{athey2021matrix} with their matrix completion (MC) method.
 
 The GSC-IPCA estimator builds upon the instrumented principal component analysis first introduced by \cite{kelly2020instrumented, kelly2019characteristics} in the context of predicting stock returns. It extends the linear IFE model by first performing a dimension reduction operation to distill information from multiple covariates, thus obtaining unit-specific factor loadings, which inherit time-varying properties\footnote{The functional form of the data generating process in \cite{xu2017generalized} only sepcifies unit-varying factor loadings. Here we make the unit specific factor loadings to accomandate time-variying property.}. Subsequently, these factor loadings are interacted with time-varying factors. A critical feature of our approach is that the unit-specific factor loadings are instrumented by covariates, which provide additional robustness. Our simulations reveal that the GSC-IPCA estimator maintains its unbiasedness even in scenarios where some covariates remain unobserved, in contrast to the GSC-IFE estimator, which tends to exhibit bias under comparable conditions.
 
@@ -48,7 +48,7 @@ The GSC-IPCA estimator builds upon the instrumented principal component analysis
 \label{sec: framework}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Consider $Y_{it}$ as the observed outcome for a specific unit $i$ at time $t$. The total number of units is $N = N_{treat} + N_{\text{ctrl}}$, where $N_{treat}$ indicates the number of units in the treatment group, and $N_{\text{ctrl}}$ represents those in the control group. Each unit is observed over $T$ time periods, ranging from period 1 to period $T$. Let $T_{\text{pre}}$ denote the number of pre-treatment periods, and $T_{\text{post}}$ the number of post-treatment periods. The unit is treated at time $T_{\text{pre}} + 1$, and the treatment effect is initially observed at time $T_{\text{pre}} + 1$ and continues to be observed thereafter, a scenario commonly referred to as staggered adoption.
+Consider $Y_{it}$ as the observed outcome for a specific unit $i$ at time $t$. The total number of units is $N = N_{treat} + N_{\text{ctrl}}$, where $N_{treat}$ indicates the number of units in the treatment group, and $N_{\text{ctrl}}$ represents those in the control group. Each unit is observed over $T$ time periods, ranging from period 1 to period $T$. Let $T_{\text{pre}}$ denote the number of pre-treatment periods, and $T_{\text{post}}$ the number of post-treatment periods. The unit is treated at time $T_{\text{pre}} + 1$, and the treatment effect is initially observed at time $T_{\text{pre}} + 1$ and continues to be observed thereafter, a scenario commonly referred to as staggered adoption. For the data generating process of $Y_{it}$ we assume the following functinoal form:
 
 \begin{assumption}
 Functional form:
@@ -57,30 +57,20 @@ Functional form:
 
 \begin{equation}
 \begin{aligned}
-& Y_{it} = D_{it} \circ \delta_{it} + B_{it}F_{t} + \mu_{it}, \\
-& B_{it} = X_{it}\Gamma + H_{it}
+& Y_{it} = D_{it} \circ \delta_{it} + \Lambda_{it}F_{t} + \mu_{it}, \\
+& \Lambda_{it} = X_{it}\Gamma + H_{it}
 \end{aligned}
-\label{eq: functional form}
+\label{eqn: functional form}
 \end{equation}
 
-\noindent where $D_{it}$ is a binary treatment indicator and $\delta_{it}$ signifies the treatment effect, which exhibits variation across units and through times\footnote{The symble ``$\circ$'' represents point-wise product.}. The expression $B_{it} = [\beta_{it}^1, \ldots, \beta_{it}^K]$ represents a vector of factor loadings (the number of common factors is $K$.), whereas $F_{t} = [f_{t}^1, \ldots, f_{t}^K]'$ corresponds to a vector of time-varying common factors, and $\mu_{it}$ is the idiosyncratic error term. A key distinction of the proposed model from that delineated in \cite{xu2017generalized} is the incorporation of factor loadings $B_{it}$, which are instrumented by observed covariates $X_{it}$. This integration permits $B_{it}$ to exhibit variability across time and units, thereby introducing an additional layer of heterogeneity into the model.
+\noindent where $D_{it}$ is a binary treatment indicator and $\delta_{it}$ signifies the treatment effect, which exhibits variation across units and through times\footnote{The symble ``$\circ$'' represents point-wise product.}. The expression $\Lambda_{it} = [\lambda_{it}^1, \ldots, \lambda_{it}^K]$ represents a vector of factor loadings (the number of common factors is $K$.), whereas $F_{t} = [f_{t}^1, \ldots, f_{t}^K]'$ corresponds to a vector of time-varying common factors, and $\mu_{it}$ is the idiosyncratic error term. A key distinction of the proposed model from that delineated in \cite{xu2017generalized} is the incorporation of factor loadings $B_{it}$, which are instrumented by observed covariates $X_{it}$. This integration permits $\Lambda_{it}$ to exhibit variability across time and units, thereby introducing an additional layer of heterogeneity into the model.
 
-The vector $X_{it} = [x_{it}^1, \ldots, x_{it}^L]$ consists of observed covariates, where $L$ denotes the number of covariates. The factor loadings $B_{it}$ are theorized to be a linear function of these observed covariates $X_{it}$, with $\Gamma$ acting as the $L\times K$ coefficient matrix, and $H_{it} = [\eta_{it}^1, \ldots, \eta_{it}^L]$ comprising the vector of error terms.
+The vector $X_{it} = [x_{it}^1, \ldots, x_{it}^L]$ consists of observed covariates, where $L$ denotes the number of covariates. The factor loadings $\Lambda_{it}$ are assumed to be a linear function of these observed covariates $X_{it}$, with $\Gamma$ acting as the $L\times K$ coefficient matrix, and $H_{it} = [\eta_{it}^1, \ldots, \eta_{it}^L]$ comprising the vector of error terms. Another key difference from the GSC-IFE approach is that we retain only the interacted component $\Lambda_{it} F_t$ between factors and factor loadings, the linear part of covariates $X_{it}\beta$ is not included in the function form\footnote{The functional form of the GSC-IFE is $Y_{it} = D_{it} \circ \delta_{it} + \Lambda_{i}F_{t} + X_{it}\beta + \mu_{it}$}. The loagic behind is that we believe that the unit specific factor loadings, instrumented by covariates, have included all the predictive information from these covariates. This functional form allows us to handle high-dimensional datasets, especially when dealing with a large number of covariates, offering another advantage over the GSC-IFE method.
 
-Upon examining the functional form presented in Equation \ref{eq: functional form}, we can amalgamate the two segments to formulate the ensuing equation:
-
-
-\begin{equation}
-Y_{it} = D_{it} \circ \delta_{it} + (X_{it}\Gamma) F_{t} + \epsilon_{it}, \quad \epsilon_{it} = \mu_{it} + H_{it}F_t.
-\label{eq: combined}
-\end{equation}
-
-The factor component of the model, $B_{it}F_{t} = \beta_{it1}f_{1t} + \beta_{it2}f_{2t} + \cdots + \beta_{itk}f_{kt}$, where $B_{it} = X_{it}\Gamma$, is assumed to adopt a linear, additive form. Despite appearing to be restrictively structured, this approach is capable of capturing a vast array of unobserved heterogeneities. It is inclusive of all specifications present in the interactive fixed effects model within the GS-IFE, such as unit and time fixed effects, unit-specific linear or quadratic time trends, and autoregressive processes. Beyond the additive integration of the treatment effect as delineated in Equation \ref{eq: combined}, the model imposes no additional constraints on the functional form of the treatment effect. This level of flexibility enables the straightforward application of PCA for estimating the factor loadings and common factors, thereby facilitating the imputation of counterfactual outcomes for treated units.
-
-The main quantity of interest of this paper is the average treatment effect (ATE) for the treated, which is defined as:
+Following \cite{splawa1990application} potential outcome framework (also discussed by \cite{rubin1976inference, rubin2005causal}), we observe the actual outcome for the treated $Y(1)$ and with the modelled data generating process we can impute the missing counterfactual $\hat{Y}(0)$. The difference between the actual outcome and imputed missing counterfactual will be the treatment effect for treated (ATT), which is defined as:
 
 \begin{equation}
-\widehat{ATT}_{t} = \frac{1}{N_{treat}}\sum_{it} \left( Y_{it}(1) - \hat{Y}_{it}(0) \right) = \frac{1}{N_{treat}}\sum_{it}\hat{\delta}_{it}. \quad for \quad \forall i > N_{co}, \: \forall t > T_{pre}.
+\widehat{ATT}_{t} = \frac{1}{N_{treat}}\sum_{i \in N_{treat}} \left( Y_{it}(1) - \hat{Y}_{it}(0) \right) = \frac{1}{N_{treat}}\sum_{i \in N_{treat}}\hat{\delta}_{it}.
 \end{equation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Assumptions for identification}
@@ -122,9 +112,16 @@ Assumption \ref{ass: asy normal} simply containes central limit theorems with re
 \section{Estimation}
 \label{sec: estimation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The GSC-IPCA estimator of the treatment effect for a treated unit $i$ at time $t$ is defined as the difference between the observed outcome and its estimated counterfactual: $\delta_{it} = Y_{it}(1) - \hat{Y}_{it}(0)$, where $\hat{Y}_{it}(0)$ is derived through a three-step imputation process.
+The GSC-IPCA estimator of the treatment effect for a treated unit $i$ at time $t$ is defined as the difference between the observed outcome and its estimated counterfactual: $\delta_{it} = Y_{it}(1) - \hat{Y}_{it}(0)$. To combine the functional form in Equation \ref{eqn: functional form}, we get the structural component of the potential outcome $Y_{it} = (X_{it}\Gamma) F_{t}$. The GSC-IPCA method is estimated by minimizing the sum of squared residuals of the following objective function:
 
-\textbf{Step 1:} The initial step entails estimating the time-varying factors $\hat{F}_t$ and the coefficient matrix $\hat{\Gamma}_{\text{ctrl}}$ utilizing an Alternating Least Squares (ALS) algorithm, based exclusively on data from the control group.
+\begin{equation}
+\label{eqn: obj}
+\underset{\Gamma, F_t}{\arg\min} \sum_{i} \sum_{t}\left( Y_{it} - (X_{it}\Gamma) F_{t} \right)^2.
+\end{equation}
+
+Unlike the IFE method (\cite{bai2009panel}), our approach requires estimating only two parameters, $\Gamma$ and $F_t$, simplifying the process. Different from principal component analysis (\cite{jolliffe2002principal}), our method involves using covariates to instrument the factor loadings component. This necessitates the estimation of $\Gamma$ rather than $\Lambda_i$, so we can not directly use eigenvalue decomposition. While the objective function in Equation \ref{eqn: obj} formulates the problem as minimizing a quadratic function with a single unknown variable (e.g., $\Gamma$) while holding the other variable (e.g., $F_t$) constant. This structure enables the application of the alternating least squares (ALS) method for a numerical solution. Generally, the imputation for the missing counterfactual $Y_{it}(0)$ is executed in three steps:
+
+\textbf{Step 1:} The initial step entails estimating the time-varying factors $\hat{F}_t$ and the coefficient matrix $\hat{\Gamma}_{\text{ctrl}}$ utilizing an ALS algorithm, based exclusively on data from the control group for the whole time period.
 
 \begin{equation}
 (\hat{\Gamma}_{ctrl}, \hat{F_t}) = \underset{\Gamma, F_t}{\arg\min} \sum_{i \in N_{ctrl}} \sum_{t \in T}\left( Y_{it} - (X_{it}\Gamma) F_{t} \right)'\left( Y_{it} - (X_{it}\Gamma) F_{t} \right).
@@ -145,13 +142,82 @@ The GSC-IPCA estimator of the treatment effect for a treated unit $i$ at time $t
 \hat{Y}_{it}(0) = (X_{it} \hat{\Gamma}_{treat}) \hat{F}_{t}, \quad \forall i \in N_{treat}, \forall t \in T_{post}.
 \tag{5}
 \end{equation}
+
+The main difference between GSC-IPCA and the instrumented principal component analysis (IPCA) as proposed by \cite{kelly2020instrumented} lies in the purpose of prediction. In the IPCA method, the authors predict the next-period stock returns using all covariates from the preceding period, under the assumption that the rotation matrix $\Gamma$ remains constant across all observations. In contrast, GSC-IPCA introduces a pivotal distinction: it operates under the assumption that treated and control groups are characterized by unique rotation matrices, $\Gamma_{\text{treat}}$ and $\Gamma_{\text{ctrl}}$. This assumption is vital for the unbiased estimation of the ATT, setting the GSC-IPCA method apart by directly addressing heterogeneity in the treatment effect through the specification of group-specific rotation matrices.
+
+\subsection{Hyper parameter tuning}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Similar to GSC-IFE methods, researchers often encounter the challenge of selecting the appropriate number of factors, $K$, without prior knowledge of the true data-generating process. To facilitate this selection, we introduce data-driven approaches for determining the hyperparameter $K$. Utilizing both control and treated units as training and validation data respectively offers a practical solution. To enhance the robustness of this process, we propose two validation methods for hyperparameter tuning. Algorithm \ref{algorithm: 1} describes a bootstrap method to ascertain $K$. This approach involves repeatedly sampling $N_{ctrl}$ control units for training data and $N_{treat}$ treated units for validation data, both with replacement. The optimal $K$ is then determined by minimizing the average of sum squared errors across these validations.
+
+\begin{algorithm}[!ht]
+    \SetAlgoLined
+    \KwData{$Y, X$}
+    \KwResult{Optimal hyperparameter $k$}
+    Determine the maximum possible hyperparameter $K$ and the number of repetitions $N$\;
+
+    Initialize an array $MSE$ to store the average of sum squared error for each $k$\;
+    \For{$k \leftarrow 1$ \KwTo $K$}{
+        Initialize sum of squared errors: $SSE_k \leftarrow 0$\;
+        \For{$n \leftarrow 1$ \KwTo $N$}{
+            Construct a bootstrap training dataset $(Y^{b}_{ctrl}, X^{b}_{ctrl})$ by sampling $N_{ctrl}$ control observations with replacement\;
+
+            Construct a bootstrap validation dataset $(Y^{b}_{treat}, X^{b}_{treat})$ by sampling $N_{treat}$ treated observations with replacement\;
+
+            Estimate parameters $\Gamma$ and $F_t$ using the training data via the ALS method\;
+
+            Use the estimated $\hat{\Gamma}$ and $\hat{F}_t$ to predict $\hat{Y}^{b}_{treat}$ with the validation data\;
+
+            Compute the sum of squared error for the validation data: $SE_n \leftarrow \sum\left(Y^{b}_{treat} - \hat{Y}^{b}_{treat}\right)^2$\;
+
+            Accumulate the sum of squared errors: $SSE_k \leftarrow SSE_k + SE_n$\;
+        }
+        Calculate the average sum squared error for $k$: $MSE[k] \leftarrow \frac{SSE_k}{N}$\;
+    }
+    Select $k$ corresponding to the minimum value in $MSE$\;
+    \caption{Bootstrap Hyperparameter Tuning}
+    \label{algorithm: 1}
+\end{algorithm}
+
+We can also utilize leave-one-out cross-validation to select the hyperparameter $K$, as detailed in Algorithm 2. This method involves excluding the $t^{th}$ period data from the control group to serve as the training data, while similarly excluding the corresponding period data from the treated group to act as validation data. This process is repeated for each time period in the pretreatment phase, applying a predetermined number of factor loadings. The optimal number of factors, $K$, is identified as the one that yields the minimum average of sum squared errors across all iterations.
+
+\begin{algorithm}[!ht]
+    \SetAlgoLined
+    \KwData{$Y, X$}
+    \KwResult{Optimal hyperparameter $k$}
+    Determine the maximum possible hyperparameter $K$\;
+    Initialize an array $MSE$ to store the average of sum squared error for each $k$\;
+     \For{$k=1$ to $K$}{
+        Set sum of squared errors $SSE_k = 0$\;
+        \For{$t \leftarrow 1$ to $T_{pre}$}{
+            Remove the $t^{th}$ period observation from control data, using the rest as training data $(Y_{ctrl}^{-t}, X_{ctrl}^{-t})$\;
+            
+            Similarly, exclude the $t^{th}$ period observation from treated data, using the rest as validation data $(Y_{treat}^{-t}, X_{treat}^{-t})$\;
+            
+            Estimate parameters $\Gamma$ and $F_t$ using the training data via the ALS method\;
+            
+            Use the estimated $\hat{\Gamma}$ and $\hat{F}_t$ to predict $\hat{Y}^{-t}_{treat}$ with the validation data\;
+            
+            Calculate the sum squared error $SE_t = \sum (Y_{treat}^{-t} - \hat{Y}_{treat}^{-t})^2$\;
+            
+            Accumulate the sum of squared errors:  $SSE_k \leftarrow SSE_k + SE_t$\;
+        }
+        Calculate the average sum squared error for $k$: $MSE[k] = \frac{SSE_k}{T_{pre}}$\;
+      }
+      Select $k$ corresponding to the minimum value in $MSE$\;
+    \caption{Leave-One-Out Cross-Validation for Hyperparameter $k$}
+    \label{algorithm: 2}
+\end{algorithm}
+    
+\subsection{Inference}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Monte Carlo Simulation}
 \label{sec: simulation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this section, we employ Monte Carlo simulations to assess the performance of the GSC-IPCA estimator in finite sample settings. We juxtapose the GSC-IPCA estimator against the GSC-IFE and the original SC estimators. Our comparative analysis focuses on key metrics including bias, mean squared error (MSE), and coverage probability. 
+In this section, we employ Monte Carlo simulations to assess the performance of the GSC-IPCA estimator in finite sample settings. We juxtapose the GSC-IPCA estimator against the GSC-IFE and the original SC estimators. Our comparative analysis focuses on key metrics including bias, mean squared errors, and coverage probability. 
 
 We initiate our analysis with a data generating process that incorporates $L=10$ and $K=3$ time-varying covariates and common factors, along with unit and time fixed effects:
 
@@ -233,7 +299,7 @@ Firms'
 
 \subsection*{A.1 Estimation of the GSC-IPCA Estimator Using the ALS Algorithm}
 
-As outlined in Equation \ref{eq: combined}, the data generating process can be described by:
+As outlined in Equation \ref{eqn: functional form}, the data generating process can be described by:
 
 \begin{equation*}
 Y_{it} = (X_{it}\Gamma) F_{t} + \epsilon_{it}, \quad \epsilon_{it} = \mu_{it} + H_{it} F_t.
