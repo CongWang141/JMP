@@ -5,7 +5,7 @@
 
 %%%%%%%%%%%%%%%%%frond page%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{titlepage}
-\title{Generalized Synthetic Control Method: Causal Inference with Instrumented Principal Component Analysis}
+\title{Counterfactual and Synthetic Control Method: Causal Inference with Instrumented Principal Component Analysis}
 \author{ Cong Wang\thanks{Department of Economics and Law, Sapienza University of Rome}}
 \date{\today}
 \maketitle
@@ -30,11 +30,11 @@
 \label{sec:introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this paper, we propose a new counterfactual imputation method that leverages the dimension reduction capability of principal component analysis (PCA) method (\cite{jollife2016principal}) and the flexibility of the IFE model (\cite{bai2003computation}) to both enhance the value extracted from numerous covariates and improve the predictive accuracy. We name the newly proposed method the generalized synthetic control method with instrumented principal component analysis (GSC-IPCA), aligning with the previous generalized synthetic control method with interactive fixed effects (GSC-IFE) proposed by \cite{xu2017generalized}. To model the entire data generating process, the GSC-IPCA estimator is designed to overcome the constraints of unconfoundedess assumption required by methodologies such as matching (\cite{abadie2011bias, abadie2006large}), diffference-in-differences (DID) (\cite{card1993minimum}), and others. Furthermore, it addresses the limitation observed in the original SCM (\cite{abadie2010synthetic}) and its variants (\cite{ben2021augmented}, \cite{arkhangelsky2021synthetic}), which necessitate the outcomes of treated units to lie inside or not far from the convex hull formed by control units. 
+In this paper, we propose a new counterfactual imputation method that leverages the dimension reduction capability of principal component analysis (PCA) method (\cite{jollife2016principal}) and the flexibility of the IFE model (\cite{bai2003computation}) to both enhance the value extracted from numerous covariates and improve the predictive accuracy. We name the newly proposed method the counterfactual and synthetic control method with instrumented principal component analysis (CSC-IPCA), aligning with the previous counterfactual and synthetic control method with interactive fixed effects (CSC-IFE) proposed by \cite{xu2017generalized}. To model the entire data generating process, the CSC-IPCA estimator is designed to overcome the constraints of unconfoundedess assumption required by methodologies such as matching (\cite{abadie2011bias, abadie2006large}), diffference-in-differences (DID) (\cite{card1993minimum}), and others. Furthermore, it addresses the limitation observed in the original SCM (\cite{abadie2010synthetic}) and its variants (\cite{ben2021augmented}, \cite{arkhangelsky2021synthetic}), which necessitate the outcomes of treated units to lie inside or not far from the convex hull formed by control units. 
 
 Causal inference in economics and other social sciences is frequently complicated by the absence of a counterfactual, which is essential for evaluating the impact of a treatment or policy intervention. \cite{imbens2015causal} state that at some level, all methods for causal inference can be viewed as imputation methods, although some are more explicitly than others. For instance, under certain assumptions, the matching method implicitly imputes the missing counterfactuals for treated units with meticulously selected control units. While SCM method explicitly imputes the missing counterfactual with weighted average of control units. Our method aligns with the recent trend in causal inference literature, aiming to explicitly impute the missing counterfactual by modeling the entire data generating process, a strategy also highlighted by \cite{athey2021matrix} with their matrix completion (MC) method.
 
-The GSC-IPCA estimator builds upon the instrumented principal component analysis first introduced by \cite{kelly2020instrumented, kelly2019characteristics} in the context of predicting stock returns. It extends the linear IFE model by first performing a dimension reduction operation to distill information from multiple covariates, thus obtaining unit-specific factor loadings, which inherit time-varying properties\footnote{The functional form of the data generating process in \cite{xu2017generalized} only sepcifies unit-varying factor loadings. Here we make the unit specific factor loadings to accomandate time-variying property.}. Subsequently, these factor loadings are interacted with time-varying factors. A critical feature of our approach is that the unit-specific factor loadings are instrumented by covariates, which provide additional robustness. Our simulations reveal that the GSC-IPCA estimator maintains its unbiasedness even in scenarios where some covariates remain unobserved, in contrast to the GSC-IFE estimator, which tends to exhibit bias under comparable conditions.
+The CSC-IPCA estimator builds upon the instrumented principal component analysis first introduced by \cite{kelly2020instrumented, kelly2019characteristics} in the context of predicting stock returns. It extends the linear IFE model by first performing a dimension reduction operation to distill information from multiple covariates, thus obtaining unit-specific factor loadings, which inherit time-varying properties\footnote{The functional form of the data generating process in \cite{xu2017generalized} only sepcifies unit-varying factor loadings. Here we make the unit specific factor loadings to accomandate time-variying property.}. Subsequently, these factor loadings are interacted with time-varying factors. A critical feature of our approach is that the unit-specific factor loadings are instrumented by covariates, which provide additional robustness. Our simulations reveal that the CSC-IPCA estimator maintains its unbiasedness even in scenarios where some covariates remain unobserved, in contrast to the CSC-IFE estimator, which tends to exhibit bias under comparable conditions.
 
 
 
@@ -65,9 +65,9 @@ Functional form:
 
 \noindent where $D_{it}$ is a binary treatment indicator and $\delta_{it}$ signifies the treatment effect, which exhibits variation across units and through times\footnote{The symble ``$\circ$'' represents point-wise product.}. The expression $\Lambda_{it} = [\lambda_{it}^1, \ldots, \lambda_{it}^K]$ represents a vector of factor loadings (the number of common factors is $K$.), whereas $F_{t} = [f_{t}^1, \ldots, f_{t}^K]'$ corresponds to a vector of time-varying common factors, and $\mu_{it}$ is the idiosyncratic error term. A key distinction of the proposed model from that delineated in \cite{xu2017generalized} is the incorporation of factor loadings $B_{it}$, which are instrumented by observed covariates $X_{it}$. This integration permits $\Lambda_{it}$ to exhibit variability across time and units, thereby introducing an additional layer of heterogeneity into the model.
 
-The vector $X_{it} = [x_{it}^1, \ldots, x_{it}^L]$ consists of observed covariates, where $L$ denotes the number of covariates. The factor loadings $\Lambda_{it}$ are assumed to be a linear function of these observed covariates $X_{it}$, with $\Gamma$ acting as the $L\times K$ coefficient matrix, and $H_{it} = [\eta_{it}^1, \ldots, \eta_{it}^L]$ comprising the vector of error terms. Another key difference from the GSC-IFE approach is that we retain only the interacted component $\Lambda_{it} F_t$ between factors and factor loadings, the linear part of covariates $X_{it}\beta$ is not included in the function form\footnote{The functional form of the GSC-IFE is $Y_{it} = D_{it} \circ \delta_{it} + \Lambda_{i}F_{t} + X_{it}\beta + \mu_{it}$}. The loagic behind is that we believe that the unit specific factor loadings, instrumented by covariates, have included all the predictive information from these covariates. This functional form allows us to handle high-dimensional datasets, especially when dealing with a large number of covariates, offering another advantage over the GSC-IFE method.
+The vector $X_{it} = [x_{it}^1, \ldots, x_{it}^L]$ consists of observed covariates, where $L$ denotes the number of covariates. The factor loadings $\Lambda_{it}$ are assumed to be a linear function of these observed covariates $X_{it}$, with $\Gamma$ acting as the $L\times K$ coefficient matrix, and $H_{it} = [\eta_{it}^1, \ldots, \eta_{it}^L]$ comprising the vector of error terms. Another key difference from the CSC-IFE approach is that we retain only the interacted component $\Lambda_{it} F_t$ between factors and factor loadings, the linear part of covariates $X_{it}\beta$ is not included in the function form\footnote{The functional form of the CSC-IFE is $Y_{it} = D_{it} \circ \delta_{it} + \Lambda_{i}F_{t} + X_{it}\beta + \mu_{it}$}. The loagic behind is that we believe that the unit specific factor loadings, instrumented by covariates, have included all the predictive information from these covariates. This functional form allows us to handle high-dimensional datasets, especially when dealing with a large number of covariates, offering another advantage over the CSC-IFE method.
 
-Following \cite{splawa1990application} potential outcome framework (also discussed by \cite{rubin1976inference, rubin2005causal}), we observe the actual outcome for the treated $Y(1)$ and with the modelled data generating process we can impute the missing counterfactual $\hat{Y}(0)$. The difference between the actual outcome and imputed missing counterfactual will be the treatment effect for treated (ATT), which is defined as:
+Following \cite{splawa1990application} potential outcome framework (also discussed by \cite{rubin1974estimating, rubin2005causal}), we observe the actual outcome for the treated $Y(1)$ and with the modelled data generating process we can impute the missing counterfactual $\hat{Y}(0)$. The difference between the actual outcome and imputed missing counterfactual will be the treatment effect for treated (ATT), which is defined as:
 
 \begin{equation}
 \widehat{ATT}_{t} = \frac{1}{N_{treat}}\sum_{i \in N_{treat}} \left( Y_{it}(1) - \hat{Y}_{it}(0) \right) = \frac{1}{N_{treat}}\sum_{i \in N_{treat}}\hat{\delta}_{it}.
@@ -112,7 +112,7 @@ Assumption \ref{ass: asy normal} simply containes central limit theorems with re
 \section{Estimation}
 \label{sec: estimation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The GSC-IPCA estimator of the treatment effect for a treated unit $i$ at time $t$ is defined as the difference between the observed outcome and its estimated counterfactual: $\delta_{it} = Y_{it}(1) - \hat{Y}_{it}(0)$. To combine the functional form in Equation \ref{eqn: functional form}, we get the structural component of the potential outcome $Y_{it} = (X_{it}\Gamma) F_{t}$. The GSC-IPCA method is estimated by minimizing the sum of squared residuals of the following objective function:
+The CSC-IPCA estimator of the treatment effect for a treated unit $i$ at time $t$ is defined as the difference between the observed outcome and its estimated counterfactual: $\delta_{it} = Y_{it}(1) - \hat{Y}_{it}(0)$. To combine the functional form in Equation \ref{eqn: functional form}, we get the structural component of the potential outcome $Y_{it} = (X_{it}\Gamma) F_{t}$. The CSC-IPCA method is estimated by minimizing the sum of squared residuals of the following objective function:
 
 \begin{equation}
 \label{eqn: obj}
@@ -143,11 +143,11 @@ Unlike the IFE method (\cite{bai2009panel}), our approach requires estimating on
 \tag{5}
 \end{equation}
 
-The main difference between GSC-IPCA and the instrumented principal component analysis (IPCA) as proposed by \cite{kelly2020instrumented} lies in the purpose of prediction. In the IPCA method, the authors predict the next-period stock returns using all covariates from the preceding period, under the assumption that the rotation matrix $\Gamma$ remains constant across all observations. In contrast, GSC-IPCA introduces a pivotal distinction: it operates under the assumption that treated and control groups are characterized by unique rotation matrices, $\Gamma_{\text{treat}}$ and $\Gamma_{\text{ctrl}}$. This assumption is vital for the unbiased estimation of the ATT, setting the GSC-IPCA method apart by directly addressing heterogeneity in the treatment effect through the specification of group-specific rotation matrices.
+The main difference between CSC-IPCA and the instrumented principal component analysis (IPCA) as proposed by \cite{kelly2020instrumented} lies in the purpose of prediction. In the IPCA method, the authors predict the next-period stock returns using all covariates from the preceding period, under the assumption that the rotation matrix $\Gamma$ remains constant across all observations. In contrast, CSC-IPCA introduces a pivotal distinction: it operates under the assumption that treated and control groups are characterized by unique rotation matrices, $\Gamma_{\text{treat}}$ and $\Gamma_{\text{ctrl}}$. This assumption is vital for the unbiased estimation of the ATT, setting the CSC-IPCA method apart by directly addressing heterogeneity in the treatment effect through the specification of group-specific rotation matrices.
 
 \subsection{Hyper parameter tuning}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Similar to GSC-IFE methods, researchers often encounter the challenge of selecting the appropriate number of factors, $K$, without prior knowledge of the true data-generating process. To facilitate this selection, we introduce data-driven approaches for determining the hyperparameter $K$. Utilizing both control and treated units as training and validation data respectively offers a practical solution. To enhance the robustness of this process, we propose two validation methods for hyperparameter tuning. Algorithm \ref{algorithm: 1} describes a bootstrap method to ascertain $K$. This approach involves repeatedly sampling $N_{ctrl}$ control units for training data and $N_{treat}$ treated units for validation data, both with replacement. The optimal $K$ is then determined by minimizing the average of sum squared errors across these validations.
+Similar to CSC-IFE methods, researchers often encounter the challenge of selecting the appropriate number of factors, $K$, without prior knowledge of the true data-generating process. To facilitate this selection, we introduce data-driven approaches for determining the hyperparameter $K$. Utilizing both control and treated units as training and validation data respectively offers a practical solution. To enhance the robustness of this process, we propose two validation methods for hyperparameter tuning. Algorithm \ref{algorithm: 1} describes a bootstrap method to ascertain $K$. This approach involves repeatedly sampling $N_{ctrl}$ control units for training data and $N_{treat}$ treated units for validation data, both with replacement. The optimal $K$ is then determined by minimizing the average of sum squared errors across these validations.
 
 \begin{algorithm}[!ht]
     \SetAlgoLined
@@ -210,6 +210,7 @@ We can also utilize leave-one-out cross-validation to select the hyperparameter 
     
 \subsection{Inference}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+We use the conformal inference designed by \cite{chernozhukov2021exact} to build the confidnece interval.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -217,7 +218,7 @@ We can also utilize leave-one-out cross-validation to select the hyperparameter 
 \label{sec: simulation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this section, we employ Monte Carlo simulations to assess the performance of the GSC-IPCA estimator in finite sample settings. We juxtapose the GSC-IPCA estimator against the GSC-IFE and the original SC estimators. Our comparative analysis focuses on key metrics including bias, mean squared errors, and coverage probability. 
+In this section, we employ Monte Carlo simulations to assess the performance of the CSC-IPCA estimator in finite sample settings. We juxtapose the CSC-IPCA estimator against the CSC-IFE and the original SC estimators. Our comparative analysis focuses on key metrics including bias, mean squared errors, and coverage probability. 
 
 We initiate our analysis with a data generating process that incorporates $L=10$ and $K=3$ time-varying covariates and common factors, along with unit and time fixed effects:
 
@@ -231,7 +232,7 @@ Y_{it} = D_{i} \delta_{t} + X_{it}\beta + (X_{it}\Gamma) F_{t} + \alpha_i + \xi_
 
 \begin{figure}[!ht]
     \centering
-    \caption{\textbf{GSC-IPCA Data Generating Process}}
+    \caption{\textbf{CSC-IPCA Data Generating Process}}
     \includegraphics{figs/data_plot.png}
     \label{fig: sim}
     \caption*{\footnotesize{In this graphic, the upper panel plots simulated data following the above data generating process. The light blue lines represent treated units and the light gray lines represent controls. Key parameters are$N_{treat} = 5, N_{ctrl} = 45, T_0=20, T_1=10, L=10$. The lower panel plots a simple event study.}}
@@ -240,25 +241,25 @@ Y_{it} = D_{i} \delta_{t} + X_{it}\beta + (X_{it}\Gamma) F_{t} + \alpha_i + \xi_
 Figure \ref{fig: sim} represents the simulated data following our data generating process. Observations from the upper panel indicate that the parallel trend assumption is not met. To verify this, we plot a simple event study, clearly revealing a failure in the parallel trend assumption. Furthermore, outcomes for treated units are marginally higher than for control units. In such cases, the synthetic control method will be biased, as it avoids extrapolation and typically fit poorly for treated units.
 
 \subsection{A simulated example}
-Following this data generating process, figure \ref{fig: est} illustrates both the raw data and the imputed counterfactual outcomes as estimated by the GSC-IPCA method. In the upper panel, control units are represented in gray and treated units in light blue, with the average outcome for treated units highlighted in orange. The imputed synthetic average for treated outcomes is also shown, delineated by an orange dashed line. The GSC-IPCA method is capable of capturing the trajectory of the average outcome for treated units before treatement. The lower panel of Figure \ref{fig: est} shows the estimated ATT (dashed line) with the true ATT (solid line). The GSC-IPCA method is able to capture the true ATT, as evidenced by the close alignment between the dashed and solid lines.
+Following this data generating process, figure \ref{fig: est} illustrates both the raw data and the imputed counterfactual outcomes as estimated by the CSC-IPCA method. In the upper panel, control units are represented in gray and treated units in light blue, with the average outcome for treated units highlighted in orange. The imputed synthetic average for treated outcomes is also shown, delineated by an orange dashed line. The CSC-IPCA method is capable of capturing the trajectory of the average outcome for treated units before treatement. The lower panel of Figure \ref{fig: est} shows the estimated ATT (dashed line) with the true ATT (solid line). The CSC-IPCA method is able to capture the true ATT, as evidenced by the close alignment between the dashed and solid lines.
 
 \begin{figure}[!ht]
     \centering
-    \caption{\textbf{GSC-IPCA Estimated ATT for Simulated Sample}}
+    \caption{\textbf{CSC-IPCA Estimated ATT for Simulated Sample}}
     \includegraphics{figs/estimation.png}
     \label{fig: est}
-    \caption*{\footnotesize{This graphic plots the GSC-IPCA method estimated ATT for simulated data $N_{treat} = 5, N_{ctrl} = 45, T_0=20, T_1=10, L=10$.}}
+    \caption*{\footnotesize{This graphic plots the CSC-IPCA method estimated ATT for simulated data $N_{treat} = 5, N_{ctrl} = 45, T_0=20, T_1=10, L=10$.}}
     \end{figure}
 
 \subsection{Bias comparision}
-Based on the same data generating process and parameters, we compare the GSC-IPCA, GSC-IFE, and SCM estimators with 1000 simulations. Figure \ref{fig: bias} illustrates the bias among these estimation methods. In panel 1, where all covariates are observed, both GSC-IPCA and GSC-IFE demonstrate unbiasedness and effectively estimate the true ATT. However, due to the outcomes of treated units falling outside the convex hull of control units, the SCM exhibits an upward bias. This scenario is common in empirical studies where only a limited number of covariates are observed. As depicted in Figure \ref{fig: bias}, from left to right, we progressively observe all 10, then 6 (2/3), and finally 3 (1/3) covariates. With an increase in the number of unobserved covariates, both GSC-IPCA and GSC-IFE lose efficiency; however, the GSC-IPCA estimator remains unbiased.
+Based on the same data generating process and parameters, we compare the CSC-IPCA, CSC-IFE, and SCM estimators with 1000 simulations. Figure \ref{fig: bias} illustrates the bias among these estimation methods. In panel 1, where all covariates are observed, both CSC-IPCA and CSC-IFE demonstrate unbiasedness and effectively estimate the true ATT. However, due to the outcomes of treated units falling outside the convex hull of control units, the SCM exhibits an upward bias. This scenario is common in empirical studies where only a limited number of covariates are observed. As depicted in Figure \ref{fig: bias}, from left to right, we progressively observe all 10, then 6 (2/3), and finally 3 (1/3) covariates. With an increase in the number of unobserved covariates, both CSC-IPCA and CSC-IFE lose efficiency; however, the CSC-IPCA estimator remains unbiased.
 
 \begin{figure}[!ht]
     \centering
     \caption{\textbf{Bias Comparing with Other Methods}}
     \includegraphics{figs/bias_compar1.png}
     \label{fig: bias}
-    \caption*{\footnotesize{This graphic plots the GSC-IPCA method estimated ATT for simulated data $N_{treat} = 5, N_{ctrl} = 45, T_0=20, T_1=10, L=10$.}}
+    \caption*{\footnotesize{This graphic plots the CSC-IPCA method estimated ATT for simulated data $N_{treat} = 5, N_{ctrl} = 45, T_0=20, T_1=10, L=10$.}}
     \end{figure}
 
 \subsection{Finate sample properties}
@@ -297,7 +298,7 @@ Firms'
 \renewcommand\thetable{\Alph{section}.\arabic{table}}
 \renewcommand\thefigure{\Alph{section}.\arabic{figure}}
 
-\subsection*{A.1 Estimation of the GSC-IPCA Estimator Using the ALS Algorithm}
+\subsection*{A.1 Estimation of the CSC-IPCA Estimator Using the ALS Algorithm}
 
 As outlined in Equation \ref{eqn: functional form}, the data generating process can be described by:
 
@@ -305,7 +306,7 @@ As outlined in Equation \ref{eqn: functional form}, the data generating process 
 Y_{it} = (X_{it}\Gamma) F_{t} + \epsilon_{it}, \quad \epsilon_{it} = \mu_{it} + H_{it} F_t.
 \end{equation*}
 
-Equation \ref{eq: optimization} details the derivation of the GSC-IPCA estimator from the minimization problem:
+Equation \ref{eq: optimization} details the derivation of the CSC-IPCA estimator from the minimization problem:
 
 \begin{equation*}
 (\hat{\Gamma}, \hat{F}_t) = \underset{\Gamma, F_t}{\arg\min} \sum_{i \in N} \sum_{t \in T} \left( Y_{it} - (X_{it}\Gamma) F_{t} \right)' \left( Y_{it} - (X_{it}\Gamma) F_{t} \right).
