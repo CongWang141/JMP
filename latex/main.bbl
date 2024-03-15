@@ -1,4 +1,4 @@
-\begin{thebibliography}{19}
+\begin{thebibliography}{22}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -54,6 +54,11 @@ Victor Chernozhukov, Kaspar W{\"u}thrich, and Yinchu Zhu.
 \newblock An exact and robust conformal inference method for counterfactual and synthetic controls.
 \newblock \emph{Journal of the American Statistical Association}, 116\penalty0 (536):\penalty0 1849--1864, 2021.
 
+\bibitem[Imbens(2024)]{imbens2024causal}
+Guido~W Imbens.
+\newblock Causal inference in the social sciences.
+\newblock \emph{Annual Review of Statistics and Its Application}, 11, 2024.
+
 \bibitem[Imbens and Rubin(2015)]{imbens2015causal}
 Guido~W Imbens and Donald~B Rubin.
 \newblock \emph{Causal inference in statistics, social, and biomedical sciences}.
@@ -84,6 +89,11 @@ Jerzy Neyman.
 \newblock On the application of probability theory to agricultural experiments. essay on principles. section 9.
 \newblock \emph{Statistical Science}, pages 465--472, 1932.
 
+\bibitem[Roth et~al.(2023)Roth, Sant’Anna, Bilinski, and Poe]{roth2023s}
+Jonathan Roth, Pedro~HC Sant’Anna, Alyssa Bilinski, and John Poe.
+\newblock What’s trending in difference-in-differences? a synthesis of the recent econometrics literature.
+\newblock \emph{Journal of Econometrics}, 235\penalty0 (2):\penalty0 2218--2244, 2023.
+
 \bibitem[Rubin(1974)]{rubin1974estimating}
 Donald~B Rubin.
 \newblock Estimating causal effects of treatments in randomized and nonrandomized studies.
@@ -93,6 +103,11 @@ Donald~B Rubin.
 Donald~B Rubin.
 \newblock Causal inference using potential outcomes: Design, modeling, decisions.
 \newblock \emph{Journal of the American Statistical Association}, 100\penalty0 (469):\penalty0 322--331, 2005.
+
+\bibitem[Shafer and Vovk(2008)]{shafer2008tutorial}
+Glenn Shafer and Vladimir Vovk.
+\newblock A tutorial on conformal prediction.
+\newblock \emph{Journal of Machine Learning Research}, 9\penalty0 (3), 2008.
 
 \bibitem[Xu(2017)]{xu2017generalized}
 Yiqing Xu.

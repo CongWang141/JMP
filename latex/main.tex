@@ -30,7 +30,7 @@
 \label{sec:introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this paper, we propose a new counterfactual imputation method that leverages the dimension reduction capability of principal component analysis (PCA) method (\cite{jollife2016principal}) and the flexibility of the IFE model (\cite{bai2003computation}) to both enhance the value extracted from numerous covariates and improve the predictive accuracy. We name the newly proposed method the counterfactual and synthetic control method with instrumented principal component analysis (CSC-IPCA), aligning with the previous counterfactual and synthetic control method with interactive fixed effects (CSC-IFE) proposed by \cite{xu2017generalized}. To model the entire data generating process, the CSC-IPCA estimator is designed to overcome the constraints of unconfoundedess assumption required by methodologies such as matching (\cite{abadie2011bias, abadie2006large}), diffference-in-differences (DID) (\cite{card1993minimum}), and others. Furthermore, it addresses the limitation observed in the original SCM (\cite{abadie2010synthetic}) and its variants (\cite{ben2021augmented}, \cite{arkhangelsky2021synthetic}), which necessitate the outcomes of treated units to lie inside or not far from the convex hull formed by control units. 
+In this paper, we propose a new counterfactual imputation method that leverages the dimension reduction capability of principal component analysis (PCA) method (\cite{jollife2016principal}) and the flexibility of the interactive fixed effect model (\cite{bai2003computation}) to both enhance the value extracted from numerous covariates and improve the predictive accuracy. We name the newly proposed method the counterfactual and synthetic control method with instrumented principal component analysis (CSC-IPCA), aligning with the previous counterfactual and synthetic control method with interactive fixed effects (CSC-IFE) proposed by \cite{xu2017generalized}. To model the entire data generating process, the CSC-IPCA estimator is designed to overcome the constraints of unconfoundedess assumption required by methodologies such as matching (\cite{abadie2011bias, abadie2006large}), diffference-in-differences (DID) (\cite{card1993minimum}), and others. Furthermore, it addresses the limitation observed in the original synthetic control method (\cite{abadie2010synthetic}) and its variants (\cite{ben2021augmented}, \cite{arkhangelsky2021synthetic}), which necessitate the outcomes of treated units to lie inside or not far from the convex hull formed by control units. 
 
 Causal inference in economics and other social sciences is frequently complicated by the absence of a counterfactual, which is essential for evaluating the impact of a treatment or policy intervention. \cite{imbens2015causal} state that at some level, all methods for causal inference can be viewed as imputation methods, although some are more explicitly than others. For instance, under certain assumptions, the matching method implicitly imputes the missing counterfactuals for treated units with meticulously selected control units. While SCM method explicitly imputes the missing counterfactual with weighted average of control units. Our method aligns with the recent trend in causal inference literature, aiming to explicitly impute the missing counterfactual by modeling the entire data generating process, a strategy also highlighted by \cite{athey2021matrix} with their matrix completion (MC) method.
 
@@ -207,10 +207,35 @@ We can also utilize leave-one-out cross-validation to select the hyperparameter 
     \caption{Leave-One-Out Cross-Validation for Hyperparameter $k$}
     \label{algorithm: 2}
 \end{algorithm}
-    
+
 \subsection{Inference}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-We use the conformal inference designed by \cite{chernozhukov2021exact} to build the confidnece interval.
+
+In our approach to causal inference, we focus on modeling the whole data generating process to impute unobserved counterfactuals. Unlike approaches that rely on parametric bootstrap procedures for obtaining uncertainty estimates for inference, as used by \cite{xu2017generalized}, conformal inference (\cite{chernozhukov2021exact}) has gained popularity in recent literature such as \cite{ben2021augmented}, \cite{roth2023s}, and \cite{imbens2024causal}. This causal inference framework, designed for predicting missing counterfactuals, allows us to construct inference procedures based on conformal prediction introduced by \cite{shafer2008tutorial} for the robustness against misspecification. The causal effect is identified as the difference between the observed outcomes and these estimated counterfactuals, expressed mathematically as:
+
+\begin{equation*}
+\theta_{it} = Y_{it} - \hat{Y}_{it}, \quad \forall i \in N_{tr}, \quad \text{and} \quad \forall t \in T_{post},
+\end{equation*}
+
+\noindent where $\theta_{it}$ denotes the treatment effect for unit $i$ at time $t$, and $\hat{Y}_{it}$ represents the imputed counterfactual outcome. 
+    
+To conduct conformal inference, we first postulate a sharp null hypothesis, $H_0: \theta_{it} = \theta_{it}^0$. Under this null hypothesis, we adjust the outcome for treated units post treatment as $\tilde{Y}_{it} = Y_{it} - \theta_{it}$. We then replace the original dataset with this adjusted part, $\tilde{Y}_{it}$. Secondly, following the estimation procedures described in Section \ref{sec: estimation} to estimate the time varying factor $F$ with only control data as before, and update the $\Gamma$ for the newly adjusted treated units with the entire set of treated units\footnote{As a clarification, in the estimation section, we update $\Gamma$ using only the treated units before treatment. However, for inference, we use the entire set of treated units to update 
+$\Gamma$.}. The concept revolves around updating the $\Gamma$ using all the treated units, under the assumed null hypothesis, to minimize the occurrence of large residuals after intervention.
+
+Thirdly, we estimate the treatment effect and compute the residuals for the treated units in the post treatment period. The test statistic showing how large the residual is under the null:
+
+\begin{equation}
+S(\hat{\mu}) = \left(\frac{1}{\sqrt{T_*}}\sum_{t \in T_1} |\hat{\mu}|^q \right)
+\end{equation}
+
+Where $\hat{\mu}$ represents the residual for the treated units in the post-treatment periods, we employ $q=1$ for the permanent intervention effect as designed in our study. A high value of the test statistic indicates a poor post treatment fit, suggesting that the treatment effect postulated by the null is unlikely to be observed, hence leading to the null's rejection. 
+
+Finally, we block permute the residuals and calculate the test statistic in each permutation. The P-value is defined as:
+\begin{equation}
+\hat{p} = 1 - \hat{F}(S(\hat{u})), \text{ where } \hat{F}(x) = \frac{1}{|\Pi|} \sum_{\pi \in \Pi} 1\{S(\hat{u}_\pi) < x\}.
+\end{equation}
+
+\noindent where $\Pi$ represents the set of all block permutations, the test statistic for each permutation is denoted by $S(\hat{\mu}_{\pi})$, , with $x$ being the test statistic calculated from the unpermuted residuals. By employing different sets of nulls, we can compute a confidence interval at a specified confidence level.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

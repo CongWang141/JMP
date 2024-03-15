@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 import scipy.linalg as sla
 import scipy.sparse.linalg as ssla
+from joblib import Parallel, delayed
+
 
 # matrix left/right division (following MATLAB function naming)
 _mldivide = lambda denom, numer: sla.lstsq(np.array(denom), np.array(numer))[0]
@@ -51,7 +53,7 @@ class CSC_IPCA(object):
         # estimate F1 and Gama1 by ALS algorithm
         iter, tol = 0, float('inf')
         while iter < MaxIter and tol > MinTol:
-            Gama1, F1 = als_est(F0, Y0, X0, K)
+            Gama1, F1 = als_est(Y0, X0, K, F0)
             tol_Gama = abs(Gama1 - Gama0).max()
             tol_F = abs(F1 - F0).max()
             tol = max(tol_Gama, tol_F)
@@ -84,72 +86,42 @@ class CSC_IPCA(object):
                 
         return Y_syn
     
-    def inference(self, nulls, window, verbose=False, MaxIter=100, MinTol=1e-6):
+    def inference(self, nulls, alpha, n_jobs=-1, verbose=False):
         """
-        Conduct confermal inference
+        Conduct conformal inference.
+        n_jobs: Number of jobs to run in parallel. Default is -1, using all CPUs.
         """
-        # gen the treatment starting time
-        tr_start = self.df.query("post_period==1")[self.time].min()
-        # gen a data frame to store the computed confidence interval
-        CI_df = pd.DataFrame()
-        for t in range(tr_start, tr_start + window):
-            # append the target year to the control data
-            df_app = self.df[(self.df[self.time] < tr_start) | (self.df[self.time]==t)]
-            # gen a dic to store the result
-            p_values = {}
-            for null in nulls:
-                # remember we use the whole data to estimate Gama and F (different from estimation)
-                # assign the null
-                null_data = under_null(df_app, null, self.outcome, self.treated)
+        def estimate_ci_for_period(period):
+            ci = confidence_interval_period(
+                df=self.df,
+                id=self.id,
+                time=self.time, 
+                outcome=self.outcome, 
+                treated=self.treated, 
+                covariates=self.covariates, 
+                nulls=nulls, 
+                K=self.K,
+                period=period,
+                alpha=alpha)
 
-                # gen Y0, X0 to estimate F
-                Y0, X0 = _prepare_matrix(null_data, self.covariates, self.id, self.time, self.outcome)
-                _, _, L = X0.shape
-                # initialize F0, Gama0
-                svU, svS, svV = ssla.svds(Y0, self.K)
-                svU, svS, svV = np.fliplr(svU), svS[::-1], np.flipud(svV)
-                F0 = np.diag(svS) @ svV
-                Gama0 = np.zeros((L, self.K))
-
-                # update F and Gama
-                tol, iter = float('inf'), 0
-                while tol > MinTol and iter < MaxIter:
-                    Gama1, F1 = als_est(F0, Y0, X0, self.K)
-                    tol_Gama = abs(Gama1 - Gama0).max()
-                    tol_F = abs(F1 - F0).max()
-                    tol = max(tol_Gama, tol_F)
-                    F0, Gama0 = F1, Gama1
-                    iter += 1
-
-                # prepare treated data for the whole period
-                Y1, X1 = _prepare_matrix(null_data.query("tr_group==1"), self.covariates, self.id, self.time, self.outcome)
-                # compute Gama_tr with treated data
-                Gama_tr = estimate_gama(Y1, X1, F1, self.K)
-                # compute the Y_syn
-                Y_syn = compute_syn(X1, Gama_tr, F1)
-
-                # compute the residual
-                residuals = Y1 - Y_syn
-
-                resid_df = pd.DataFrame({
-                    'y': Y1.mean(axis=0),
-                    'y_hat': Y_syn.mean(axis=0),
-                    'residuals': residuals.mean(axis=0),
-                    'post_period': null_data.groupby(self.time).post_period.max()
-                })[lambda d: d.index < (tr_start + window)]
-
-                # compute p value
-                p_val = p_value(resid_df, 1)
-                # append the computed p value to the dic
-                p_values[null] = p_val
-            # convert into dataframe
-            p_values_df = pd.DataFrame(p_values, index=[t]).T
-
-            ci = confidence_interval(p_values_df, 0.1)
-            CI_df = pd.concat([CI_df, ci], axis=0)
             if verbose:
-                print(f'Compute CI for year {t} is completed!')
-        return CI_df
+                print(f'Estimation for period {period} is completed!')
+            return ci
+
+        # Determine the range of periods for inference.
+        treatment_periods = self.df[self.df[self.treated] == 1][self.time].unique()
+        start_period, end_period = treatment_periods.min(), treatment_periods.max()
+
+        # Use parallel computation for each period.
+        confidence_intervals = Parallel(n_jobs=n_jobs)(
+            delayed(estimate_ci_for_period)(period)
+            for period in range(start_period, end_period + 1)
+        )
+
+        # Combine results into a single DataFrame.
+        ci_df = pd.concat(confidence_intervals, axis=0)
+
+        return ci_df
 
 ##############################################
 # define a function to prepare matrix
@@ -158,38 +130,31 @@ def _prepare_matrix(df, covariates, id, time, outcome):
     X = np.array([df.pivot(index=id, columns=time, values=x).values for x in covariates]).transpose(1, 2, 0)    
     return Y, X
 
-# define a function to alteratively solve for gamma and F
-def als_est(F0, Y, X, K):
-    """
-    Alternating Least Squares (ALS) algorithm to estimate F1 and Gama1
-    """
-    # dataset dimension
+# define a function to conduct ALS estimation
+def als_est(Y, X, K, F0):
     N, T, L = X.shape
-    # with F0 fixed, estimate Gama1
-    vec_len = L * K
-    numer, demon = np.zeros(vec_len), np.zeros((vec_len, vec_len))
+    # with F fixed, estimate Gama
+    vec_len = L*K
+    numer, denom = np.zeros(vec_len), np.zeros((vec_len, vec_len))
     for t in range(T):
         for i in range(N):
-            # x_it is Lx1 vector for each unit i at time t
+            # slice X and F
             X_slice = X[i, t, :]
-            # F_t is Kx1 vector for each time t
             F_slice = F0[:, t]
-            # compute the kronecker product of F_t and x_it
+            # compute kronecker product
             kron_prod = np.kron(X_slice, F_slice)
-            # update numer and demon
+            # update numer and denom
             numer += kron_prod * Y[i, t]
-            demon += np.outer(kron_prod, kron_prod)
+            denom += np.outer(kron_prod, kron_prod)
+    # solve for Gama
+    Gama1 = _mldivide(denom, numer).reshape(L, K)
 
-    # solve for Gama1 using matrix left division
-    Gama1 = _mldivide(demon, numer).reshape(L, K)
-
-    # with Gama1 fixed, estimate F1
+    # with Gama fixed, estimate F
     F1 = np.zeros((K, T))
     for t in range(T):
-        denom = Gama1.T@X[:, t, :].T@X[:, t, :]@Gama1
-        numer = Gama1.T@X[:, t, :].T@Y[:, t]
+        denom = Gama1.T@X[:,t,:].T@X[:,t,:]@Gama1
+        numer = Gama1.T@X[:,t,:].T@Y[:,t]
         F1[:, t] = _mldivide(denom, numer)
-
     return Gama1, F1
 
 # define a function to compute Gama for treated units
@@ -210,40 +175,104 @@ def estimate_gama(Y, X, F1, K):
     Gama1 = _mldivide(denom, numer).reshape(L, K)
     return Gama1
 
-# define a function to compute counterfactual for treated units
+# build a function to predict the synthetic control
 def compute_syn(X, Gama, F):
     N, T, L = X.shape
-    Y_syn = np.zeros((N, T))
-    for i in range(N):
-        for t in range(T):
-            Y_syn[i, t] = X[i, t, :] @ Gama @ F[:, t]
-    return Y_syn
+    Y_hat = np.zeros((N, T))
+    for t in range (T):
+        for i in range(N):
+            Y_hat[i, t] = X[i, t, :] @ Gama @ F[:, t]
+    return Y_hat
 
-# define a function to assign the null
-def under_null(df, null, outcome, treated):
+# define a function to generate the null
+def under_null(df, null, treated):
     data = df.copy()
-    y = np.where(data[treated]==1, data[outcome] - null, data[outcome])
-    return data.assign(**{outcome: y})
+    y = np.where(data[treated]==1, data['y'] - null, data['y'])
+    return data.assign(**{'y': y})
 
-# define a function to compute test statistics
+# define a function to compute F and Gama
+def update_parameter(Y, X, K, MaxIter=100, MinTol=1e-6, verbose=False):
+    _, _, L = X.shape
+    # initial guess
+    svU, svS, svV = ssla.svds(Y, K)
+    svU, svS, svV = np.fliplr(svU), svS[::-1], np.flipud(svV)
+    # initial guess for F
+    F0 = np.diag(svS) @ svV
+    # initial guess for Gama
+    Gama0 = np.zeros((L, K))
+
+    # iteratively update F and Gama
+    tol, iter = float('inf'), 0
+    while tol > MinTol and iter < MaxIter:
+        Gama1, F1 = als_est(Y, X, K, F0)
+        tol_Gama = abs(Gama1 - Gama0).max()
+        tol_F = abs(F1 - F0).max() 
+        tol = max(tol_Gama, tol_F)
+        if verbose:
+            print(f'iter: {iter}, tol_Gama: {tol_Gama}, tol_F: {tol_F}')
+        F0, Gama0 = F1, Gama1
+        iter += 1
+    return F1, Gama1
+
+# define a function to compute test statistic
 def test_statistic(u_hat, q=1, axis=0):
-    return (np.abs(u_hat)**q).mean(axis=axis)**(1/q)
+    return (np.abs(u_hat) ** q).mean(axis=axis) ** (1/q)
 
-# define a function to compute p value
-def p_value(resid_df, q=1):
-    u = resid_df.residuals.values
-    post_period = resid_df.post_period == 1
+# build a function to compute p value
+def compute_pvalue(y, yhat, window):
+    residual = y - yhat
+    block_permutations = np.stack([np.roll(residual, permutation, axis=0)[-window:] for permutation in range(len(residual))])
 
-    block_permutation = np.stack([np.roll(u, permutations, axis=0)[post_period] for permutations in range(len(u))])
+    test_stat = test_statistic(block_permutations, q=1, axis=1)
+    p_val = np.mean(test_stat >= test_stat[0])
+    return p_val
 
-    statistics = test_statistic(block_permutation, q=q, axis=1)
-    p_value = np.mean(statistics >= statistics[0])
-    return p_value
+# grid search the p value under different null hypothesis
+def pval_grid(df, id, time, outcome, treated, covariates, nulls, K):
+    # build a dic to store p value
+    p_vals = {}
+    for null in nulls:
+        # assign the null
+        null_df = under_null(df, null, treated)
+
+        # prepare the matrix for control units
+        Y0, X0 = _prepare_matrix(null_df[null_df['tr_group']==0], covariates, id, time, outcome)
+        # estimate F
+        F, _ = update_parameter(Y0, X0, K)
+
+        # prepare the matrix for treated units
+        Y1, X1 = _prepare_matrix(null_df[null_df['tr_group']==1], covariates, id, time, outcome)
+        # estimate Gama
+        Gama_tr = estimate_gama(Y1, X1, F, K)
+
+        # compute synthetic control
+        Y_hat = compute_syn(X1, Gama_tr, F).mean(axis=0)
+
+        # compute residual
+        Y_mean = null_df[null_df['tr_group']==1].groupby(time).y.mean()
+        # compute p value
+        p_val = compute_pvalue(Y_mean, Y_hat, window=1) # window = 1 for period by period estimation
+        p_vals[null] = p_val
+    return p_vals
 
 # define a function to compute confidence interval
-def confidence_interval(p_vals, alpha=0.1):
+def confidence_interval(p_vals, alpha):
     big_p_vals = p_vals[p_vals.values >= alpha]
     return pd.DataFrame({
         f"{int(100-alpha*100)}_ci_lower": big_p_vals.index.min(),
         f"{int(100-alpha*100)}_ci_upper": big_p_vals.index.max()
     }, index=[p_vals.columns[0]])
+
+# define a function to compute the confidence interval period by period
+def confidence_interval_period(df, id, time, outcome, treated, covariates, nulls, K, period, alpha):
+    # append the targeting period to the pre-treatment period
+    df_aug = df[(df['post_period']==0) | (df[time]==period)]
+    
+    # grid search p values under different null hypothesis
+    p_vals = pval_grid(df_aug, id, time, outcome, treated, covariates, nulls, K)
+    # covert into dataframe
+    p_vals = pd.DataFrame(p_vals, index=[period]).T
+
+    # compute confidence interval
+    ci = confidence_interval(p_vals, alpha=alpha)
+    return ci
