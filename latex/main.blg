@@ -3,44 +3,46 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 The style file: plainnat.bst
 Database file #1: citation.bib
-You've used 22 entries,
+Warning--there's a number but no volume in brave2009chicago
+You've used 25 entries,
             2773 wiz_defined-function locations,
-            737 strings with 8469 characters,
-and the built_in function-call counts, 9762 in all, are:
-= -- 881
-> -- 502
-< -- 15
-+ -- 172
-- -- 150
-* -- 793
-:= -- 1498
-add.period$ -- 65
-call.type$ -- 22
-change.case$ -- 114
-chr.to.int$ -- 22
-cite$ -- 44
-duplicate$ -- 449
-empty$ -- 842
-format.name$ -- 186
-if$ -- 2031
+            755 strings with 8895 characters,
+and the built_in function-call counts, 11039 in all, are:
+= -- 1001
+> -- 552
+< -- 18
++ -- 190
+- -- 165
+* -- 887
+:= -- 1689
+add.period$ -- 74
+call.type$ -- 25
+change.case$ -- 128
+chr.to.int$ -- 25
+cite$ -- 51
+duplicate$ -- 516
+empty$ -- 958
+format.name$ -- 204
+if$ -- 2304
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 23
-newline$ -- 117
-num.names$ -- 88
-pop$ -- 215
+missing$ -- 26
+newline$ -- 132
+num.names$ -- 100
+pop$ -- 242
 preamble$ -- 1
-purify$ -- 94
+purify$ -- 105
 quote$ -- 0
-skip$ -- 342
+skip$ -- 391
 stack$ -- 0
-substring$ -- 446
-swap$ -- 31
-text.length$ -- 1
+substring$ -- 507
+swap$ -- 41
+text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 232
-warning$ -- 0
-while$ -- 97
+type$ -- 265
+warning$ -- 1
+while$ -- 111
 width$ -- 0
-write$ -- 287
+write$ -- 326
+(There was 1 warning)

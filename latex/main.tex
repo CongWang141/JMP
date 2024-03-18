@@ -10,7 +10,7 @@
 \date{\today}
 \maketitle
 \begin{abstract}
-\noindent The fundamental problem of causal inference is missing data. Based on identification assumptions such as unconfoundedness, traditional methodologies impute the missing counterfactuals either implicitly or explicitly. However, the required assumptions are either too strong or untestable. Synthetic control methods (SCM) leverage data from the control group to impute the missing counterfactual for the treated post-treatment. Eventhough SCM relaxes these strict assumptions, it requires the treated unit to be inside the convex hull formulated by control units, in avoiding extrapolation. In recent advances, researchers modelling the entire data generating process (DGP) to impute the missing counterfactual explicitly. This paper expands the interactive fixed effect model by integrating covariates into dynamic factor loadings adding additional robustness. This methodology confers multiple benefits: firstly, it incorporates the strengths of previous SCM approaches, such as the relaxation of the Parallel Trends Assumption (PTA) and conditional randomization of treatment assignment. Secondly, it does not require the targeted outcomes inside the convex hull formulated by control units. Thirdly, it eliminates the need for correct functional form assumptions required by interactive fixed effect (IFE) model. Finally, it efficiently manages high-dimensional data and enhances the value extracted from numerous covariates.\\
+\noindent The fundamental problem of causal inference lies in the absence of counterfactuals. Traditional methodologies address this by implicitly or explicitly imputing the missing counterfactuals, relying on identification assumptions that are often untestable and too strong. synthetic control methods (SCM) leverage data from the control group to impute the missing counterfactual for the treated post treatment. Eventhough SCM relaxes some strict assumptions, it requires the treated unit to be inside the convex hull formulated by control units to avoid extrapolation. In recent advances, researchers modelling the entire data generating process (DGP) to impute the missing counterfactual explicitly. This paper expands the interactive fixed effect model by integrating covariates into dynamic factor loadings adding additional robustness. This methodology offers multiple benefits: firstly, it incorporates the strengths of previous SCM approaches, such as the relaxation of the untestable parallel trends assumption (PTA). Secondly, it does not require the targeted outcomes inside the convex hull formulated by control units. Thirdly, it eliminates the need for correct model specification required by interactive fixed effect (IFE) model. Finally, it inherits the ability of principal component anlaysis (PCA) to effectively handle high dimensional data and enhances the value extracted from numerous covariates.\\
 
 \noindent\textbf{Keywords:} Synthetic Control, Principal Component Analysis, Causal Inference\\
 
@@ -29,12 +29,23 @@
 \section{Introduction} 
 \label{sec:introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+In this paper, we introduce a novel counterfactual imputation method that combines the dimension reduction capabilities of principal component analysis \cite{jollife2016principal} with the flexibility of the interactive fixed effect model \cite{bai2003computation,bai2009panel}. This approach not only harnesses the strengths of PCA in managing high dimensional data but also adapts the versatility of IFE to accommodate a wide range of data generating processes. We name the newly proposed method the counterfactual and synthetic control method with instrumented principal component analysis (CSC-IPCA), aligning with the previous counterfactual and synthetic control method with interactive fixed effects (CSC-IFE) proposed by \cite{xu2017generalized}. To model the entire data generating process, the CSC-IPCA estimator is designed to overcome the constraints of unconfoundedess assumption required by methodologies such as matching (\cite{abadie2011bias, abadie2006large}), diffference-in-differences (DID) (\cite{card1993minimum}), and others. Furthermore, it addresses the limitation observed in the original synthetic control method (\cite{abadie2010synthetic}) and its variants (\cite{ben2021augmented}, \cite{arkhangelsky2021synthetic}), which necessitate the outcomes of treated units to lie inside or not far from the convex hull formed by control units. 
 
-In this paper, we propose a new counterfactual imputation method that leverages the dimension reduction capability of principal component analysis (PCA) method (\cite{jollife2016principal}) and the flexibility of the interactive fixed effect model (\cite{bai2003computation}) to both enhance the value extracted from numerous covariates and improve the predictive accuracy. We name the newly proposed method the counterfactual and synthetic control method with instrumented principal component analysis (CSC-IPCA), aligning with the previous counterfactual and synthetic control method with interactive fixed effects (CSC-IFE) proposed by \cite{xu2017generalized}. To model the entire data generating process, the CSC-IPCA estimator is designed to overcome the constraints of unconfoundedess assumption required by methodologies such as matching (\cite{abadie2011bias, abadie2006large}), diffference-in-differences (DID) (\cite{card1993minimum}), and others. Furthermore, it addresses the limitation observed in the original synthetic control method (\cite{abadie2010synthetic}) and its variants (\cite{ben2021augmented}, \cite{arkhangelsky2021synthetic}), which necessitate the outcomes of treated units to lie inside or not far from the convex hull formed by control units. 
+Causal inference in economics and other social sciences is frequently complicated by the absence of counterfactuals, which is essential for evaluating the impact of a treatment or policy intervention. \cite{imbens2015causal} state that at some level, all methods for causal inference can be viewed as imputation methods, although some are more explicitly than others. For instance, under certain assumptions, the matching method (\cite{abadie2006large, abadie2011bias}) implicitly imputes the missing counterfactuals for treated units with meticulously selected control units. The DID method (\cite{card1993minimum, ashenfelter1978estimating}), on the other hand, explicitly imputes the missing counterfactuals by differencing the treated and control units, based on the assumption of parallel trends. While the SCM method explicitly imputes the missing counterfactual with weighted average of control units. Our method aligns with the recent trend in causal inference literature, aiming to explicitly impute the missing counterfactual by modeling the entire data generating process, a strategy also highlighted by \cite{athey2021matrix} with their matrix completion (MC) method.
 
-Causal inference in economics and other social sciences is frequently complicated by the absence of a counterfactual, which is essential for evaluating the impact of a treatment or policy intervention. \cite{imbens2015causal} state that at some level, all methods for causal inference can be viewed as imputation methods, although some are more explicitly than others. For instance, under certain assumptions, the matching method implicitly imputes the missing counterfactuals for treated units with meticulously selected control units. While SCM method explicitly imputes the missing counterfactual with weighted average of control units. Our method aligns with the recent trend in causal inference literature, aiming to explicitly impute the missing counterfactual by modeling the entire data generating process, a strategy also highlighted by \cite{athey2021matrix} with their matrix completion (MC) method.
+The CSC-IPCA estimator builds upon the instrumented principal component analysis first introduced by \cite{kelly2020instrumented, kelly2019characteristics} in the context of predicting stock returns. Firstly, it assumes a simple fixed effect model as with \cite{bai2003computation} with only the interactive component between factor loadings and time varying factors:
 
-The CSC-IPCA estimator builds upon the instrumented principal component analysis first introduced by \cite{kelly2020instrumented, kelly2019characteristics} in the context of predicting stock returns. It extends the linear IFE model by first performing a dimension reduction operation to distill information from multiple covariates, thus obtaining unit-specific factor loadings, which inherit time-varying properties\footnote{The functional form of the data generating process in \cite{xu2017generalized} only sepcifies unit-varying factor loadings. Here we make the unit specific factor loadings to accomandate time-variying property.}. Subsequently, these factor loadings are interacted with time-varying factors. A critical feature of our approach is that the unit-specific factor loadings are instrumented by covariates, which provide additional robustness. Our simulations reveal that the CSC-IPCA estimator maintains its unbiasedness even in scenarios where some covariates remain unobserved, in contrast to the CSC-IFE estimator, which tends to exhibit bias under comparable conditions.
+\begin{equation}
+    Y_{it} = \Lambda_i F_t + \epsilon_{it}
+\end{equation}
+
+\noindent Secondly, it instruments the factor loadings $\Lambda_i$ with covariates $X_{it}$, which allows us to capture the time varying properties of the factor loadings:
+
+\begin{equation}
+    \Lambda_{it} = X_{it}\Gamma + H_{it}
+\end{equation}
+
+This approach presents three major advantages over the CSC-IFE method. First, it eliminates the necessity for correct model specification, a crucial demand of the CSC-IFE method. In CSC-IFE method, aside from the interactive component $\lambda_i F_t$, the model also mandates that covariates be included in the functional form linearly as regressors $X_{it}\beta$. Second, in the CSC-IPCA method, the unit specific factor loadings $\Lambda_{it}$ are instrumented by covariates, introducing time varying characteristics to the factor loadings. This adaptation is particularly realistic in many economic and social science contexts, where unit effects are not fixed, but fluctuating over time in response to covariates. Third, the CSC-IPCA method incorporates a dimension reduction operation by matrix $\Gamma$. This step is particularly beneficial for high-dimensional datasets with a large number of covariates. This feature makes it particularly valuable for financial data (\cite{feng2020taming}) and high dimensional macroeconomic time series data (\cite{brave2009chicago}).
 
 
 
@@ -280,22 +291,50 @@ Following this data generating process, figure \ref{fig: est} illustrates both t
 Based on the same data generating process and parameters, we compare the CSC-IPCA, CSC-IFE, and SCM estimators with 1000 simulations. Figure \ref{fig: bias} illustrates the bias among these estimation methods. In panel 1, where all covariates are observed, both CSC-IPCA and CSC-IFE demonstrate unbiasedness and effectively estimate the true ATT. However, due to the outcomes of treated units falling outside the convex hull of control units, the SCM exhibits an upward bias. This scenario is common in empirical studies where only a limited number of covariates are observed. As depicted in Figure \ref{fig: bias}, from left to right, we progressively observe all 10, then 6 (2/3), and finally 3 (1/3) covariates. With an increase in the number of unobserved covariates, both CSC-IPCA and CSC-IFE lose efficiency; however, the CSC-IPCA estimator remains unbiased.
 
 \begin{figure}[!ht]
-    \centering
-    \caption{\textbf{Bias Comparing with Other Methods}}
-    \includegraphics{figs/bias_compar1.png}
-    \label{fig: bias}
-    \caption*{\footnotesize{This graphic plots the CSC-IPCA method estimated ATT for simulated data $N_{treat} = 5, N_{ctrl} = 45, T_0=20, T_1=10, L=10$.}}
-    \end{figure}
+\centering
+\caption{\textbf{Bias Comparing with Other Methods}}
+\includegraphics{figs/bias_compar1.png}
+\label{fig: bias}
+\caption*{\footnotesize{This graphic plots the CSC-IPCA method estimated ATT for simulated data $N_{treat} = 5, N_{ctrl} = 45, T_0=20, T_1=10, L=10$.}}
+\end{figure}
 
 \subsection{Finate sample properties}
+We present the Monte Carlo simulation results in Table \ref{tab: finate sample} to investigate the finate sample properties of the CSC-IPCA estimator. The number of treated units and post treatment period are fixed to $N_{treat} = 5, T_1=5$. We vary the number of control units $N_{co}$, pre treatment period $T_0$ , and the proportion of observed covariates $\alpha$ with the total number of covariates $L=10$ to investigate the finate sample properties. As showing in the table \ref{tab: finate sample}, the bias, RMSE, and STD are estimated based on 1000 simulations\footnote{The root mean squared error (RMSE) is defined as $RMSE = \sqrt{\frac{1}{T_1}\sum_{t \in T_1}\left(ATT_t - \widehat{ATT}_t\right)^2}$. The standard deviation (STD) is defined as $STD = \frac{1}{T_1}\sum_{t \in T_1}\left(\widehat{ATT}_t - \frac{1}{T_1}\sum_{t \in T_1}\widehat{ATT_t}\right)^2$}. The results indicate that the bias of the CSC-IPCA estimator decreases as the number of control units and pre treatment period increases. The bias decreases the most when the proportion of observed covariates increases from $\frac{1}{3}$ to 1 (all covariates are observed). We observe similar pattern in RMSE and STD. It is worth noting that if we observe all the covariates (i.e., $\alpha = 1$), the bias, RMSE, and STD of the CSC-IPCA estimator are all reduce to the lowest level even with a small number of control units and pre treatment period.
 
+\begin{table}[!ht]
+\centering
+\caption{\textbf{Finate Sample Properties}}
+\label{tab: finate sample}
+\begin{tabular}{cc|ccc|ccc|ccc}
+\toprule
+\multicolumn{2}{c|}{$\alpha$} & $\frac{1}{3}$ & $\frac{2}{3}$ & 1 & $\frac{1}{3}$ & $\frac{2}{3}$ & 1 & $\frac{1}{3}$ & $\frac{2}{3}$ & 1 \\
+\hline
+$T_0$ & $N_{co}$ & \multicolumn{3}{c|}{Bias} & \multicolumn{3}{c|}{RMSE}  & \multicolumn{3}{c}{STD} \\
+\hline
+10 & 10 & 2.382 & 0.747 & 0.189 & 4.619 & 3.011 & 1.712 & 3.975 & 2.943 & 1.732 \\
+10 & 20 & 1.452 & 0.420 & 0.063 & 3.538 & 2.180 & 0.984 & 3.273 & 2.186 & 1.076 \\
+10 & 40 & 0.920 & 0.222 & 0.008 & 2.747 & 1.745 & 0.789 & 2.650 & 1.786 & 0.917 \\
+\cline{1-11}
+20 & 10 & 2.534 & 1.121 & 0.237 & 4.441 & 3.015 & 1.192 & 3.688 & 2.829 & 1.271 \\
+20 & 20 & 1.520 & 0.421 & 0.048 & 3.276 & 1.840 & 0.872 & 2.946 & 1.849 & 0.977 \\
+20 & 40 & 1.008 & 0.258 & 0.036 & 2.632 & 1.451 & 0.539 & 2.498 & 1.505 & 0.705 \\
+\cline{1-11}
+40 & 10 & 2.746 & 1.148 & 0.227 & 4.982 & 2.863 & 1.167 & 4.166 & 2.665 & 1.201 \\
+40 & 20 & 1.733 & 0.540 & 0.089 & 3.964 & 1.783 & 0.732 & 3.607 & 1.757 & 0.874 \\
+40 & 40 & 0.807 & 0.281 & 0.044 & 2.530 & 1.632 & 0.531 & 2.457 & 1.654 & 0.677 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+    \item This table presents the finate sample properties of the CSC-IPCA method estimated ATT for simulated data. The number of treated units and post treatment period are fixed to $N_{treat} = 5, T_1=5$. We vary the number of control units $N_{co}$, pre treatment period $T_0$, and proportion of observed covariates $\alpha$ to investigate the finate sample properties, the total number of covariates is $L=10$. The bias, RMSE, and STD are estimated based on 1000 simulations.
+\end{tablenotes}
+\end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Empirical Application}
 \label{sec: application}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this section, we
+In this section, we study the CSC-IPCA method with an empirical example. We apply the CSC-IPCA method to estimate the treatment effect of the Job Corps program on the earnings of participants. The Job Corps program is a federally funded education and vocational training program for disadvantaged youth in the United States. The program provides free education and vocational training to young people aged 16 to 24, with the aim of improving their employment prospects. The program has been evaluated in several studies. The data used in this study is from the National Job Corps Study (NJCS), which is a large-scale randomized controlled trial conducted in the 1990s. The NJCS data includes a sample of 16,000 young people who were randomly assigned to either the Job Corps program or a control group. The data includes information on the participants' earnings, education, and employment history. The data also includes a rich set of covari
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion} 

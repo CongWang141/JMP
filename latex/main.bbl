@@ -1,4 +1,4 @@
-\begin{thebibliography}{22}
+\begin{thebibliography}{25}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -25,6 +25,11 @@ Dmitry Arkhangelsky, Susan Athey, David~A Hirshberg, Guido~W Imbens, and Stefan 
 \newblock Synthetic difference-in-differences.
 \newblock \emph{American Economic Review}, 111\penalty0 (12):\penalty0 4088--4118, 2021.
 
+\bibitem[Ashenfelter(1978)]{ashenfelter1978estimating}
+Orley Ashenfelter.
+\newblock Estimating the effect of training programs on earnings.
+\newblock \emph{The Review of Economics and Statistics}, pages 47--57, 1978.
+
 \bibitem[Athey et~al.(2021)Athey, Bayati, Doudchenko, Imbens, and Khosravi]{athey2021matrix}
 Susan Athey, Mohsen Bayati, Nikolay Doudchenko, Guido Imbens, and Khashayar Khosravi.
 \newblock Matrix completion methods for causal panel data models.
@@ -45,6 +50,11 @@ Eli Ben-Michael, Avi Feller, and Jesse Rothstein.
 \newblock The augmented synthetic control method.
 \newblock \emph{Journal of the American Statistical Association}, 116\penalty0 (536):\penalty0 1789--1803, 2021.
 
+\bibitem[Brave(2009)]{brave2009chicago}
+Scott Brave.
+\newblock The chicago fed national activity index and business cycles.
+\newblock \emph{Chicago Fed Letter}, \penalty0 (Nov), 2009.
+
 \bibitem[Card and Krueger(1993)]{card1993minimum}
 David Card and Alan~B Krueger.
 \newblock Minimum wages and employment: A case study of the fast food industry in new jersey and pennsylvania, 1993.
@@ -53,6 +63,11 @@ David Card and Alan~B Krueger.
 Victor Chernozhukov, Kaspar W{\"u}thrich, and Yinchu Zhu.
 \newblock An exact and robust conformal inference method for counterfactual and synthetic controls.
 \newblock \emph{Journal of the American Statistical Association}, 116\penalty0 (536):\penalty0 1849--1864, 2021.
+
+\bibitem[Feng et~al.(2020)Feng, Giglio, and Xiu]{feng2020taming}
+Guanhao Feng, Stefano Giglio, and Dacheng Xiu.
+\newblock Taming the factor zoo: A test of new factors.
+\newblock \emph{The Journal of Finance}, 75\penalty0 (3):\penalty0 1327--1370, 2020.
 
 \bibitem[Imbens(2024)]{imbens2024causal}
 Guido~W Imbens.
