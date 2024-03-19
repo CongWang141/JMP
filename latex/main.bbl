@@ -1,4 +1,4 @@
-\begin{thebibliography}{25}
+\begin{thebibliography}{32}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -59,15 +59,35 @@ Scott Brave.
 David Card and Alan~B Krueger.
 \newblock Minimum wages and employment: A case study of the fast food industry in new jersey and pennsylvania, 1993.
 
+\bibitem[Chan et~al.(2016)Chan, Kwok, et~al.]{chan2016policy}
+Marc Chan, Simon Kwok, et~al.
+\newblock Policy evaluation with interactive fixed effects.
+\newblock \emph{Preprint. Available at https://ideas. repec. org/p/syd/wpaper/2016-11. html}, 2016.
+
 \bibitem[Chernozhukov et~al.(2021)Chernozhukov, W{\"u}thrich, and Zhu]{chernozhukov2021exact}
 Victor Chernozhukov, Kaspar W{\"u}thrich, and Yinchu Zhu.
 \newblock An exact and robust conformal inference method for counterfactual and synthetic controls.
 \newblock \emph{Journal of the American Statistical Association}, 116\penalty0 (536):\penalty0 1849--1864, 2021.
 
+\bibitem[Eberhardt and Bond(2009)]{eberhardt2009cross}
+Markus Eberhardt and Stephen Bond.
+\newblock Cross-section dependence in nonstationary panel models: a novel estimator.
+\newblock 2009.
+
 \bibitem[Feng et~al.(2020)Feng, Giglio, and Xiu]{feng2020taming}
 Guanhao Feng, Stefano Giglio, and Dacheng Xiu.
 \newblock Taming the factor zoo: A test of new factors.
 \newblock \emph{The Journal of Finance}, 75\penalty0 (3):\penalty0 1327--1370, 2020.
+
+\bibitem[Gobillon and Magnac(2016)]{gobillon2016regional}
+Laurent Gobillon and Thierry Magnac.
+\newblock Regional policy evaluation: Interactive fixed effects and synthetic controls.
+\newblock \emph{Review of Economics and Statistics}, 98\penalty0 (3):\penalty0 535--551, 2016.
+
+\bibitem[Hsiao et~al.(2012)Hsiao, Steve~Ching, and Ki~Wan]{hsiao2012panel}
+Cheng Hsiao, H~Steve~Ching, and Shui Ki~Wan.
+\newblock A panel data approach for program evaluation: measuring the benefits of political and economic integration of hong kong with mainland china.
+\newblock \emph{Journal of Applied Econometrics}, 27\penalty0 (5):\penalty0 705--740, 2012.
 
 \bibitem[Imbens(2024)]{imbens2024causal}
 Guido~W Imbens.
@@ -99,10 +119,20 @@ Bryan~T Kelly, Seth Pruitt, and Yinan Su.
 \newblock Instrumented principal component analysis.
 \newblock \emph{Available at SSRN 2983919}, 2020.
 
+\bibitem[Li(2018)]{li2018inference}
+Kathleen Li.
+\newblock Inference for factor model based average treatment effects.
+\newblock \emph{Available at SSRN 3112775}, 2018.
+
 \bibitem[Neyman(1932)]{splawa1990application}
 Jerzy Neyman.
 \newblock On the application of probability theory to agricultural experiments. essay on principles. section 9.
 \newblock \emph{Statistical Science}, pages 465--472, 1932.
+
+\bibitem[Pesaran(2006)]{pesaran2006estimation}
+M~Hashem Pesaran.
+\newblock Estimation and inference in large heterogeneous panels with a multifactor error structure.
+\newblock \emph{Econometrica}, 74\penalty0 (4):\penalty0 967--1012, 2006.
 
 \bibitem[Roth et~al.(2023)Roth, Sant’Anna, Bilinski, and Poe]{roth2023s}
 Jonathan Roth, Pedro~HC Sant’Anna, Alyssa Bilinski, and John Poe.
@@ -123,6 +153,11 @@ Donald~B Rubin.
 Glenn Shafer and Vladimir Vovk.
 \newblock A tutorial on conformal prediction.
 \newblock \emph{Journal of Machine Learning Research}, 9\penalty0 (3), 2008.
+
+\bibitem[Stock and Watson(2002)]{stock2002forecasting}
+James~H Stock and Mark~W Watson.
+\newblock Forecasting using principal components from a large number of predictors.
+\newblock \emph{Journal of the American statistical association}, 97\penalty0 (460):\penalty0 1167--1179, 2002.
 
 \bibitem[Xu(2017)]{xu2017generalized}
 Yiqing Xu.

@@ -4,45 +4,46 @@ The top-level auxiliary file: main.aux
 The style file: plainnat.bst
 Database file #1: citation.bib
 Warning--there's a number but no volume in brave2009chicago
-You've used 25 entries,
+Warning--empty journal in eberhardt2009cross
+You've used 32 entries,
             2773 wiz_defined-function locations,
-            755 strings with 8895 characters,
-and the built_in function-call counts, 11039 in all, are:
-= -- 1001
-> -- 552
-< -- 18
-+ -- 190
-- -- 165
-* -- 887
-:= -- 1689
-add.period$ -- 74
-call.type$ -- 25
-change.case$ -- 128
-chr.to.int$ -- 25
-cite$ -- 51
-duplicate$ -- 516
-empty$ -- 958
-format.name$ -- 204
-if$ -- 2304
+            792 strings with 10068 characters,
+and the built_in function-call counts, 13938 in all, are:
+= -- 1266
+> -- 694
+< -- 23
++ -- 239
+- -- 207
+* -- 1111
+:= -- 2137
+add.period$ -- 95
+call.type$ -- 32
+change.case$ -- 162
+chr.to.int$ -- 32
+cite$ -- 66
+duplicate$ -- 655
+empty$ -- 1213
+format.name$ -- 259
+if$ -- 2907
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 26
-newline$ -- 132
-num.names$ -- 100
-pop$ -- 242
+missing$ -- 33
+newline$ -- 167
+num.names$ -- 128
+pop$ -- 306
 preamble$ -- 1
-purify$ -- 105
+purify$ -- 132
 quote$ -- 0
-skip$ -- 391
+skip$ -- 495
 stack$ -- 0
-substring$ -- 507
-swap$ -- 41
+substring$ -- 630
+swap$ -- 47
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 265
-warning$ -- 1
-while$ -- 111
+type$ -- 342
+warning$ -- 2
+while$ -- 140
 width$ -- 0
-write$ -- 326
-(There was 1 warning)
+write$ -- 413
+(There were 2 warnings)
