@@ -64,8 +64,8 @@ class CSC_IPCA(object):
             iter += 1
 
         # store the estimated F and Gama
-        self.F = F1
-        self.Gama = Gama1
+        self.F1 = F1
+        self.Gama1 = Gama1
     
     def predict(self):
         """
@@ -77,12 +77,20 @@ class CSC_IPCA(object):
         Y, X = _prepare_matrix(self.df.query("tr_group==1 & post_period==0"), self.covariates, self.id, self.time, self.outcome)
 
         # estimate Gama_tr for treated units
-        Gama_tr = estimate_gama(Y, X, self.F, self.K)
+        Gama_tr = estimate_gama(Y, X, self.F1, self.K)
+
+        # normalize the estimated parameters
+        R1 = sla.cholesky(Gama_tr.T @ Gama_tr)
+        R2, _, _ = sla.svd(R1 @ self.F1 @ self.F1.T @ R1)
+        # matrix division
+        Gama_tr_norm = _mrdivide(Gama_tr, R1) @ R2
+        F1_norm = _mldivide(R2, R1 @ self.F1)
 
         # compute counterfactual for treated units all time periods
         _, X = _prepare_matrix(self.df.query("tr_group==1"), self.covariates, self.id, self.time, self.outcome)
-        Y_syn = compute_syn(X, Gama_tr, self.F)
-        self.Gama_tr = Gama_tr
+        Y_syn = compute_syn(X, Gama_tr_norm, F1_norm)
+        self.Gama = Gama_tr_norm
+        self.F = F1_norm
                 
         return Y_syn
     

@@ -37,7 +37,7 @@ Fixed effects models have long been explored in the econometrics literature rela
 
 \begin{equation}
 \label{eqn: static}
-    Y_{it} = \Lambda_i F_t + \epsilon_{it}
+    Y_{it} = \Lambda_i F_t + \mu_{it}
 \end{equation}
 
 \noindent Secondly, it instruments the factor loadings $\Lambda_i$ with covariates $X_{it}$, which allows us to capture the time varying properties of the factor loadings:
@@ -53,21 +53,13 @@ The instrumented factor loadings enhance our estimation of the time varying late
 
 This approach presents three major advantages over the CSC-IFE model and other fixed effect methods for causal inference. First, it eliminates the necessity for correct model specification, a crucial demand of the CSC-IFE method. In CSC-IFE method, aside from the interactive component $\lambda_i F_t$, the model also mandates that covariates be included in the functional form linearly as regressors $X_{it}\beta$. Second, in the CSC-IPCA method, the unit specific factor loadings $\Lambda_{it}$ are instrumented by covariates, introducing time varying characteristics to the factor loadings. This adaptation is particularly realistic in many economic and social science contexts, where unit effects are not fixed, but fluctuating over time in response to covariates. Third, the CSC-IPCA method incorporates a dimension reduction operation by matrix $\Gamma$. This step is particularly beneficial for high-dimensional datasets with a large number of covariates. This feature makes it particularly valuable for financial data (\cite{feng2020taming}) and high dimensional macroeconomic time series data (\cite{brave2009chicago}).
 
- 
-
-
-
-
-
-
- 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Framework} 
 \label{sec: framework}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Consider $Y_{it}$ as the observed outcome for a specific unit $i$ and time $t$. The total number of observed units from the panel is $N = N_{treat} + N_{ctrl}$, where $N_{treat}$ indicates the number of units in the treatment group $\mathcal{T}$ and $N_{ctrl}$ proxies the number of units in the control group $\mathcal{C}$. Each unit is observed over $T = T_{pre} + T_{post}$ periods, where $T_{pre}$ is the number of periods before treatment and $T_{post}$ is the number of periods post treatment. We observe the treatment effect at $T_{pre} + 1$ right after the beginning of the treatment and continue to observe there after till the end the observing periods, a scenario commonly referred to as staggered adoption. Following Equation \ref{eqn: static}, \ref{eqn: instrumented}, we assume that the outcome variable $Y_{it}$ is given by a simple interactive fixed effect model.
+Consider $Y_{it}$ as the observed outcome for a specific unit $i \ (i = 1, \dots, N)$ and time $t \ (t = 1, \dots, T)$. The total number of observed units from the panel is $N = N_{treat} + N_{ctrl}$, where $N_{treat}$ indicates the number of units in the treatment group $\mathcal{T}$ and $N_{ctrl}$ proxies the number of units in the control group $\mathcal{C}$. Each unit is observed over $T = T_{pre} + T_{post}$ periods, where $T_{pre}$ is the number of periods before treatment and $T_{post}$ is the number of periods post treatment. We observe the treatment effect at $T_{pre} + 1$ right after the beginning of the treatment and continue to observe there after till the end the observing periods, a scenario commonly referred to as staggered adoption. Following Equation \ref{eqn: static}, \ref{eqn: instrumented}, we assume that the outcome variable $Y_{it}$ is given by a simple interactive fixed effect model.
 
 \begin{assumption}
 Functional form:
@@ -105,23 +97,35 @@ Following \cite{splawa1990application} potential outcome framework (also discuss
 \subsection{Assumptions for identification}
 
 \begin{assumption}
-Unconfoundedness:
-\label{ass: unconfoundedess} 
+Error term $\epsilon_{it}$: 
+
+\begin{enumerate}
+    \item Exclusion restriction: $E[\epsilon_{it} | X_{it}] = 0, \quad E[\epsilon_{it} \epsilon_{it}'] \leq M <\infty.$
+    
+    \item Serial weak dependence: $E \left[N^{-1}\epsilon_s \epsilon_t' \right] = E \left[N^{-1}\sum_{i=1}^{N}\epsilon_{is}\epsilon_{it} \right] \leq M < \infty.$
+    
+    \item Cross sectional weak dependence: $E \left[T^{-1}\epsilon_i \epsilon_j' \right] = E \left[T^{-1}\sum_{t=1}^{T}\epsilon_{it}\epsilon_{jt} \right] \leq M < \infty.$
+    
+    \item Two way weak dependence: $E \left[N^{-1}T^{-1}\epsilon_{is} \epsilon_{jt}' \right] = E \left[N^{-1}T^{-1}\sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{t=1}^{T}\sum_{s=1}^{T}\epsilon_{is}\epsilon_{jt} \right] \leq M < \infty.$
+\end{enumerate}
+\label{ass: error} 
 \end{assumption}
 
-\begin{equation}
-\epsilon_{it} \perp D_{js}, X_{js}, F_s \quad \forall i, j, s, t.
-\label{eq: unconfoundedess}
-\end{equation}
-
-Assumption \ref{ass: unconfoundedess} stipulates that the error term for any unit at any time period is independent of treatment assignment, observed covariates, and unobserved time-varying factors. This independence is a crucial condition that lends substance to model Equation \ref{eq: combined} and is imperative for the consistent estimation of $\Gamma$.
+Assumption \ref{ass: error} imposes a series of constraints on the error term. The first condition mirrors the exclusion restriction found in instrumental variable regression. Similarly, the functional form outlined in \ref{eqn: functional form} bears resemblance to the framework used in two stage instrumental regression. From the second condition onwards within Assumption \ref{ass: error}, we permit the error term to exhibit limited time series and cross-sectional dependence. Furthermore, we do not impose constraints on the error term to be homoscedastic across either time or cross-sectional dimensions. This assumption allows for more stringent conditions, such as requiring the error term to be i.i.d., to be accommodated within its framework.
 
 \begin{assumption}
-Regularity conditions: (1) $\Gamma$ is bounded and has a finite second moment, (2) $F_t$ is bounded and has a finite second moment, (3) $X_{it}$ is bounded and has a finite second moment.
-\label{ass: regularity}
+\label{ass: factor}
+Factor $F_{t}$: $E||F_t||^4 \leq M < \infty$, and $T^{-1}\sum_{t=1}^TF_t F_t' \xrightarrow{P} \sum_{F}$ for some $k \times k$ positive definite matrix $\sum_{F}$
 \end{assumption}
 
-The regularity conditions outlined in Assumption \ref{ass: regularity} are essential for the consistent estimation of $\Gamma$ and $F_{t}$. Specifically, these conditions ensure that the matrix $\Gamma'X'_tX_t\Gamma$, which is involved in inversion processes, remains nonsingular (where $X_t$ denotes the $N \times L$ matrix consisting of the cross-section of $x_{i,t}$).
+In classical factor analysis, factors are often required to be i.i.d. However, we adopt a more general stance through Assumption \ref{ass: factor}, which does not mandate factors to be i.i.d. Instead, it requires them to have a bounded 4th moment, preventing arbitrary escalation. Additionally, the second moment is constrained to converge in probability to a specific positive definite matrix, $\Sigma_F$, ensuring the existence of its inverse.
+
+\begin{assumption}
+\label{ass: mapping matrix}
+Mapping matrix $\Gamma$ is compact and distanced from rank deficiency: $det \left(\Gamma' \Gamma \right) > \sigma$ for some arbitrarily small $\sigma > 0$
+\end{assumption}
+
+Assumption \ref{ass: mapping matrix} serves as a regularity condition, which is essential for the consistent estimation of $\Gamma$ and $F_t$. Specifically, it ensures that the matrix $\Gamma'X'_tX_t\Gamma$, which is involved in inversion processes, remains nonsingular (where $X_t$ denotes the $N \times L$ matrix consisting of the cross-section of $X_{i,t}$).
 
 \begin{assumption}
 Asymptotic normality:
@@ -134,42 +138,39 @@ Asymptotic normality:
 \label{ass: asy normal}
 \end{assumption}
 
-Assumption \ref{ass: asy normal} simply containes central limit theorems with respect to different variables, which are satisfied by various mixing processes.
+Assumption \ref{ass: asy normal} simply containes central limit theorems with respect to different variables, which are satisfied by various mixing processes. The first one is panel wise central limit theorem. The second on is a cross sectional central limit theorem for each contemporal time period, which guaratees the asympototic distribution of the estimation for factors $F_t$. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Estimation}
 \label{sec: estimation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The CSC-IPCA estimator of the treatment effect for a treated unit $i$ at time $t$ is defined as the difference between the observed outcome and its estimated counterfactual: $\delta_{it} = Y_{it}(1) - \hat{Y}_{it}(0)$. To combine the functional form in Equation \ref{eqn: functional form}, we get the structural component of the potential outcome $Y_{it} = (X_{it}\Gamma) F_{t}$. The CSC-IPCA method is estimated by minimizing the sum of squared residuals of the following objective function:
+The CSC-IPCA estimator of the treatment effect for a treated unit $i$ at time $t$ is defined as the difference between the observed outcome and its estimated counterfactual: $\delta_{it} = Y_{it}^1 - \hat{Y}_{it}^0$. To combine the functional form in Equation \ref{eqn: functional form}, we get the structural component of the potential outcome $Y_{it} = (X_{it}\Gamma) F_{t}$. The CSC-IPCA method is estimated by minimizing the sum of squared residuals of the following objective function:
 
 \begin{equation}
 \label{eqn: obj}
-\underset{\Gamma, F_t}{\arg\min} \sum_{i} \sum_{t}\left( Y_{it} - (X_{it}\Gamma) F_{t} \right)^2.
+\underset{\Gamma, F_t}{\arg\min} \sum_{i} \sum_{t}\left( Y_{it} - (X_{it}\Gamma) F_{t} \right)\left( Y_{it} - (X_{it}\Gamma) F_{t} \right)'.
 \end{equation}
 
-Unlike the IFE method (\cite{bai2009panel}), our approach requires estimating only two parameters, $\Gamma$ and $F_t$, simplifying the process. Different from principal component analysis (\cite{jolliffe2002principal}), our method involves using covariates to instrument the factor loadings component. This necessitates the estimation of $\Gamma$ rather than $\Lambda_i$, so we can not directly use eigenvalue decomposition. While the objective function in Equation \ref{eqn: obj} formulates the problem as minimizing a quadratic function with a single unknown variable (e.g., $\Gamma$) while holding the other variable (e.g., $F_t$) constant. This structure enables the application of the alternating least squares (ALS) method for a numerical solution. Generally, the imputation for the missing counterfactual $Y_{it}(0)$ is executed in three steps:
+Unlike the IFE method (\cite{bai2009panel,xu2017generalized}), our approach requires estimating only two parameters, $\Gamma$ and $F_t$, simplifying the process. Different from principal component analysis (\cite{jolliffe2002principal}), our method involves using covariates to instrument the factor loadings component. This necessitates the estimation of $\Gamma$ rather than $\Lambda_i$, so we can not directly use eigenvalue decomposition. While the objective function in Equation \ref{eqn: obj} formulates the problem as minimizing a quadratic function with a single unknown variable (e.g., $\Gamma$) while holding the other variable (e.g., $F_t$) constant. This structure enables the application of the alternating least squares (ALS) method for a numerical solution. Generally, the imputation for the missing counterfactual $Y_{it}(0)$ is executed in three steps:
 
 \textbf{Step 1:} The initial step entails estimating the time-varying factors $\hat{F}_t$ and the coefficient matrix $\hat{\Gamma}_{\text{ctrl}}$ utilizing an ALS algorithm, based exclusively on data from the control group for the whole time period.
 
 \begin{equation}
-(\hat{\Gamma}_{ctrl}, \hat{F_t}) = \underset{\Gamma, F_t}{\arg\min} \sum_{i \in N_{ctrl}} \sum_{t \in T}\left( Y_{it} - (X_{it}\Gamma) F_{t} \right)'\left( Y_{it} - (X_{it}\Gamma) F_{t} \right).
-\tag{3}
+(\hat{\Gamma}_{ctrl}, \hat{F_t}) = \underset{\Gamma, F_t}{\arg\min} \sum_{i \in N_{ctrl}} \sum_{t \in T}\left( Y_{it} - (X_{it}\Gamma) F_{t} \right)\left( Y_{it} - (X_{it}\Gamma) F_{t} \right)'.
 \label{eq: optimization}
 \end{equation}
 
 \textbf{Step 2:} The subsequent step involves estimating the coefficient matrix $\hat{\Gamma}_{treat}$ for treated unit $i$ at time $t$, employing the previously estimated time-varying factors $\hat{F}_t$ and the observed covariates $X_{it}$, using only pretreatment data from the treated units.
 
 \begin{equation}
-\hat{\Gamma}_{treat} = \underset{\Gamma}{\arg\min} \sum_{i \in N_{treat}} \sum_{t \in T_{pre}} \left( Y_{it} - (X_{it} \Gamma) \hat{F}_{t} \right)' \left( Y_{it} - (X_{it} \Gamma) \hat{F}_{t} \right).
-\tag{4}
+\hat{\Gamma}_{treat} = \underset{\Gamma}{\arg\min} \sum_{i \in N_{treat}} \sum_{t \in T_{pre}} \left( Y_{it} - (X_{it} \Gamma) \hat{F}_{t} \right) \left( Y_{it} - (X_{it} \Gamma) \hat{F}_{t} \right)'.
 \end{equation}
 
 \textbf{Step 3:} The final step involves imputing the counterfactual outcome $\hat{Y}_{it}(0)$ for treated unit $i$ at time $t$ by substituting the estimated coefficient matrix $\hat{\Gamma}_{treat}$ and the time-varying factors $\hat{F}_t$ into the following equation:
 
 \begin{equation}
 \hat{Y}_{it}(0) = (X_{it} \hat{\Gamma}_{treat}) \hat{F}_{t}, \quad \forall i \in N_{treat}, \forall t \in T_{post}.
-\tag{5}
 \end{equation}
 
 The main difference between CSC-IPCA and the instrumented principal component analysis (IPCA) as proposed by \cite{kelly2020instrumented} lies in the purpose of prediction. In the IPCA method, the authors predict the next-period stock returns using all covariates from the preceding period, under the assumption that the rotation matrix $\Gamma$ remains constant across all observations. In contrast, CSC-IPCA introduces a pivotal distinction: it operates under the assumption that treated and control groups are characterized by unique rotation matrices, $\Gamma_{\text{treat}}$ and $\Gamma_{\text{ctrl}}$. This assumption is vital for the unbiased estimation of the ATT, setting the CSC-IPCA method apart by directly addressing heterogeneity in the treatment effect through the specification of group-specific rotation matrices.
@@ -382,13 +383,13 @@ Firms'
 
 \subsection*{A.1 Estimation of the CSC-IPCA Estimator Using the ALS Algorithm}
 
-As outlined in Equation \ref{eqn: functional form}, the data generating process can be described by:
+As outlined in Equation \ref{eqn: functional form}, the common components of the data generating process are constructed by the interactive effect between time-varying factors $F_t$ and dynamic factor loadings $\Lambda_{it}$, combined with the instrumental variable $X_{it}$ and the mapping matrix $\Gamma$. The data generating process is formulated as follows:
 
 \begin{equation*}
 Y_{it} = (X_{it}\Gamma) F_{t} + \epsilon_{it}, \quad \epsilon_{it} = \mu_{it} + H_{it} F_t.
 \end{equation*}
 
-Equation \ref{eq: optimization} details the derivation of the CSC-IPCA estimator from the minimization problem:
+\noindent Where the error term $\epsilon_{it}$ is combined with the time varying factors $F_t$ and the idiosyncratic error $\mu_{it}$. The error term $\mu_{it}$ is assumed to be independent of the covariates $X_{it}$, and the factor loadings $\Gamma$ are assumed to be constant across all units. The objective function in Equation \ref{eqn: obj} is minimized to estimate the factor $F_t$ and mapping matrix $\Gamma$. Equation \ref{eq: optimization} details the derivation of the CSC-IPCA estimator from the minimization problem:
 
 \begin{equation*}
 (\hat{\Gamma}, \hat{F}_t) = \underset{\Gamma, F_t}{\arg\min} \sum_{i \in N} \sum_{t \in T} \left( Y_{it} - (X_{it}\Gamma) F_{t} \right)' \left( Y_{it} - (X_{it}\Gamma) F_{t} \right).
@@ -400,12 +401,12 @@ The Alternating Least Squares (ALS) method is employed for the numerical solutio
 \hat{F}_t(\Gamma) = (\Gamma' X'_t X_t \Gamma)^{-1} \Gamma' X'_t Y_t.
 \end{equation*}
 
-Conversely, with known $F_{t}$, the optimal $\Gamma$ (vectorized as $\gamma$) is derived through pooled panel OLS of $y_{it}$ against $LK$ regressors, $x_{it} \otimes f_t$:
+Conversely, with known $F_{t}$, the optimal $\Gamma$ (vectorized as $\gamma = vect(\Gamma)$) is derived through pooled panel OLS of $y_{it}$ against $LK$ regressors, $x_{it} \otimes f_t$:
 
 \begin{equation*}
 \hat{\gamma} = \left( \sum_{i,t} (x_{i,t}' \otimes f_t) (x_{i,t} \otimes f_t') \right)^{-1} \left( \sum_{i,t} (x_{i,t}' \otimes f_t) y_{i,t} \right).
 \end{equation*}
 
-Inspired by PCA, the initial guess for $F_t$ is the first $K$ principal components of the outcome matrix $Y_{it}$. The ALS algorithm alternates between these two steps until convergence is achieved, typically reaching a local minimum rapidly. The convergence criterion, based on the relative change in the optimization problem from Equation \ref{eq: optimization}, ensures termination when this change falls below a predefined threshold, set at $10e^{-6}$ in our implementation.
+Inspired by PCA, the initial guess for $F_t$ is the first $K$ principal components of the outcome matrix $Y_{it}$. The ALS algorithm alternates between these two steps until convergence is achieved, typically reaching a local minimum rapidly. The convergence criterion, based on the maximum relative change in the parameters $F_t$ and $\Gamma$ in each iteration, ensures termination when this change falls below a predefined threshold, set at $10^{-6}$ in our implementation.
 
 \end{document}
