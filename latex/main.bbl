@@ -1,4 +1,4 @@
-\begin{thebibliography}{32}
+\begin{thebibliography}{35}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -40,6 +40,11 @@ Jushan Bai.
 \newblock Panel data models with interactive fixed effects.
 \newblock \emph{Econometrica}, 77\penalty0 (4):\penalty0 1229--1279, 2009.
 
+\bibitem[Bai and Ng(2002)]{bai2002determining}
+Jushan Bai and Serena Ng.
+\newblock Determining the number of factors in approximate factor models.
+\newblock \emph{Econometrica}, 70\penalty0 (1):\penalty0 191--221, 2002.
+
 \bibitem[Bai and Perron(2003)]{bai2003computation}
 Jushan Bai and Pierre Perron.
 \newblock Computation and analysis of multiple structural change models.
@@ -69,6 +74,11 @@ Victor Chernozhukov, Kaspar W{\"u}thrich, and Yinchu Zhu.
 \newblock An exact and robust conformal inference method for counterfactual and synthetic controls.
 \newblock \emph{Journal of the American Statistical Association}, 116\penalty0 (536):\penalty0 1849--1864, 2021.
 
+\bibitem[Connor and Korajczyk(1993)]{connor1993test}
+Gregory Connor and Robert~A Korajczyk.
+\newblock A test for the number of factors in an approximate factor model.
+\newblock \emph{the Journal of Finance}, 48\penalty0 (4):\penalty0 1263--1291, 1993.
+
 \bibitem[Eberhardt and Bond(2009)]{eberhardt2009cross}
 Markus Eberhardt and Stephen Bond.
 \newblock Cross-section dependence in nonstationary panel models: a novel estimator.
@@ -83,6 +93,11 @@ Guanhao Feng, Stefano Giglio, and Dacheng Xiu.
 Laurent Gobillon and Thierry Magnac.
 \newblock Regional policy evaluation: Interactive fixed effects and synthetic controls.
 \newblock \emph{Review of Economics and Statistics}, 98\penalty0 (3):\penalty0 535--551, 2016.
+
+\bibitem[Higham(2009)]{higham2009cholesky}
+Nicholas~J Higham.
+\newblock Cholesky factorization.
+\newblock \emph{Wiley interdisciplinary reviews: computational statistics}, 1\penalty0 (2):\penalty0 251--254, 2009.
 
 \bibitem[Hsiao et~al.(2012)Hsiao, Steve~Ching, and Ki~Wan]{hsiao2012panel}
 Cheng Hsiao, H~Steve~Ching, and Shui Ki~Wan.
