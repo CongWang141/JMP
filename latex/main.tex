@@ -170,6 +170,7 @@ Unlike the IFE method (\cite{bai2009panel,xu2017generalized}), our approach requ
 \textbf{Step 3:} The third step includes normalizing the estimated coefficient matrix $\hat{\Gamma}_{treat}$ and $\hat{F_t}$ by a set of constrants:
 
 \begin{equation}
+\label{eqn: normalization}
 \begin{aligned}
 \Gamma_{norm} &= \hat{\Gamma}_{treat} R, \\
 F_{norm} &= R^{-1} \hat{F}_t, \\
@@ -362,20 +363,45 @@ Firms'
 \titleformat{\section}[block]{\normalfont\Large\bfseries}{Appendix \thesection}{1em}{}
 \renewcommand{\theequation}{\thesection.\arabic{equation}}
 \setcounter{equation}{0}
+\renewcommand{\theassumption}{\thesection.\arabic{assumption}}
+\setcounter{assumption}{1}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{}
+
+Throughout the paper, we use lowercase letters to represent scalars, e.g., $y_{it}$ would be a scalar of the outcome variable for unit $i$ at time $t$. We use bold lowercase letters to represent vectors, e.g., $\mathbf{x}_{it}$ would be a vector of covariates for unit $i$ at time $t$. We use uppercase letters to represent matrices, e.g., $\Gamma$ represents the mapping matrix. We denote $\mathrm{E}\|\mathbf{f}_t\mathbf{f}_t'\|^2$ the Frobenius norm squared of the matrix $\mathbf{f}_t\mathbf{f}_t'$.
+
+
 \subsection{Identification assumptions}
 
 \begin{assumption}
-Exclusion restriction: $E[\epsilon_{it}|X_{it}]=0$
+Assumption for consistency:
+\begin{enumerate}
+    \item Instrument orthogonality: $E\left[\textbf{x}_{it} \epsilon_{it}\right] = \textbf{0}_{L\times 1}$,
+    
+    \item The following moments exsit: $\mathrm{E}\|\mathbf{f}_{t}\mathbf{f}_{t}\|^2$, $\mathrm{E}\|\mathbf{x}_{it}\epsilon_{it}\|^2$, $\mathrm{E}\|\mathbf{x}'_{it}\mathbf{x}_{it}\|^2$, $\mathrm{E}\left[\|\mathbf{x}'_{it}\mathbf{x}_{it}\|^2\|\mathbf{f}_{t}\mathbf{f}_{t}\|^2 \right]$, 
+    
+    \item The parameter space $\Psi$ of $\Gamma$ is compact and away from rank deficient: $\det{\Gamma' \Gamma} > \epsilon$ for some $\epsilon>0$,
+    
+    \item Amost surely, $\mathbf{x}_{it}$ is bounded, and define $\Omega_t^{xx} := \mathrm{E}\left[ \mathbf{x}_{it}' \mathbf{x}_{it} \right]$, then almost surely, $\Omega_t^{xx} > \epsilon$ for some $\epsilon > 0$.
+\end{enumerate}
+\label{app: ass consistency}
 \end{assumption}
 
 \begin{assumption}
-Regularity conditions:
+Assumptions for asympototic normality:
 \begin{enumerate}
-    \item $E\left[F_t^0 F_t^{0'}\right] \leq M < \infty,$
-\end{enumerate}
+    \item $\text{As } N, T \to \infty, \: \frac{1}{\sqrt{NT}} \sum_{i,t} \text{vect}\left( \mathbf{x}'_{i,t} \epsilon_{i,t} \mathbf{f}'_{t} \right) \xrightarrow{d} \text{Normal} \left(0, \Omega^{x\epsilon f} \right)$,
+    
+    \item $\text{As } N \to \infty, \: \frac{1}{\sqrt{N}} \sum_{i} \text{vect}\left( X'_{i} \epsilon_{i} \right) \xrightarrow{d} \text{Normal} \left(0, \Omega^{x\epsilon} \right) \: \text{for} \: \forall t$,
+    
+    \item $\text{As } N, T \to \infty, \: \frac{1}{\sqrt{T}} \sum_{t} \text{vect}\left( \mathbf{f}_{t}\mathbf{f}'_{t} - \mathrm{E}[\mathbf{f}_{t}\mathbf{f}'_{t}] \right) \xrightarrow{d} \text{Normal} \left(0, \Omega^{f} \right)$.
+    
+    \item Bounded dependence: $\frac{1}{NT} \sum_{i,j,t,s}\|\tau_{ij, ts}\| < \infty$, where $\tau_{ij, ts} := \mathrm{E} \left[ \mathbf{x}_{it} \mathbf{e}_{it} \mathbf{e}_{js} \mathbf{x}_{js} \right]$
+    
+    \item Constant second moments of the covariates: $\Omega_t^{xx} = \mathrm{E}\left[ X_{t} X'_{t} \right]$ is constant across time periods.
+    \end{enumerate}
+    \label{app: ass normality}
 \end{assumption}
 
 \subsection{Estimation of the CSC-IPCA estimator}
@@ -459,68 +485,106 @@ We can also utilize leave-one-out cross validation to select the hyperparameter 
 \end{algorithm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\clearpage
 \section{Formal Result}
 \label{sec: formal result}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 In this section, we derive the formal result for the CSC-IPCA estimator. We first establish the consistency and asymptotic properties of the CSC-IPCA estimated ATT.
 
-\subsection{Target function convergence}
+\subsection{Mapping matrix estimation asympototic properties}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Building on the objective function described in Equation \ref{eqn: obj}, we consider $\tilde{\Gamma}$ as the established true mapping matrix and formulate the target function for $F_t$ accordingly:
+In this section, we delve into the asymptotic properties of the estimation error associated with the mapping matrix. \cite{kelly2020instrumented} have proven it in their paper, referring to Theorem 3. The following proposition \ref{prop: gamma}, is a special case of their result. Based on our estimation methods, we estimate the mapping matrix $\Gamma$ first by concentrating out the factor $\mathbf{f}_t$, as shown in Equation \ref{eqn: obj}, we can formulate a target function for $\Gamma$ as follows:
 
 \begin{equation}
-G(F_t) = \frac{1}{2NT} \sum_{i} \sum_{t} \left( Y_{it} - X_{it} \tilde{\Gamma} F_t \right)\left( Y_{it} - X_{it} \tilde{\Gamma} F_t \right)'.
+\label{eqn: target}
+G(\Gamma) = \frac{1}{2NT}\sum_{i,t} \left( y_{it} - \mathbf{x}_{it}\Gamma \mathbf{\hat{f}}_t \right)^2.
 \end{equation}
+we define the score function $S(\Gamma)$ as the derivative of the target function $G(\Gamma)$ with respect to $\Gamma$: $S(\Gamma) = \frac{\partial G(\Gamma)}{\partial \Gamma}$. The Hessian matrix $H(\Gamma)$ is defined as the second derivative of the target function $G(\Gamma)$ with respect to $\Gamma$: $H(\Gamma) = \frac{\partial^2 G(\Gamma)}{\partial \Gamma \partial \Gamma'}$. 
 
-The initial joint minimization problem, involving two variables, is then reduced to a single variable minimization problem, where we aim to minimize the target function  $G(F_t)$ with respect to $F_t$ only. We show that the target function $G(F_t)$ converges to a unique minimum as $N, T \to \infty$.
+It is crucial to highlight that our normalization criterion, delineated in Equation \ref{eqn: normalization}, mandates that the mapping matrix $\Gamma$ adheres to orthonormality and the factor $\mathbf{f}_t\mathbf{f}_t'/T$ is required to exhibit orthogonality. To satisfy these requirement we define the following identification function:
+\begin{equation}
+\label{eqn: identification}
+I(\Gamma) := \begin{bmatrix}
+    \text{veca}(\Gamma^T \Gamma - \mathcal{I}_K) \\
+    \text{vecb}\left(\frac{1}{T} \sum_{t} \mathbf{\hat{f}}_t\mathbf{\hat{f}}_t' - V^{ff}\right)
+    \end{bmatrix}
+\end{equation}
+where $\text{veca}(\cdot)$ and $\text{vecb}(\cdot)$ vectorize the upper triangular entries of a square matrix. The difference is $\text{veca}(\cdot)$ includes the diagonal elements, while $\text{vecb}(\cdot)$ excludes them. We define the Jacobian matrix $J(\Gamma)$ as the derivative of the identification function $I(\Gamma)$ with respect to $\Gamma$: $J(\Gamma) = \frac{\partial I(\Gamma)}{\partial \Gamma}$.
 
 \begin{proposition}
-\label{prop: target}
-Under Assumption A-C, the target function $G(F_t)$ converges to a unique minimum as $N, T \to \infty$:
-\begin{equation}
-G(F_t) \xrightarrow{P} \min_{F_t} G(F_t), \quad \text{as} \ N, T \to \infty.
-\end{equation}
+\label{prop: gamma}
+Under Assumption \ref{app: ass consistency} and \ref{app: ass normality}, mapping matrix estimation error centered against the normalized true mapping matrix converges to a normal distribution at the rate of $\sqrt{NT}$: as $N, T \rightarrow \infty$ such that $T/N \rightarrow \infty$,
+
+$$
+\sqrt{NT} \left( \hat{\mathbf{\gamma}} - \mathbf{\gamma} \right) \xrightarrow{d} - \left( H^{0'}H^0 + J^{0'}J^0 \right)^{-1}H^{0'}Normal(0, \mathbb{V}_Y^{[1]})
+$$
 \end{proposition}
+where $H^0:= \frac{\partial S(\Gamma)}{\partial \mathbf{\gamma}}|_{\mathbf{\gamma} = \mathbf{\gamma}^0}$ and $J^0:= \frac{\partial I(\Gamma)}{\partial \mathbf{\gamma}}|_{\mathbf{\gamma} = \mathbf{\gamma}^0}$, $\mathbb{V}_Y^{[1]} = \left( Q^0 \otimes \mathcal{I}_K \right) \Omega^{x\epsilon f} \left( Q^{0'} \otimes \mathcal{I}_K \right)$, and $Q^0 := Q_t(\Gamma^0)$ given that $Q_t(\Gamma) := \mathcal{I}_L - \Omega_t^{xx} \left( \Gamma' \Omega^{xx}_t \Gamma \right)^{-1}\Gamma'$ is constant over $t$ under Assumption \ref{app: ass normality}.
 
-Further more, we assert that the objective function $G(F_t)$ is solved only by the true factor $\tilde{F}_t$ and its unidentified rotations.
-
-\subsection{Consistency of the factor estimation}
+\textbf{Proof}: referring to \cite{kelly2020instrumented}.
+\subsection{Factor estimation asympototic properties}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{proposition}
-\label{prop: true factor}
-Under Assumption A-C, the target function $G(F_t)$ is minimized by $F_t$ if and only if $F_t = R^{-1}\tilde{F}_t$ for some rotation matrix $R$.
+Under Assumption \ref{app: ass consistency} and \ref{app: ass normality}, factor estimation error centered against the normalized true factor converges to a normal distribution at the rate of $\sqrt{N}$: as $N, T \to \infty$ for $\forall t$,
+$$
+\sqrt{N}\left(\hat{\mathbf{f}}_t - \mathbf{f}_t\right) \xrightarrow{d} N\left(0, \mathbb{V}_t^{[2]}\right),
+$$
 \end{proposition}
 
-\subsection{Asymptotic property of the factor estimation}
+\textbf{Proof:} Decompose the left hand side euqation:
+\begin{equation*}
+\begin{aligned}
+\sqrt{N}\left(\mathbf{\hat{f}}_t - \mathbf{f}_t\right) &= \sqrt{N}\left( \hat{\Gamma}'X'_tX_t\hat{\Gamma} \right)^{-1}\hat{\Gamma}'X_t' \left(X_t\hat{\Gamma}\mathbf{f}_t+ \mathbf{\tilde{\epsilon}}_t \right) - \mathbf{f}_t\\
+&= \sqrt{N}\left(\left( \hat{\Gamma}'X'_tX_t\hat{\Gamma} \right)^{-1}\hat{\Gamma}'X_t'X_t \hat{\Gamma}\mathbf{f}_t - \mathbf{f}_t\right) + \sqrt{N}\left( \hat{\Gamma}'X'_tX_t\hat{\Gamma} \right)^{-1}\hat{\Gamma}'X_t'\mathbf{\tilde{\epsilon}}_t
+\end{aligned}
+\end{equation*}
+where $\tilde{\epsilon}_t$ is the estimated error term. Given Proposition \ref{prop: gamma}, $\hat{\Gamma} - \hat{\Gamma}^0 = \mathcal{O}_p \left( 1/\sqrt{NT} \right)$. The first term is simply $\mathcal{O}_p\left(1/\sqrt{NT}\right)$. For the second term:
+
+\begin{equation*}
+\begin{aligned}
+\sqrt{N}\left( \hat{\Gamma}'X'_tX_t\hat{\Gamma} \right)^{-1}\hat{\Gamma}'X_t'\mathbf{\epsilon}_t = &\sqrt{N}\left( \Gamma'X'_tX_t\Gamma \right)^{-1}\Gamma'X_t'\mathbf{\epsilon_t} + \mathcal{O}_p(1) \\
+& \xrightarrow{d} Normal(0, \mathbb{V}_t^{[2]})
+\end{aligned}
+\end{equation*}
+where the variance term \(\mathbb{V}_{t}^{[2]}\), which is given by \(\mathbb{V}_{t}^{[2]} = \left( \Gamma^\top \Omega_{t}^{xx} \Gamma\right)^{-1} \Gamma^\top \Omega_{t}^{x\epsilon} \Gamma \left(\Gamma^\top\Omega_{t}^{xx} \Gamma\right)^{-1}\). Assumption \ref{app: ass normality} delineates the properties of \(\Omega_t^{xx}\) and \(\Omega_t^{x\epsilon}\). Notably, despite the presence of multiple matrix multiplications, the matrices \(\Omega_t^{xx}\) and \(\Omega_t^{x\epsilon}\) remain invariant under these operations. Consequently, the term \(\mathbb{V}_t^{[2]}\) is constant across all observational units.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{proposition}
-Under Assumption A-C, factor estimation error centered against the normalized true factor converges to a normal distribution at the rate of $\sqrt{N}$: as $N, T \to \infty$,
-\begin{equation}
-\sqrt{N}(\hat{F}_t - F_t) \xrightarrow{D} N(0, \mathbb{V}_t),
-\end{equation}
-\end{proposition}
-
 \subsection{Consistency and asymptotic property of the ATT estimation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{theorem}
 \label{thm: bias}
-Under Assumptions A-C, the CSC-IPCA estimator $\mathbb{E}\left(\widehat{ATT}_{t} | D, X, \Lambda, F\right) \xrightarrow{P} ATT_{t}$, where $ATT_{t} = \frac{1}{N_{treat}}\sum_{i \in \mathcal{T}}\delta_{it}$ is the true treatment effect. for all $t > T_{pre}$ as both $N_{ctrl}, \ T_{pre} \to \infty$.
+Under Assumptions A-C, the CSC-IPCA estimator $\mathrm{E}\left(\widehat{ATT}_{t} | D, X, \Lambda, F\right) \xrightarrow{P} ATT_{t}$, where $ATT_{t} = \frac{1}{N_{treat}}\sum_{i \in \mathcal{T}}\delta_{it}$ is the true treatment effect. for all $t > T_{pre}$ as both $N_{ctrl}, \ T_{pre} \to \infty$.
 \end{theorem}
 
-\textbf{Proof:} Denote $i$ as the treated unit on which the treatment effect is of interest. From Equation \ref{app: eqn combined} and \ref{app: eqn update gamma}, we have:
-
-
+\textbf{Proof:} Denote $i$ as the treated unit on which the treatment effect is of interest, the bias of estimated ATT is given by:
 
 \begin{equation}
 \begin{aligned}
-\hat{\delta}_{it} - \delta_{it} &= Y_{it}^1 - \hat{Y}_{it}^0 - \delta_{it}, \\    
-&= X_{it}\Gamma F_t - X_{it}\hat{\Gamma}\hat{F}_t + \epsilon_{it}, \\
-&= 
+\hat{\delta}_{it} - \delta_{it} &= y_{it}^1 - \hat{y}_{it}^0 - \delta_{it}, \\    
+&= \textbf{x}_{it}\Gamma f_t - \textbf{x}_{it}\hat{\Gamma}\hat{f}_t + \epsilon_{it}, \\
+&= \textbf{x}_{it}\left( \left(\mathcal{I}\otimes f_t \right) \bm{\gamma} - (\mathcal{I}\otimes \hat{f}_t ) \hat{\bm{\gamma}} \right) + \epsilon_{it}, \\
+&= \textbf{x}_{it}\left( \left(\mathcal{I}\otimes f_t \right) \bm{\gamma} - \mathcal{I}\otimes (f_t + e_{f_t}) (\bm{\gamma}+\textbf{e}_{\gamma}) \right) + \epsilon_{it}, \\
+&= \textbf{x}_{it}\left( (\mathcal{I} \otimes f_t) \textbf{e}_{\gamma} - (\mathcal{I} \otimes e_{f_t} \bm{\gamma}) - (\mathcal{I} \otimes e_{f_t}) \textbf{e}_{\gamma} \right) + \epsilon_{it}\\
+&= \textbf{x}_{it}E_{\Gamma}f_t - \textbf{x}_{it}\Gamma e_{f_t} - \textbf{x}_{it}E_{\Gamma}e_{f_t} + \epsilon_{it}, \\
+&= A_{1,it} + A_{2,it} + A_{3,it} + \epsilon_{it}.
 \end{aligned}
 \end{equation}
 
+\noindent where $e_{f_t} = f_t - \hat{f}_t$ is the estimation error of the factor $f_t$. The bias of the estimated ATT is the sum of three terms $A_{1,it}$, $A_{2,it}$, $A_{3,it}$, and $\epsilon_{it}$, where $A_{1,it}$ is udbiased. From the Equation \ref{app: eqn update gamma}, we have:
 
-    
+\begin{equation}
+\begin{aligned}
+A_{2,it} &= x_{it}(\mathcal{I} \otimes f_t) \hat{\gamma}, \\
+&= x_{it}(\mathcal{I} \otimes f_t) \left( \sum_{i,t} (x_{i,t}' \otimes \hat{f}_t) (x_{i,t} \otimes \hat{f}_t') \right)^{-1} \left( \sum_{i,t} (x_{i,t}' \otimes \hat{f}_t) y_{i,t} \right)
+\end{aligned}
+\end{equation}
+
+For the third term $A_{3,it}$, we have:
+
+\begin{equation}
+\begin{aligned}
+A_{3,it} &= x_{it}(\mathcal{I} \otimes e_t) \hat{\gamma}, \\
+&= x_{it}(\mathcal{I} \otimes e_t) \left( \sum_{i,t} (x_{i,t}' \otimes \hat{f}_t) (x_{i,t} \otimes \hat{f}_t') \right)^{-1} \left( \sum_{i,t} (x_{i,t}' \otimes \hat{f}_t) y_{i,t} \right)
+\end{aligned}
+\end{equation}
 
 \end{document}
