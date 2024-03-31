@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex main"] 1711745252 "main.aux" "main.bbl" "main" 1711745388 0
+["bibtex main"] 1711909211 "main.aux" "main.bbl" "main" 1711909213 0
   "./citation.bib" 1711451069 10150 ca34c68a5e1a24679b30b0d51d1784d5 ""
   "/usr/local/texlive/2023/texmf-dist/bibtex/bst/natbib/plainnat.bst" 1233624470 26816 ffe5423d2019860bad9f54bc402fac15 ""
-  "main.aux" 1711745388 11425 e48dabaadf4c3fd2cbff982cd49647dc "pdflatex"
+  "main.aux" 1711909213 11402 4eaf893a9043981665664624ab9bd99b "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1711745386 "/Users/wang/Desktop/JMP/latex/main.tex" "main.pdf" "main" 1711745388 0
-  "/Users/wang/Desktop/JMP/latex/main.tex" 1711745386 60583 719e2770c1aa374c8a30a2a8f6d801ce ""
+["pdflatex"] 1711909211 "/Users/wang/Desktop/JMP/latex/main.tex" "main.pdf" "main" 1711909213 0
+  "/Users/wang/Desktop/JMP/latex/main.tex" 1711909209 62319 f50d89c59024bf29cea0e47784540af2 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/jknappen/ec/tcrm0700.tfm" 1136768653 1536 73da8e8f1d2a4c957d51ca133585586b ""
@@ -177,10 +177,10 @@
   "figs/bias_compar1.png" 1709743682 108176 310ae1e4556ec451e123e1ec152cfc5c ""
   "figs/data_plot.png" 1709796417 530615 993b7a6859f34bf756d1a97231b4c0a1 ""
   "figs/estimation.png" 1711030235 559271 f45bc836a7c31056c8910a11c4190b8d ""
-  "main.aux" 1711745388 11425 e48dabaadf4c3fd2cbff982cd49647dc "pdflatex"
-  "main.bbl" 1711745252 9128 9073b17c677d4357a3fa063aded9ab90 "bibtex main"
-  "main.out" 1711745388 3363 98a93f3d969a62377611438eb0d09af3 "pdflatex"
-  "main.tex" 1711745386 60583 719e2770c1aa374c8a30a2a8f6d801ce ""
+  "main.aux" 1711909213 11402 4eaf893a9043981665664624ab9bd99b "pdflatex"
+  "main.bbl" 1711909211 9128 9073b17c677d4357a3fa063aded9ab90 "bibtex main"
+  "main.out" 1711909213 3363 98a93f3d969a62377611438eb0d09af3 "pdflatex"
+  "main.tex" 1711909209 62319 f50d89c59024bf29cea0e47784540af2 ""
   "preamble.sty" 1711717326 2177 ee126de89f484e67ae89cb8c794d9972 ""
   (generated)
   "main.aux"

@@ -9,8 +9,11 @@
 \author{ Cong Wang\thanks{Department of Economics and Law, Sapienza University of Rome}}
 \date{\today}
 \maketitle
+\begin{center}
+\textcolor{blue}{Job Market Paper}
+\end{center}
 \begin{abstract}
-\noindent The fundamental problem of causal inference lies in the absence of counterfactuals. Traditional methodologies address this by implicitly or explicitly imputing the missing counterfactuals, relying on identification assumptions that are often untestable and too strong. Synthetic control methods (SCM) utilizes weighted average of control units to impute the missing counterfactual for the treated. Eventhough SCM relaxes some strict assumptions, it requires the treated unit to be inside the convex hull formulated by control units to avoid extrapolation. In recent advances, researchers modelling the entire data generating process (DGP) to impute the missing counterfactual explicitly. This paper expands the interactive fixed effect model by integrating covariates into dynamic factor loadings adding additional robustness. This methodology offers multiple benefits: firstly, it incorporates the strengths of previous SCM approaches, such as the relaxation of the untestable parallel trends assumption (PTA). Secondly, it does not require the targeted outcomes inside the convex hull formulated by control units. Thirdly, it eliminates the need for correct model specification required by interactive fixed effect (IFE) model. Finally, it inherits the ability of principal component anlaysis (PCA) to effectively handle high dimensional data and enhances the value extracted from numerous covariates.\\
+\noindent The fundamental problem of causal inference lies in the absence of counterfactuals. Traditional methodologies address this by implicitly or explicitly imputing the missing counterfactuals, relying on identification assumptions that are often untestable and too strong. Synthetic control methods (SCM) utilizes weighted average of control units to impute the missing counterfactual for the treated. Eventhough SCM relaxes some strict assumptions, it requires the treated unit to be inside the convex hull formulated by control units avoiding extrapolation. In recent advances, researchers modelling the entire data generating process (DGP) to impute the missing counterfactual explicitly. This paper expands the interactive fixed effect (IFE) model by integrating covariates into dynamic factor loadings adding additional robustness. This methodology offers multiple benefits: firstly, it incorporates the strengths of previous SCM approaches, such as the relaxation of the untestable parallel trends assumption (PTA). Secondly, it does not require the targeted outcomes inside the convex hull formulated by control units. Thirdly, it eliminates the need for correct model specification required by IFE model. Finally, it inherits the ability of principal component anlaysis (PCA) to effectively handle high dimensional data and enhances the value extracted from numerous covariates.\\
 
 \noindent\textbf{Keywords:} Synthetic Control, Principal Component Analysis, Causal Inference\\
 
@@ -29,15 +32,15 @@
 \section{Introduction} 
 \label{sec:introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-In this paper, we introduce a novel counterfactual imputation method that combines the dimension reduction capabilities of principal component analysis (\cite{jollife2016principal}) with the flexibility of the interactive fixed effect model (\cite{bai2003computation,bai2009panel}). This approach not only harnesses the strengths of PCA in managing high dimensional data but also adapts the versatility of IFE to accommodate a wide range of data generating processes. We name the newly proposed method the counterfactual and synthetic control method with instrumented principal component analysis (CSC-IPCA), aligning with the previous counterfactual and synthetic control method with interactive fixed effects (CSC-IFE)\footnote{The concept of counterfactual and synthetic control (CSC) is a generalization for a group of methodolies for causal inference proposed by \cite{chernozhukov2021exact}, the original name of this methodology is actually ``generalized synthetic control method with interactive fixed effect model'' named by \cite{xu2017generalized}.} proposed by \cite{xu2017generalized}. To model the entire data generating process, the CSC-IPCA estimator is designed to overcome the constraints of untestable and stringent assumptions such as unconfoundedness and common support for matching (\cite{abadie2011bias, abadie2006large}), parallel trend assumption for diffference-in-differences (DID) (\cite{card1993minimum}), and others. Furthermore, it addresses the limitation observed in the original synthetic control method (\cite{abadie2010synthetic}) and its variants (\cite{ben2021augmented}, \cite{arkhangelsky2021synthetic}), which necessitate the outcomes of treated units to lie inside or not far from the convex hull formed by control units. 
+In this paper, we introduce a novel counterfactual imputation method that combines the dimension reduction capabilities of principal component analysis (\cite{jollife2016principal}) with the flexibility of the interactive fixed effect model (\cite{bai2003computation,bai2009panel}). This approach not only harnesses the strengths of PCA method in managing high dimensional data but also adapts the versatility of IFE method to accommodate a wide range of data generating processes. We name the newly proposed method the counterfactual and synthetic control method with instrumented principal component analysis (CSC-IPCA), aligning with the previous counterfactual and synthetic control method with interactive fixed effects (CSC-IFE)\footnote{The concept of counterfactual and synthetic control (CSC) is a generalization for a group of methodolies for causal inference proposed by \cite{chernozhukov2021exact}, the original name of this methodology is actually ``generalized synthetic control method with interactive fixed effect model'' named by \cite{xu2017generalized}.} proposed by \cite{xu2017generalized}. To model the entire data generating process, the CSC-IPCA estimator is designed to overcome the constraints of untestable and stringent assumptions such as unconfoundedness and common support for matching (\cite{abadie2011bias, abadie2006large}), parallel trend assumption for diffference-in-differences (DID) (\cite{card1993minimum}), and others. Furthermore, it addresses the limitation observed in the original synthetic control method (\cite{abadie2010synthetic}) and its variants (\cite{ben2021augmented}, \cite{arkhangelsky2021synthetic}), which necessitate the outcomes of treated units to lie inside or not far from the convex hull formed by control units. 
 
-Causal inference in economics and other social sciences is frequently complicated by the absence of counterfactuals, which is essential for evaluating the impact of a treatment or policy intervention. \cite{imbens2015causal} state that at some level, all methods for causal inference can be viewed as imputation methods, although some are more explicitly than others. For instance, under certain assumptions, the matching method (\cite{abadie2006large, abadie2011bias}) implicitly imputes the missing counterfactuals for treated units with meticulously selected control units. The DID method (\cite{card1993minimum, ashenfelter1978estimating}), on the other hand, explicitly imputes the missing counterfactuals by differencing the control units before and after treatment. While the SCM method explicitly imputes the missing counterfactual with weighted average of control units. Our method aligns with the recent trend in causal inference literature, aiming to explicitly impute the missing counterfactual by modeling the entire data generating process, a strategy highlighted by \cite{athey2021matrix} with their matrix completion (MC) method, and \cite{xu2017generalized} with their interactive fixed effect method.
+Causal inference in economics and other social sciences is frequently complicated by the absence of counterfactuals, which is essential for evaluating the impact of a treatment or policy intervention. \cite{imbens2015causal} state that at some level, all methods for causal inference can be viewed as imputation methods, although some are more explicitly than others. For instance, under certain assumptions, the matching method (\cite{abadie2006large, abadie2011bias}) explicitly imputes the missing counterfactuals for treated units with meticulously selected control units. The DID method (\cite{card1993minimum, ashenfelter1978estimating}), on the other hand, implicitly imputes the missing counterfactuals by differencing the control units before and after treatment. While the SCM method explicitly imputes the missing counterfactual with weighted average of control units. Our method aligns with the recent trend in causal inference literature, aiming to explicitly impute the missing counterfactual by modeling the entire data generating process, a strategy highlighted by \cite{athey2021matrix} with their matrix completion (MC) method, and \cite{xu2017generalized} with their interactive fixed effect method.
 
-Fixed effects models have long been explored in the econometrics literature related to modeling panel data, with significant contributions from \cite{bai2003computation}, \cite{pesaran2006estimation}, \cite{stock2002forecasting}, \cite{eberhardt2009cross}, among others. However, within the context of causal inference, \cite{hsiao2012panel} stands out as the first work proposing the use of this method specifically for predicting missing counterfactuals in sythetic control settings, followed by \cite{gobillon2016regional, xu2017generalized, chan2016policy} and \cite{li2018inference}. The CSC-IPCA estimator builds upon the instrumented principal component analysis first introduced by \cite{kelly2020instrumented, kelly2019characteristics} in the context of predicting stock returns. It belongs to the fixed effect method family, while through the instrumented factor loadings we can estimate the time varying latent factors more accuately. Firstly, it assumes a simple fixed effect model as with \cite{bai2003computation} with only the interactive component between factor loadings $\Lambda_i$ and time varying factors $F_t$:
+Fixed effects models have long been explored in the econometrics literature related to modeling panel data, with significant contributions by \cite{bai2003computation}, \cite{pesaran2006estimation}, \cite{stock2002forecasting}, \cite{eberhardt2009cross}, among others. However, within the context of causal inference, \cite{hsiao2012panel} stands out as the first work proposing the use of this method specifically for predicting missing counterfactuals in sythetic control settings, followed by \cite{gobillon2016regional, xu2017generalized, chan2016policy} and \cite{li2018inference}. The CSC-IPCA estimator builds upon the instrumented principal component analysis first introduced by \cite{kelly2020instrumented, kelly2019characteristics} in the context of predicting stock returns. It belongs to the fixed effect method family, while through the instrumented factor loadings we can estimate the time varying latent factors more accuately. Firstly, it assumes a simple fixed effect model as with \cite{bai2003computation} with only the interactive component between factor loadings $\Lambda_i$ and time varying factors $F_t$:
 
 \begin{equation}
 \label{eqn: static}
-    Y_{it} = \Lambda_i F_t + \mu_{it}
+    Y_{it} = \Lambda_i F'_t + \mu_{it}
 \end{equation}
 
 \noindent Secondly, it instruments the factor loadings $\Lambda_i$ with covariates $X_{it}$, which allows us to capture the time varying properties of the factor loadings:
@@ -68,13 +71,13 @@ Functional form:
 
 \begin{equation}
 \begin{aligned}
-& Y_{it} = D_{it} \circ \delta_{it} + \Lambda_{it}F_{t} + \mu_{it}, \\
+& Y_{it} = D_{it} \circ \delta_{it} + \Lambda_{it}F_{t}' + \mu_{it}, \\
 & \Lambda_{it} = X_{it}\Gamma + H_{it}
 \end{aligned}
 \label{eqn: functional form}
 \end{equation}
 
-The primary distinction of this functional form from existing interactive fixed effect models (\cite{gobillon2016regional, chan2016policy}) is that the factor loading $\Lambda_{it}$ is instrumented by observed covariates $X_{it}$, which makes the conventionally static factor loadings exhibit time varying features. Specifically, $\Lambda_{it} = [\lambda_{it}^1, \ldots, \lambda_{it}^K]$ represents a vector of factor loadings associated with $K$ common factors. Meanwhile, the vector $X_{it} = [x_{it}^1, \ldots, x_{it}^L]$ comprises observed covariates, with $L$ indicating the total number of covariates. The transformation matrix $\Gamma$, which is of size $L \times K$, maps the information from observed covariates $X_{it}$ to factor loadings $\Lambda_{it}$. This integration permits $\Lambda_{it}$ to exhibit variability across time and units, thereby introducing an additional layer of heterogeneity into the model. Another key difference from the CSC-IFE approach by \cite{xu2017generalized} is that we retain only the interacted component $\Lambda_{it} F_t$ between factors and factor loadings, the linear part of covariates $X_{it}\beta$ is not included in the function form\footnote{The functional form of the CSC-IFE is $Y_{it} = D_{it} \circ \delta_{it} + \Lambda_{i}F_{t} + X_{it}\beta + \mu_{it}$}. The logic behind is that we believe that the unit specific factor loadings, instrumented by covariates, have included all the predictive information from these covariates. This functional form exhibit two more advantages over the CSC-IFE model. Firstly, it does not require the correct model specification, a crucial demand of the CSC-IFE method. Secondly, it incorporates a dimension reduction operation by matrix $\Gamma$, which allows us to handle high dimensional datasets, especially when dealing with a large number of covariates. 
+The primary distinction of this functional form from existing interactive fixed effect models (\cite{gobillon2016regional, chan2016policy}) is that the factor loading $\Lambda_{it}$ is instrumented by observed covariates $X_{it}$, which makes the conventionally static factor loadings exhibit time varying features. Specifically, $F_t = [f_t^1, \ldots, f_t^K]$ is vector of unobserved common factors, $\Lambda_{it} = [\lambda_{it}^1, \ldots, \lambda_{it}^K]$ represents a vector of factor loadings associated with $K$ common factors. Meanwhile, the vector $X_{it} = [x_{it}^1, \ldots, x_{it}^L]$ comprises observed covariates, with $L$ indicating the total number of covariates. The transformation matrix $\Gamma$, which is of size $L \times K$, maps the information from observed covariates $X_{it}$ to factor loadings $\Lambda_{it}$. This integration permits $\Lambda_{it}$ to exhibit variability across time and units, thereby introducing an additional layer of heterogeneity into the model. Another key difference from the CSC-IFE approach by \cite{xu2017generalized} is that we retain only the interacted component $\Lambda_{it} F_t$ between factors and factor loadings, the linear part of covariates $X_{it}\beta$ is not included in the function form\footnote{The functional form of the CSC-IFE is $Y_{it} = D_{it} \circ \delta_{it} + \Lambda_{i}F_{t} + X_{it}\beta + \mu_{it}$}. The logic behind is that we believe that the unit specific factor loadings, instrumented by covariates, have included all the predictive information from these covariates. This functional form exhibit two more advantages over the CSC-IFE model. Firstly, it does not require the correct model specification, a crucial demand of the CSC-IFE method. Secondly, it incorporates a dimension reduction operation by matrix $\Gamma$, which allows us to handle high dimensional datasets, especially when dealing with a large number of covariates. 
 
 The remainder of the model adheres to conventional standards, where $D_{it}$ denotes a binary treatment indicator, and $\delta_{it}$ represents the treatment effect, which varies across units and over time. For computational simplicity, we assume $D_{it} = 1$ for a unit $i$ in the set $\mathcal{T}$ and for times $t > T_{pre}$, with all other $D_{it}$ set to $0$. This setup typifies a standard staggered adoption scenario. The model easily accommodates variations in treatment timing by removing the constraint that treatment must commence precisely at $t = T_{pre} + 1$. The term $\mu_{it}$ signifies the idiosyncratic error associated with the outcome variable $Y_{it}$. Additionally, $H_{it} = [\eta_{it}^1, \ldots, \eta_{it}^L]$ constitutes the vector of error terms linked to $L$ observed covariates.
 
@@ -83,12 +86,11 @@ Following \cite{splawa1990application} potential outcome framework (also discuss
 \begin{equation}
 \label{eqn: potential outcome}
 \begin{cases}
-      Y_{it}^1 = \delta_{it} + X_{it} \Gamma F_t + \epsilon_{it} & if \ i \in \mathcal{T} \ \& \ t > T_{pre} \\
-      Y_{it}^0 = X_{it} \Gamma F_t + \epsilon_{it} & otherwise.
+      Y_{it}^1 = \delta_{it} + X_{it} \Gamma F'_t + \epsilon_{it} & if \ i \in \mathcal{T} \ \& \ t > T_{pre} \\
+      Y_{it}^0 = X_{it} \Gamma F'_t + \epsilon_{it} & otherwise.
 \end{cases}
 \end{equation}
-
-\noindent Where Equation \ref{eqn: potential outcome} represents the actual outcome for the treated and control units combined the two parts together in Equation \ref{eqn: functional form}. Our goal is to impute the missing counterfactual $\hat{Y}_{it}^0 = X_{it} \hat{\Gamma} \hat{F}_t$ for the treated units $i \in \mathcal{T}$ when $t > T_{pre}$, where the $\hat{\Gamma}$ and $\hat{F}_t$ are estimated parameters. We then calculate the treatment effect for the treated (ATT) as the difference between the actual outcome and imputed missing counterfactuals, which is defined as:
+where Equation \ref{eqn: potential outcome} represents the actual outcome for the treated and control units combined the two parts together in Equation \ref{eqn: functional form}. Our goal is to impute the missing counterfactual $\hat{Y}_{it}^0 = X_{it} \hat{\Gamma} \hat{F}_t$ for the treated units $i \in \mathcal{T}$ when $t > T_{pre}$, where the $\hat{\Gamma}$ and $\hat{F}_t$ are estimated parameters. We then calculate the treatment effect for the treated (ATT) as the difference between the actual outcome and imputed missing counterfactuals, which is defined as:
 
 \begin{equation}
 \widehat{ATT}_{t} = \frac{1}{N_{treat}}\sum_{i \in \mathcal{T}} \left( Y_{it}^1 - \hat{Y}_{it}^0 \right) = \frac{1}{N_{treat}}\sum_{i \in \mathcal{T}}\hat{\delta}_{it}.
@@ -96,78 +98,65 @@ Following \cite{splawa1990application} potential outcome framework (also discuss
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Assumptions for identification}
 
-\begin{assumption}
-Error term $\epsilon_{it}$: 
+To ensure the identification of the treatment effect, we introduce a series of assumptions about the data generating process, in addition to assumptions regarding the functional form. These assumptions are crucial for achieving consistent estimation of the treatment effect.
 
+\begin{assumption}
+\label{ass: consistency}
+Assumptions for consistency:
 \begin{enumerate}
-    \item Exclusion restriction: $E[\epsilon_{it} | X_{it}] = 0, \quad E[\epsilon_{it} \epsilon_{it}'] \leq M <\infty.$
-    
-    \item Serial weak dependence: $E \left[N^{-1}\epsilon_s \epsilon_t' \right] = E \left[N^{-1}\sum_{i=1}^{N}\epsilon_{is}\epsilon_{it} \right] \leq M < \infty.$
-    
-    \item Cross sectional weak dependence: $E \left[T^{-1}\epsilon_i \epsilon_j' \right] = E \left[T^{-1}\sum_{t=1}^{T}\epsilon_{it}\epsilon_{jt} \right] \leq M < \infty.$
-    
-    \item Two way weak dependence: $E \left[N^{-1}T^{-1}\epsilon_{is} \epsilon_{jt}' \right] = E \left[N^{-1}T^{-1}\sum_{i=1}^{N}\sum_{j=1}^{N}\sum_{t=1}^{T}\sum_{s=1}^{T}\epsilon_{is}\epsilon_{jt} \right] \leq M < \infty.$
+\item Covariate orthogonality.
+\item Bounded second moment.
+\item Compact parameter space for $\Gamma$. 
+\item Bounded covariates and their variance. 
 \end{enumerate}
-\label{ass: error} 
 \end{assumption}
 
-Assumption \ref{ass: error} imposes a series of constraints on the error term. The first condition mirrors the exclusion restriction found in instrumental variable regression. Similarly, the functional form outlined in \ref{eqn: functional form} bears resemblance to the framework used in two stage instrumental regression. From the second condition onwards within Assumption \ref{ass: error}, we permit the error term to exhibit limited time series and cross-sectional dependence. Furthermore, we do not impose constraints on the error term to be homoscedastic across either time or cross-sectional dimensions. This assumption allows for more stringent conditions, such as requiring the error term to be i.i.d., to be accommodated within its framework.
+The assumptions outlined above serve as regularity conditions necessary for ensuring consistency. The first condition reflects the exclusion restriction commonly associated with instrumental variable regression, indicating that the instruments (in this case, covariates) are orthogonal to the error terms. This orthogonality ensures that the covariates do not correlate with any unobserved factors influencing the outcome. Similarly, the functional form described in Equation \ref{eqn: functional form} aligns with the framework utilized in two-stage instrumental regression. The second condition imposes a limitation on the second moment of a series of random variables, ensuring that their variances remain finite and do not escalate indefinitely. This is a crucial stipulation for maintaining statistical control over the model's error terms. 
+
+The third condition mandates that the parameter space for the mapping matrix $\Gamma$ be compact, thereby circumventing issues related to rank deficiency. This compactness is vital for the estimability of $\Gamma$ and the existence of its inverse, mirroring standard factor analysis assumptions. The fourth condition, common in econometric analyses, requires that the covariates $X_{it}$ are almost surely bounded, meaning their values do not tend toward infinity with probability one. Moreover, this condition stipulates that the variance of these covariates must also be bounded away from zero to ensure that the matrix $\Gamma'X_t'X_t\Gamma$ remains non-singular. For detailed explanations of each condition, see Appendix Assumption \ref{app: ass consistency}, which presents comprehensive details for the assumption conditions.
 
 \begin{assumption}
-\label{ass: factor}
-Factor $F_{t}$: $E||F_t||^4 \leq M < \infty$, and $T^{-1}\sum_{t=1}^TF_t F_t' \xrightarrow{P} \sum_{F}$ for some $k \times k$ positive definite matrix $\sum_{F}$
-\end{assumption}
-
-In classical factor analysis, factors are often required to be i.i.d. However, we adopt a more general stance through Assumption \ref{ass: factor}, which does not mandate factors to be i.i.d. Instead, it requires them to have a bounded 4th moment, preventing arbitrary escalation. Additionally, the second moment is constrained to converge in probability to a specific positive definite matrix, $\Sigma_F$, ensuring the existence of its inverse.
-
-\begin{assumption}
-\label{ass: mapping matrix}
-Mapping matrix $\Gamma$ is compact and distanced from rank deficiency: $det \left(\Gamma' \Gamma \right) > \sigma$ for some arbitrarily small $\sigma > 0$
-\end{assumption}
-
-Assumption \ref{ass: mapping matrix} serves as a regularity condition, which is essential for the consistent estimation of $\Gamma$ and $F_t$. Specifically, it ensures that the matrix $\Gamma'X'_tX_t\Gamma$, which is involved in inversion processes, remains nonsingular (where $X_t$ denotes the $N \times L$ matrix consisting of the cross-section of $X_{i,t}$).
-
-\begin{assumption}
-Asymptotic normality:
-\begin{enumerate}
-\renewcommand*\labelenumi{(\theenumi)}
-\item $\text{As } N, T \to \infty, \: \frac{1}{\sqrt{NT}} \sum_{i,t} \text{vect}\left( X'_{i,t} \epsilon_{i,t} F'_{t} \right) \xrightarrow{d} \text{Normal} \left(0, \Omega^{x\epsilon f} \right)$,
-\item $\text{As } N \to \infty, \: \frac{1}{\sqrt{N}} \sum_{i} \text{vect}\left( X'_{i} \epsilon_{i} \right) \xrightarrow{d} \text{Normal} \left(0, \Omega^{x\epsilon} \right) \: \text{for} \: \forall t$,
-\item $\text{As } N, T \to \infty, \: \frac{1}{\sqrt{T}} \sum_{t} \text{vect}\left( F_{t}F'_{t} - E[F_{t}F'_{t}] \right) \xrightarrow{d} \text{Normal} \left(0, \Omega^{f} \right)$.
-\end{enumerate}
+Assumptions for asymptotic normality.
 \label{ass: asy normal}
+\begin{enumerate}
+    \item Panel-wise and cross-sectional central limit theorem.
+    \item Bounded dependence for covariates and errors.
+    \item Cross-sectional homoskedasticity of covariates.
+\end{enumerate}
 \end{assumption}
 
-Assumption \ref{ass: asy normal} simply containes central limit theorems with respect to different variables, which are satisfied by various mixing processes. The first one is panel wise central limit theorem. The second on is a cross sectional central limit theorem for each contemporal time period, which guaratees the asympototic distribution of the estimation for factors $F_t$. 
+To derive the asymptotic properties of the CSC-IPCA estimator, we introduce additional assumptions. Assumption \ref{ass: asy normal} encompasses panel-wise and cross-sectional central limit theorems for various variables, which are fulfilled by diverse mixing processes. These conditions are pivotal for determining the asymptotic distribution of factor and mapping matrix estimations. For an in-depth discussion, we refer to \cite{kelly2020instrumented}. The requirement of bounded dependence stipulates that both time series and cross-sectional dependencies between covariates and errors are bounded, a crucial step for establishing asymptotic normality. Meanwhile, the assumption of cross-sectional homoskedasticity simplifies the expressions for the asymptotic variances of the estimated mapping matrix $\Gamma$. It should be noted that relaxing this assumption would not alter the convergence rate. Detailed explanations of each assumption's conditions are provided in Appendix Assumption \ref{app: ass normality}.
+
+The requirement of bounded dependence stipulates that both time series and cross-sectional dependencies of $X_{it}\epsilon_{it}$ are bounded, a crucial step for establishing asymptotic normality. Meanwhile, the assumption of cross-sectional homoskedasticity simplifies the expressions for the asymptotic variances of the estimated mapping matrix $\Gamma$. It should be noted that relaxing this assumption would not alter the convergence rate. Detailed explanations of each assumption's conditions are provided in Appendix Assumption \ref{app: ass normality}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Estimation}
 \label{sec: estimation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The CSC-IPCA estimator of the treatment effect for a treated unit $i$ at time $t$ is defined as the difference between the observed outcome and its estimated counterfactual: $\delta_{it} = Y_{it}^1 - \hat{Y}_{it}^0$. To combine the functional form in Equation \ref{eqn: functional form}, we get the structural component of the potential outcome $Y_{it} = (X_{it}\Gamma) F_{t}$. The CSC-IPCA method is estimated by minimizing the sum of squared residuals of the following objective function:
+The CSC-IPCA estimator of the treatment effect for a treated unit $i$ at time $t$ is defined as the difference between the observed outcome and its estimated counterfactual: $\delta_{it} = Y_{it}^1 - \hat{Y}_{it}^0$. To combine the functional form in Equation \ref{eqn: functional form}, we get the structural component of the potential outcome $Y_{it} = (X_{it}\Gamma) F'_{t}$. The CSC-IPCA method is estimated by minimizing the sum of squared residuals of the following objective function:
 
 \begin{equation}
 \label{eqn: obj}
-\underset{\Gamma, F_t}{\arg\min} \sum_{i} \sum_{t}\left( Y_{it} - (X_{it}\Gamma) F_{t} \right)\left( Y_{it} - (X_{it}\Gamma) F_{t} \right)'.
+\underset{\Gamma, F_t}{\arg\min} \sum_{i} \sum_{t}\left( Y_{it} - (X_{it}\Gamma) F'_{t} \right)\left( Y_{it} - (X_{it}\Gamma) F'_{t} \right)'.
 \end{equation}
 
 Unlike the IFE method (\cite{bai2009panel,xu2017generalized}), our approach requires estimating only two parameters, $\Gamma$ and $F_t$, simplifying the process. Different from principal component analysis (\cite{jolliffe2002principal,stock2002forecasting}), our method involves using covariates to instrument the factor loadings component. This necessitates the estimation of $\Gamma$ rather than $\Lambda_i$, so we can not directly use eigenvalue decomposition. While the objective function in Equation \ref{eqn: obj} formulates the problem as minimizing a quadratic function with a single unknown variable (e.g., $\Gamma$) while holding the other variable (e.g., $F_t$) constant. This structure enables the application of the alternating least squares (ALS) method for a numerical solution. Generally, the imputation for the missing counterfactual $Y_{it}(0)$ is executed in three steps:
 
-\textbf{Step 1:} The initial step entails estimating the time-varying factors $\hat{F}_t$ and the coefficient matrix $\hat{\Gamma}_{\text{ctrl}}$ utilizing an ALS algorithm, based exclusively on data from the control group for the whole time period.
+\textbf{Step 1:} The initial step entails estimating the time-varying factors $\hat{F}_t$ and the mapping matrix $\hat{\Gamma}_{\text{ctrl}}$ utilizing an ALS algorithm, based exclusively on data from the control group for the whole time period.
 
 \begin{equation}
-(\hat{\Gamma}_{ctrl}, \hat{F_t}) = \underset{\Gamma, F_t}{\arg\min} \sum_{i \in \mathcal{C}} \sum_{t \leq T}\left( Y_{it} - (X_{it}\Gamma) F_{t} \right)\left( Y_{it} - (X_{it}\Gamma) F_{t} \right)'.
+(\hat{\Gamma}_{ctrl}, \hat{F_t}) = \underset{\Gamma, F_t}{\arg\min} \sum_{i \in \mathcal{C}} \sum_{t \leq T}\left( Y_{it} - (X_{it}\Gamma) F'_{t} \right)\left( Y_{it} - (X_{it}\Gamma) F'_{t} \right)'.
 \label{eq: optimization}
 \end{equation}
 
-\textbf{Step 2:} The subsequent step involves estimating the coefficient matrix $\hat{\Gamma}_{treat}$ for treated unit $i$ at time $t$, employing the previously estimated time-varying factors $\hat{F}_t$ and the observed covariates $X_{it}$, using only pretreatment data from the treated units.
+\textbf{Step 2:} The subsequent step involves estimating the mapping matrix $\hat{\Gamma}_{treat}$ for treated unit $i$ at time $t$, employing the previously estimated time-varying factors $\hat{F}_t$ and the observed covariates $X_{it}$, using only pretreatment data from the treated units.
 
 \begin{equation}
-\hat{\Gamma}_{treat} = \underset{\Gamma}{\arg\min} \sum_{i \in \mathcal{T}} \sum_{t \leq T_{pre}} \left( Y_{it} - (X_{it} \Gamma) \hat{F}_{t} \right) \left( Y_{it} - (X_{it} \Gamma) \hat{F}_{t} \right)'.
+\hat{\Gamma}_{treat} = \underset{\Gamma}{\arg\min} \sum_{i \in \mathcal{T}} \sum_{t \leq T_{pre}} \left( Y_{it} - (X_{it} \Gamma) \hat{F}'_{t} \right) \left( Y_{it} - (X_{it} \Gamma) \hat{F}'_{t} \right)'.
 \end{equation}
 
-\textbf{Step 3:} The third step includes normalizing the estimated coefficient matrix $\hat{\Gamma}_{treat}$ and $\hat{F_t}$ by a set of constrants:
+\textbf{Step 3:} The third step includes normalizing the estimated mapping matrix $\hat{\Gamma}_{treat}$ and $\hat{F_t}$ by a set of constriants:
 
 \begin{equation}
 \label{eqn: normalization}
@@ -178,16 +167,16 @@ s.t. \Gamma_{norm}'\Gamma_{norm} &= \mathcal{I}, \quad F_{norm} F_{norm}'/T = \t
 \end{aligned}
 \end{equation}
 
-Similar to most factor analysis methods, the estimated $\Gamma$ and $F_t$ are not deterministic. There exist finite numbers of ``rotated'' parameters $\Gamma R$ and $R^{-1}F_t$ that yeild the same objective function value (i.e. $X_{it}\Gamma F_t = X_{it} \Gamma R R^{-1} F_t$). To make the estimation identifiable, it's necessary to impose some constraints on the estimated $\Gamma$ and $F_t$. Following \cite{connor1993test, stock2002forecasting, bai2002determining}, the aforementioned restrictions reduce the model's complexity and make it easier to understand and interpret the relationships between the factors $F_t$ and factor loadings $\Lambda_{it}$. Unlike the estimation methods in \cite{bai2009panel,xu2017generalized} where normalization constraints are set before the estimation, the structural component $X_{it}\Gamma F_t$ allows us to normlize the estimated $\Gamma$ and $F_t$ after the estimation. This enables us to easily find the rotation matrix $R$ that satisfies the above constraints.
+Similar to most factor analysis methods, the estimated $\Gamma$ and $F_t$ are not deterministic. There exist infinite numbers of ``rotated'' parameters $\Gamma R$ and $R^{-1}F_t$ that yeild the same objective function value (i.e. $X_{it}\Gamma F_t = X_{it} \Gamma R R^{-1} F_t$). To make the estimation identifiable, it's necessary to impose some constraints on the estimated $\Gamma$ and $F_t$. Following \cite{connor1993test, stock2002forecasting, bai2002determining}, the aforementioned restrictions reduce the model's complexity and make it easier to understand and interpret the relationships between the factors $F_t$ and factor loadings $\Lambda_{it}$. Unlike the estimation methods in \cite{bai2009panel,xu2017generalized} where normalization constraints are set before the estimation, the structural component $X_{it}\Gamma F_t$ allows us to normlize the estimated $\Gamma$ and $F_t$ after the estimation. This enables us to easily find the rotation matrix $R$ that satisfies the above constraints.
 
 
-\textbf{Step 4:} The final step involves imputing the counterfactual outcome $\hat{Y}_{it}^0$ for treated unit $i$ at time $t$ by substituting the estimated coefficient matrix $\hat{\Gamma}_{norm}$ and the time varying factors $\hat{F}_{norm}$ into the following equation:
+\textbf{Step 4:} The final step involves imputing the counterfactual outcome $\hat{Y}_{it}^0$ for treated unit $i$ at time $t$ by substituting the estimated mapping matrix $\hat{\Gamma}_{norm}$ and the time varying factors $\hat{F}_{norm}$ into the following equation:
 
 \begin{equation}
-\hat{Y}_{it}(0) = (X_{it} \hat{\Gamma}_{norm}) \hat{F}_{norm}, \quad \forall i \in \mathcal{T}, \quad \& \quad T_{pre} < t \leq T.
+\hat{Y}_{it}(0) = (X_{it} \hat{\Gamma}_{norm}) \hat{F}'_{norm}, \quad \forall i \in \mathcal{T}, \quad \& \quad T_{pre} < t \leq T.
 \end{equation}
 
-The main difference between CSC-IPCA and the instrumented principal component analysis (IPCA) as proposed by \cite{kelly2020instrumented} lies in the purpose of prediction. In the IPCA method, the authors predict the next period stock returns using all covariates from the preceding period, under the assumption that the rotation matrix $\Gamma$ remains constant across all observations. In contrast, CSC-IPCA introduces a pivotal distinction: it operates under the assumption that treated and control groups are characterized by unique rotation matrices, $\Gamma_{\text{treat}}$ and $\Gamma_{\text{ctrl}}$. This assumption is vital for the unbiased estimation of the ATT, setting the CSC-IPCA method apart by directly addressing heterogeneity in the treatment effect through the specification of group-specific rotation matrices. The detailed estimation procedures are presented in the Appendix \ref{sec: appendix estimation}.
+The main difference between CSC-IPCA and the instrumented principal component analysis (IPCA) as proposed by \cite{kelly2020instrumented} lies in the purpose of prediction. In the IPCA method, the authors predict the next period stock returns using all covariates from the preceding period, under the assumption that the mapping matrix $\Gamma$ remains constant across all observations. In contrast, CSC-IPCA introduces a pivotal distinction: it operates under the assumption that treated and control groups are characterized by unique mapping matrices, $\Gamma_{\text{treat}}$ and $\Gamma_{\text{ctrl}}$. This assumption is vital for the unbiased estimation of the ATT, setting the CSC-IPCA method apart by directly addressing heterogeneity in the treatment effect through the specification of group-specific mapping matrices. The detailed estimation procedures are presented in the Appendix \ref{sec: appendix estimation}.
 
 \subsection{Hyper parameter tuning}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -228,7 +217,7 @@ Similar to CSC-IFE methods, researchers often encounter the challenge of selecti
 In the context of causal inference, the pioneering application of the interactive fixed effect model is attributed to \cite{hsiao2012panel}. Nonetheless, a formal framework for inference using this method was not established until the works of \cite{chan2016policy} and \cite{li2018inference}. These methods of inference rely on a large number of control units and pre treatment periods to develop asymptotic properties. In recent years, conformal inference (\cite{chernozhukov2021exact}) has gained popularity in causal inference literature, such as \cite{ben2021augmented}, \cite{roth2023s}, and \cite{imbens2024causal}. Conformal inference is a nonparametric method that provides and exact and robust inference without requiring the specification of a model. Our causal inference framework, designed for predicting missing counterfactuals, allows us to construct inference procedures based on conformal prediction introduced by \cite{shafer2008tutorial} for the robustness against misspecification. The causal effect is identified as the difference between the observed outcomes and these estimated counterfactuals, expressed mathematically as:
 
 \begin{equation*}
-\theta_{it} = Y_{it} - \hat{Y}_{it}, \quad \forall i \in N_{tr}, \quad \text{and} \quad \forall t \in T_{post},
+\theta_{it} = Y_{it} - \hat{Y}_{it}, \quad \forall i \in N_{tr} \ \& \ \forall t \in T_{post},
 \end{equation*}
 
 \noindent where $\theta_{it}$ denotes the treatment effect for unit $i$ at time $t$, and $\hat{Y}_{it}$ represents the imputed counterfactual outcome. 
@@ -257,17 +246,16 @@ Finally, we block permute the residuals and calculate the test statistic in each
 \label{sec: simulation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this section, we employ Monte Carlo simulations to assess the performance of the CSC-IPCA estimator in finite sample settings. We juxtapose the CSC-IPCA estimator against the CSC-IFE and the original SC estimators. Our comparative analysis focuses on key metrics including bias, mean squared errors, and coverage probability. 
+In this section, we employ Monte Carlo simulations to assess the performance of the CSC-IPCA estimator in finite sample settings. We juxtapose the CSC-IPCA estimator against the CSC-IFE and the original SC estimators. Our comparative analysis focuses on key metrics including bias, mean squared errors, and converage properties. 
 
 We initiate our analysis with a data generating process that incorporates $L=10$ and $K=3$ time-varying covariates and common factors, along with unit and time fixed effects:
 
 \begin{equation}
-Y_{it} = D_{i} \delta_{t} + X_{it}\beta + (X_{it}\Gamma) F_{t} + \alpha_i + \xi_t + \epsilon_{it}.
+Y_{it} = D_{i} \delta'_{t} + X_{it}\beta' + (X_{it}\Gamma) F'_{t} + \alpha_i + \xi_t + \epsilon_{it}.
 \tag{6}
 \label{eq: dgp}
 \end{equation}
-
-\noindent where $X_{it} = [x_{it}^1, \ldots, x_{it}^{L}]$ denotes a vector of $L \times 1$ time-varying covariates, which follows a VAR(1) process. $X_{it} = \mu_i + A_i X_{i,t-1} + \nu_{it}$, where $A_i$ is a $ L \times L$ variance-covariance matrix\footnote{In our methodology, the variance-covariance matrix is not constrained to be diagonal, thus allowing covariates within each unit to be correlated, reflecting the typical scenario in most economic time series data. To emphasize the independence among different units, we generate $N$ unique variance-covariance matrices, each corresponding to a unit, ensuring cross-sectional independence and preserving time-series correlation. Moreover, we impose a condition on these matrices by requiring the eigenvalues of $A_i$ to have characteristic roots that reside inside the unit circle, thereby assuring the stationarity of the VAR(1) process.}, The drift term $\mu_i$ equals 0 for control units and 2 for treated units,\footnote{This configuration underscores that the treatment assignment is not random; rather, it depends on the covariates $X_{it}$.}, and $\nu_{it}$ is a $L \times 1$ vector of i.i.d. standard normal errors. While $F_t = [f_t^1, \ldots, f_t^3]^\prime$ denotes the vector of time-varying common factors, adhering to a similar VAR(1) process, the variable $\epsilon_{it}$ represents the idiosyncratic error term. Unit and time fixed effects, $\alpha_i$ and $\xi_{t}$ respectively, are uniformly drawn from the interval $(0,1)$. The coefficient vector $\beta = [\beta^1, \ldots, \beta^{L}]^\prime$ associated with the covariates is drawn uniformly from $(0,1)$, and $\Gamma$, the $L \times K$ coefficient matrix for the factor loadings, is drawn uniformly from $(-0.1, 0.1)$, with these covariates serving as instruments. The treatment indicator $D_{it}$ is binary, defined as $D_{it} = 1$ for treated units during post-treatment periods, and $D_{it} = 0$ otherwise. The heterogeneous treatment effect is modeled as $\delta_{it} = \bar{\delta}_{it} + e_{it}$, where $e_{it}$ is i.i.d as standard normal, and $\bar{\delta_t} = [0, \cdots, 0, 1,2,\ldots,T_{post}]$ represents a time-varying treatment effect\footnote{Here we simplify the treatment effect to be constant across units, however the heterogeneous treatment effect across units can also be easily employed.}. Only the outcome $Y_{it}$, the covariates $X_{it}$, and the treatment indicator $D_{it}$ are observed, while all other variables remain unobserved.
+where $X_{it} = [x_{it}^1, \ldots, x_{it}^{L}]$ denotes a vector of $L \times 1$ time-varying covariates, which follows a VAR(1) process. $X_{it} = \mu_i + A_i X_{i,t-1} + \nu_{it}$, where $A_i$ is a $ L \times L$ variance-covariance matrix\footnote{In our methodology, the variance-covariance matrix is not constrained to be diagonal, thus allowing covariates within each unit to be correlated, reflecting the typical scenario in most economic time series data. To emphasize the independence among different units, we generate $N$ unique variance-covariance matrices, each corresponding to a unit, ensuring cross-sectional independence and preserving time-series correlation. Moreover, we impose a condition on these matrices by requiring the eigenvalues of $A_i$ to have characteristic roots that reside inside the unit circle, thereby assuring the stationarity of the VAR(1) process.}, The drift term $\mu_i$ equals 0 for control units and 2 for treated units,\footnote{This configuration underscores that the treatment assignment is not random; rather, it depends on the covariates $X_{it}$.}, and $\nu_{it}$ is a $L \times 1$ vector of i.i.d. standard normal errors. While $F_t = [f_t^1, \ldots, f_t^3]$ denotes the vector of time-varying common factors, adhering to a similar VAR(1) process, the variable $\epsilon_{it}$ represents the idiosyncratic error term. Unit and time fixed effects, $\alpha_i$ and $\xi_{t}$ respectively, are uniformly drawn from the interval $(0,1)$. The coefficient vector $\beta = [\beta^1, \ldots, \beta^{L}]$ associated with the covariates is drawn uniformly from $(0,1)$, and $\Gamma$, the $L \times K$ mapping matrix for the factor loadings, is drawn uniformly from $(-0.1, 0.1)$. The treatment indicator $D_{it}$ is binary, defined as $D_{it} = 1$ for treated units during post-treatment periods, and $D_{it} = 0$ otherwise. The heterogeneous treatment effect is modeled as $\delta_{it} = \bar{\delta}_{it} + e_{it}$, where $e_{it}$ is i.i.d as standard normal, and $\bar{\delta_t} = [0, \cdots, 0, 1,2,\ldots,T_{post}]$ represents a time-varying treatment effect\footnote{Here we simplify the treatment effect to be constant across units, however the heterogeneous treatment effect across units can also be easily employed.}. Only the outcome $Y_{it}$, the covariates $X_{it}$, and the treatment indicator $D_{it}$ are observed, while all other variables remain unobserved.
 
 \begin{figure}[!ht]
     \centering
@@ -302,7 +290,7 @@ Based on the same data generating process and parameters, we compare the CSC-IPC
 \end{figure}
 
 \subsection{Finate sample properties}
-We present the Monte Carlo simulation results in Table \ref{tab: finate sample} to investigate the finate sample properties of the CSC-IPCA estimator. The number of treated units and post treatment period are fixed to $N_{treat} = 5, T_1=5$. We vary the number of control units $N_{co}$, pre treatment period $T_0$ , and the proportion of observed covariates $\alpha$ with the total number of covariates $L=10$ to investigate the finate sample properties. As showing in the table \ref{tab: finate sample}, the bias, RMSE, and STD are estimated based on 1000 simulations\footnote{The root mean squared error (RMSE) is defined as $RMSE = \sqrt{\frac{1}{T_1}\sum_{t \in T_1}\left(ATT_t - \widehat{ATT}_t\right)^2}$. The standard deviation (STD) is defined as $STD = \frac{1}{T_1}\sum_{t \in T_1}\left(\widehat{ATT}_t - \frac{1}{T_1}\sum_{t \in T_1}\widehat{ATT_t}\right)^2$}. The results indicate that the bias of the CSC-IPCA estimator decreases as the number of control units and pre treatment period increases. The bias decreases the most when the proportion of observed covariates increases from $\frac{1}{3}$ to 1 (all covariates are observed). We observe similar pattern in RMSE and STD. It is worth noting that if we observe all the covariates (i.e., $\alpha = 1$), the bias, RMSE, and STD of the CSC-IPCA estimator are all reduce to the lowest level even with a small number of control units and pre treatment period.
+We present the Monte Carlo simulation results in Table \ref{tab: finate sample} to investigate the finate sample properties of the CSC-IPCA estimator. The number of treated units and post treatment period are fixed to $N_{treat} = 5, T_{post}=5$. We vary the number of control units $N_{ctrl}$, pre treatment period $T_{pre}$ , and the proportion of observed covariates $\alpha$ with the total number of covariates $L=10$ to investigate the finate sample properties. As showing in the table \ref{tab: finate sample}, the bias, RMSE, and STD are estimated based on 1000 simulations\footnote{The root mean squared error (RMSE) is defined as $RMSE = \sqrt{\frac{1}{T_1}\sum_{t \in T_1}\left(ATT_t - \widehat{ATT}_t\right)^2}$. The standard deviation (STD) is defined as $STD = \frac{1}{T_1}\sum_{t \in T_1}\left(\widehat{ATT}_t - \frac{1}{T_1}\sum_{t \in T_1}\widehat{ATT_t}\right)^2$}. The results indicate that the bias of the CSC-IPCA estimator decreases as the number of control units and pre treatment period increases. The bias decreases the most when the proportion of observed covariates increases from $\frac{1}{3}$ to 1 (all covariates are observed). We observe similar pattern in RMSE and STD. It is worth noting that if we observe all the covariates (i.e., $\alpha = 1$), the bias, RMSE, and STD of the CSC-IPCA estimator are all reduce to the lowest level even with a small number of control units and pre treatment period.
 
 \begin{table}[!ht]
 \centering
@@ -369,7 +357,7 @@ Firms'
 
 \section{}
 
-Throughout the paper, we use lowercase letters to represent scalars, e.g., $y_{it}$ would be a scalar of the outcome variable for unit $i$ at time $t$. We use bold lowercase letters to represent vectors, e.g., $\mathbf{x}_{it}$ would be a vector of covariates for unit $i$ at time $t$. We use uppercase letters to represent matrices, e.g., $\Gamma$ represents the mapping matrix. We denote $\mathrm{E}\|\mathbf{f}_t\mathbf{f}_t'\|^2$ the Frobenius norm squared of the matrix $\mathbf{f}_t\mathbf{f}_t'$.
+Within this section, we use lowercase letters to represent scalars, e.g., $y_{it}$ would be a scalar of the outcome variable for unit $i$ at time $t$. We use bold lowercase letters to represent vectors, e.g., $\mathbf{x}_{it}$ would be a vector of covariates for unit $i$ at time $t$. We use uppercase letters to represent matrices, e.g., $\Gamma$ represents the mapping matrix. We denote $\mathrm{E}\|\mathbf{f}_t\mathbf{f}_t'\|^2$ the Frobenius norm squared of the matrix $\mathbf{f}_t\mathbf{f}_t'$.
 
 
 \subsection{Identification assumptions}
@@ -383,7 +371,7 @@ Assumption for consistency:
     
     \item The parameter space $\Psi$ of $\Gamma$ is compact and away from rank deficient: $\det{\Gamma' \Gamma} > \epsilon$ for some $\epsilon>0$,
     
-    \item Amost surely, $\mathbf{x}_{it}$ is bounded, and define $\Omega_t^{xx} := \mathrm{E}\left[ \mathbf{x}_{it}' \mathbf{x}_{it} \right]$, then almost surely, $\Omega_t^{xx} > \epsilon$ for some $\epsilon > 0$.
+    \item Almost surely, $\mathbf{x}_{it}$ is bounded, and define $\Omega_t^{xx} := \mathrm{E}\left[ \mathbf{x}_{it}' \mathbf{x}_{it} \right]$, then almost surely, $\Omega_t^{xx} > \epsilon$ for some $\epsilon > 0$.
 \end{enumerate}
 \label{app: ass consistency}
 \end{assumption}
@@ -407,7 +395,7 @@ Assumptions for asympototic normality:
 \subsection{Estimation of the CSC-IPCA estimator}
 \label{sec: appendix estimation}
 
-As outlined in Equation \ref{eqn: functional form}, the common components of the data generating process are constructed by the interactive effect between time-varying factors $F_t$ and dynamic factor loadings $\Lambda_{it}$, which is instrumented by the instrumental variable $X_{it}$ through the mapping matrix $\Gamma$. The data generating process can be formulated as follows:
+As outlined in Equation \ref{eqn: functional form}, the common components of the data generating process are constructed by the interactive effect between time-varying factors $F_t$ and dynamic factor loadings $\Lambda_{it}$, which is instrumented by the covariates $X_{it}$ through the mapping matrix $\Gamma$. The data generating process can be formulated as follows:
 
 \begin{equation}
 \label{app: eqn combined}
@@ -488,7 +476,8 @@ We can also utilize leave-one-out cross validation to select the hyperparameter 
 \section{Formal Result}
 \label{sec: formal result}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-In this section, we derive the formal result for the CSC-IPCA estimator. We first establish the consistency and asymptotic properties of the CSC-IPCA estimated ATT.
+In this section, we derive the formal result for the CSC-
+IPCA estimator. We first establish the consistency and asymptotic properties of the mapping matrix $\Gamma$ and the factor $F_t$. We then derive the formal result for the CSC-IPCA estimated ATT. 
 
 \subsection{Mapping matrix estimation asympototic properties}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -524,6 +513,7 @@ where $H^0:= \frac{\partial S(\Gamma)}{\partial \mathbf{\gamma}}|_{\mathbf{\gamm
 \subsection{Factor estimation asympototic properties}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{proposition}
+\label{prop: factor}
 Under Assumption \ref{app: ass consistency} and \ref{app: ass normality}, factor estimation error centered against the normalized true factor converges to a normal distribution at the rate of $\sqrt{N}$: as $N, T \to \infty$ for $\forall t$,
 $$
 \sqrt{N}\left(\hat{\mathbf{f}}_t - \mathbf{f}_t\right) \xrightarrow{d} N\left(0, \mathbb{V}_t^{[2]}\right),
@@ -533,7 +523,7 @@ $$
 \textbf{Proof:} Decompose the left hand side euqation:
 \begin{equation*}
 \begin{aligned}
-\sqrt{N}\left(\mathbf{\hat{f}}_t - \mathbf{f}_t\right) &= \sqrt{N}\left( \hat{\Gamma}'X'_tX_t\hat{\Gamma} \right)^{-1}\hat{\Gamma}'X_t' \left(X_t\hat{\Gamma}\mathbf{f}_t+ \mathbf{\tilde{\epsilon}}_t \right) - \mathbf{f}_t\\
+\sqrt{N}\left(\mathbf{\hat{f}}_t - \mathbf{f}_t\right) &= \sqrt{N}\left(\left( \hat{\Gamma}'X'_tX_t\hat{\Gamma} \right)^{-1}\hat{\Gamma}'X_t' \left(X_t\hat{\Gamma}\mathbf{f}_t+ \mathbf{\tilde{\epsilon}}_t \right) - \mathbf{f}_t\right)\\
 &= \sqrt{N}\left(\left( \hat{\Gamma}'X'_tX_t\hat{\Gamma} \right)^{-1}\hat{\Gamma}'X_t'X_t \hat{\Gamma}\mathbf{f}_t - \mathbf{f}_t\right) + \sqrt{N}\left( \hat{\Gamma}'X'_tX_t\hat{\Gamma} \right)^{-1}\hat{\Gamma}'X_t'\mathbf{\tilde{\epsilon}}_t
 \end{aligned}
 \end{equation*}
@@ -552,39 +542,44 @@ where the variance term \(\mathbb{V}_{t}^{[2]}\), which is given by \(\mathbb{V}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{theorem}
 \label{thm: bias}
-Under Assumptions A-C, the CSC-IPCA estimator $\mathrm{E}\left(\widehat{ATT}_{t} | D, X, \Lambda, F\right) \xrightarrow{P} ATT_{t}$, where $ATT_{t} = \frac{1}{N_{treat}}\sum_{i \in \mathcal{T}}\delta_{it}$ is the true treatment effect. for all $t > T_{pre}$ as both $N_{ctrl}, \ T_{pre} \to \infty$.
+Under Assumptions \ref{ass: function}, \ref{app: ass consistency}, and \ref{app: ass normality}, the CSC-IPCA estimator $\mathrm{E}\left(\widehat{ATT}_{t} | D, X, \Lambda, F\right) \xrightarrow{P} ATT_{t}$, where $ATT_{t} = \frac{1}{N_{treat}}\sum_{i \in \mathcal{T}}\delta_{it}$ is the true treatment effect. for all $t > T_{pre}$ as both $N_{ctrl}, \ T_{pre} \to \infty$.
 \end{theorem}
 
 \textbf{Proof:} Denote $i$ as the treated unit on which the treatment effect is of interest, the bias of estimated ATT is given by:
 
-\begin{equation}
+\begin{equation*}
 \begin{aligned}
 \hat{\delta}_{it} - \delta_{it} &= y_{it}^1 - \hat{y}_{it}^0 - \delta_{it}, \\    
-&= \textbf{x}_{it}\Gamma f_t - \textbf{x}_{it}\hat{\Gamma}\hat{f}_t + \epsilon_{it}, \\
-&= \textbf{x}_{it}\left( \left(\mathcal{I}\otimes f_t \right) \bm{\gamma} - (\mathcal{I}\otimes \hat{f}_t ) \hat{\bm{\gamma}} \right) + \epsilon_{it}, \\
-&= \textbf{x}_{it}\left( \left(\mathcal{I}\otimes f_t \right) \bm{\gamma} - \mathcal{I}\otimes (f_t + e_{f_t}) (\bm{\gamma}+\textbf{e}_{\gamma}) \right) + \epsilon_{it}, \\
-&= \textbf{x}_{it}\left( (\mathcal{I} \otimes f_t) \textbf{e}_{\gamma} - (\mathcal{I} \otimes e_{f_t} \bm{\gamma}) - (\mathcal{I} \otimes e_{f_t}) \textbf{e}_{\gamma} \right) + \epsilon_{it}\\
-&= \textbf{x}_{it}E_{\Gamma}f_t - \textbf{x}_{it}\Gamma e_{f_t} - \textbf{x}_{it}E_{\Gamma}e_{f_t} + \epsilon_{it}, \\
+&= \textbf{x}_{it}\Gamma \mathbf{f}'_t - \textbf{x}_{it}\hat{\Gamma}\hat{\mathbf{f}}'_t + \epsilon_{it}, \\
+&= \textbf{x}_{it}\left( \left(\mathcal{I}\otimes \mathbf{f}_t \right) \bm{\gamma} - (\mathcal{I}\otimes \hat{\mathbf{f}}_t ) \hat{\bm{\gamma}} \right) + \epsilon_{it}, \\
+&= \textbf{x}_{it}\left( \left(\mathcal{I}\otimes \mathbf{f}_t \right) \bm{\gamma} - \mathcal{I}\otimes (\mathbf{f}_t + \mathbf{e}_{f_t}) (\bm{\gamma}+\textbf{e}_{\gamma}) \right) + \epsilon_{it}, \\
+&= \textbf{x}_{it}\left( (\mathcal{I} \otimes \mathbf{f}_t) \textbf{e}_{\gamma} - (\mathcal{I} \otimes \mathbf{e}_{f_t} \bm{\gamma}) - (\mathcal{I} \otimes \mathbf{e}_{f_t}) \textbf{e}_{\gamma} \right) + \epsilon_{it}\\
+&= \textbf{x}_{it}E_{\Gamma}\mathbf{f}'_t - \textbf{x}_{it}\Gamma \mathbf{e}'_{f_t} - \textbf{x}_{it}E_{\Gamma}\mathbf{e}'_{f_t} + \epsilon_{it}, \\
 &= A_{1,it} + A_{2,it} + A_{3,it} + \epsilon_{it}.
 \end{aligned}
-\end{equation}
+\end{equation*}
 
-\noindent where $e_{f_t} = f_t - \hat{f}_t$ is the estimation error of the factor $f_t$. The bias of the estimated ATT is the sum of three terms $A_{1,it}$, $A_{2,it}$, $A_{3,it}$, and $\epsilon_{it}$, where $A_{1,it}$ is udbiased. From the Equation \ref{app: eqn update gamma}, we have:
-
-\begin{equation}
+\noindent where $\mathbf{e}_{f_t} = \mathbf{f}_t - \hat{\mathbf{f}}_t$ is a vector of estimation error of the factor $\mathbf{f}_t$, $\mathbf{e}_{\gamma}$ is vectorized estimation error of the mapping matrix $E_{\Gamma} = \Gamma - \hat{\Gamma}$. The third step converts the vector-matrix multiplication into vector multiplications with the Kronecker product, $\mathbf{x}_{it}\Gamma\mathbf{f}'_t = \mathbf{x}_{it}(\mathcal{I} \otimes \mathbf{f}_t)\bm{\gamma}$, where $\mathcal{I}$ is an $L \times L$ identity matrix. The bias of the estimated ATT is the sum of three terms $A_{1,it}$, $A_{2,it}$, $A_{3,it}$, and $\epsilon_{it}$. By propersition \ref{prop: gamma} and \ref{prop: factor}, we have the following results:
+\begin{equation*}
 \begin{aligned}
-A_{2,it} &= x_{it}(\mathcal{I} \otimes f_t) \hat{\gamma}, \\
-&= x_{it}(\mathcal{I} \otimes f_t) \left( \sum_{i,t} (x_{i,t}' \otimes \hat{f}_t) (x_{i,t} \otimes \hat{f}_t') \right)^{-1} \left( \sum_{i,t} (x_{i,t}' \otimes \hat{f}_t) y_{i,t} \right)
+    &A_{1,it} = \mathbf{x}_{it}E_{\Gamma}\mathbf{f}'_t = \mathcal{O}_p\left(1/\sqrt{N_{treat}T_{pre}}\right). \\
+    &A_{2,it} = -\mathbf{x}_{it}\Gamma \mathbf{e}'_{f_t} = \mathcal{O}_p\left(1/\sqrt{N_{ctrl}}\right). \\
+    &A_{3,it} = -\mathbf{x}_{it}E_{\Gamma}\mathbf{e}'_{f_t} = \mathcal{O}_p\left(1/\sqrt{N_{treat}T_{pre}}\right).
 \end{aligned}
-\end{equation}
-
-For the third term $A_{3,it}$, we have:
-
-\begin{equation}
+\end{equation*}
+Since we estimate the factor $\mathbf{f}_t$ using only control units and update the mapping matrix $\Gamma$ with treated units in the pre-treatment period, both $\mathbf{f}_t$ and $\Gamma$ converge over different dimensions of $T$ and $N$. Consequently, the error term $\epsilon_{it}$ is assumed to converge to zero, leading to the bias of the estimated ATT also converging to zero:
+\begin{equation*}
 \begin{aligned}
-A_{3,it} &= x_{it}(\mathcal{I} \otimes e_t) \hat{\gamma}, \\
-&= x_{it}(\mathcal{I} \otimes e_t) \left( \sum_{i,t} (x_{i,t}' \otimes \hat{f}_t) (x_{i,t} \otimes \hat{f}_t') \right)^{-1} \left( \sum_{i,t} (x_{i,t}' \otimes \hat{f}_t) y_{i,t} \right)
+    \hat{\delta}_{it} - \delta_{it} &= \mathcal{O}_p\left(\frac{1}{\sqrt{N_{\text{treat}}T_{\text{pre}}}}\right) + \mathcal{O}_p\left(\frac{1}{\sqrt{N_{\text{ctrl}}}}\right) + \mathcal{O}_p\left(\frac{1}{\sqrt{N_{\text{treat}}T_{\text{pre}}}}\right) + \epsilon_{it} \\
+    &= \mathcal{O}_p\left(\frac{1}{\sqrt{N_{\text{ctrl}}}}\right).
 \end{aligned}
-\end{equation}
+\end{equation*}
+Therefore, as $N_{\text{ctrl}}, \ T_{\text{pre}} \to \infty$, the estimated ATT converges to the true ATT:
+\begin{equation*}
+\begin{aligned}
+    \mathrm{E}\left(\widehat{ATT}_{t} | D, X, \Lambda, F\right) \xrightarrow{P} ATT_{t}.
+\end{aligned}
+\end{equation*}
+
 
 \end{document}
