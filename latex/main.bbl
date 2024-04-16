@@ -1,4 +1,4 @@
-\begin{thebibliography}{35}
+\begin{thebibliography}{37}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -149,6 +149,11 @@ M~Hashem Pesaran.
 \newblock Estimation and inference in large heterogeneous panels with a multifactor error structure.
 \newblock \emph{Econometrica}, 74\penalty0 (4):\penalty0 967--1012, 2006.
 
+\bibitem[Rosenbaum and Rubin(1983)]{rosenbaum1983central}
+Paul~R Rosenbaum and Donald~B Rubin.
+\newblock The central role of the propensity score in observational studies for causal effects.
+\newblock \emph{Biometrika}, 70\penalty0 (1):\penalty0 41--55, 1983.
+
 \bibitem[Roth et~al.(2023)Roth, Sant’Anna, Bilinski, and Poe]{roth2023s}
 Jonathan Roth, Pedro~HC Sant’Anna, Alyssa Bilinski, and John Poe.
 \newblock What’s trending in difference-in-differences? a synthesis of the recent econometrics literature.
@@ -158,6 +163,11 @@ Jonathan Roth, Pedro~HC Sant’Anna, Alyssa Bilinski, and John Poe.
 Donald~B Rubin.
 \newblock Estimating causal effects of treatments in randomized and nonrandomized studies.
 \newblock \emph{Journal of educational Psychology}, 66\penalty0 (5):\penalty0 688, 1974.
+
+\bibitem[Rubin(1997)]{rubin1997estimating}
+Donald~B Rubin.
+\newblock Estimating causal effects from large data sets using propensity scores.
+\newblock \emph{Annals of internal medicine}, 127\penalty0 (8\_Part\_2):\penalty0 757--763, 1997.
 
 \bibitem[Rubin(2005)]{rubin2005causal}
 Donald~B Rubin.

@@ -15,14 +15,13 @@ class CSC_IPCA(object):
 
     def fit(self, df, id, time, outcome, treated, covariates, K, MaxIter=100, MinTol=1e-6, verbose=False):
         """
-        df: pd.DataFrame, should be the control data
+        df: pd.DataFrame
         id: str, column name for unit id
         time: str, column name for time period
         outcome: str, column name for outcome variable
         covariates: list of str, column names for covariates
         treated: str, column name for treated unit
         K: int, number of factors
-        L: int, number of covariates
         """
         # Initializes the model with given parameters and data.
         self.df = df

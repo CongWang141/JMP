@@ -19,7 +19,7 @@
 \citation{chernozhukov2021exact}
 \citation{xu2017generalized}
 \citation{xu2017generalized}
-\citation{abadie2011bias,abadie2006large}
+\citation{rosenbaum1983central,rubin1997estimating}
 \citation{card1993minimum}
 \citation{abadie2010synthetic}
 \citation{ben2021augmented}
@@ -45,15 +45,15 @@
 \citation{kelly2020instrumented,kelly2019characteristics}
 \citation{feng2020taming}
 \citation{brave2009chicago}
-\citation{gobillon2016regional,chan2016policy}
-\citation{xu2017generalized}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Framework}{4}{section.2}\protected@file@percent }
 \newlabel{sec: framework}{{2}{4}{Framework}{section.2}{}}
 \newlabel{ass: function}{{1}{4}{Framework}{assumption.1}{}}
-\newlabel{eqn: functional form}{{3}{4}{Framework}{equation.2.3}{}}
+\citation{gobillon2016regional,chan2016policy}
+\citation{xu2017generalized}
+\newlabel{eqn: functional form}{{3}{5}{Framework}{equation.2.3}{}}
 \citation{splawa1990application}
 \citation{rubin1974estimating,rubin2005causal}
-\newlabel{eqn: potential outcome}{{4}{5}{Framework}{equation.2.4}{}}
+\newlabel{eqn: potential outcome}{{4}{6}{Framework}{equation.2.4}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Assumptions for identification}{6}{subsection.2.1}\protected@file@percent }
 \newlabel{ass: consistency}{{2}{6}{Assumptions for identification}{assumption.2}{}}
 \citation{kelly2020instrumented}
@@ -63,9 +63,9 @@
 \@writefile{toc}{\contentsline {section}{\numberline {3}Estimation}{8}{section.3}\protected@file@percent }
 \newlabel{sec: estimation}{{3}{8}{Estimation}{section.3}{}}
 \newlabel{eqn: obj}{{6}{8}{Estimation}{equation.3.6}{}}
-\newlabel{eq: optimization}{{7}{8}{Estimation}{equation.3.7}{}}
 \citation{connor1993test,stock2002forecasting,bai2002determining}
 \citation{bai2009panel,xu2017generalized}
+\newlabel{eq: optimization}{{7}{9}{Estimation}{equation.3.7}{}}
 \newlabel{eqn: normalization}{{9}{9}{Estimation}{equation.3.9}{}}
 \citation{kelly2020instrumented}
 \citation{hsiao2012panel}
@@ -83,20 +83,21 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Inference}{11}{subsection.3.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {4}Monte Carlo Simulation}{13}{section.4}\protected@file@percent }
 \newlabel{sec: simulation}{{4}{13}{Monte Carlo Simulation}{section.4}{}}
-\newlabel{eq: dgp}{{{6}}{13}{Monte Carlo Simulation}{AMS.2}{}}
+\newlabel{eq: dgp}{{13}{13}{Monte Carlo Simulation}{equation.4.13}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}A simulated example}{14}{subsection.4.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {CSC-IPCA Data Generating Process}\relax }}{15}{figure.caption.3}\protected@file@percent }
-\newlabel{fig: sim}{{1}{15}{\textbf {CSC-IPCA Data Generating Process}\relax }{figure.caption.3}{}}
+\citation{abadie2010synthetic}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {CSC-IPCA Data Generating Process}\relax }}{15}{figure.caption.2}\protected@file@percent }
+\newlabel{fig: sim}{{1}{15}{\textbf {CSC-IPCA Data Generating Process}\relax }{figure.caption.2}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Bias comparision}{15}{subsection.4.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textbf  {CSC-IPCA Estimated ATT for Simulated Sample}\relax }}{16}{figure.caption.4}\protected@file@percent }
-\newlabel{fig: est}{{2}{16}{\textbf {CSC-IPCA Estimated ATT for Simulated Sample}\relax }{figure.caption.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Bias Comparing with Other Methods}\relax }}{17}{figure.caption.5}\protected@file@percent }
-\newlabel{fig: bias}{{3}{17}{\textbf {Bias Comparing with Other Methods}\relax }{figure.caption.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Finate sample properties}{17}{subsection.4.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces \textbf  {Finate Sample Properties}\relax }}{18}{table.caption.6}\protected@file@percent }
-\newlabel{tab: finate sample}{{1}{18}{\textbf {Finate Sample Properties}\relax }{table.caption.6}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Empirical Application}{18}{section.5}\protected@file@percent }
-\newlabel{sec: application}{{5}{18}{Empirical Application}{section.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textbf  {CSC-IPCA Estimated ATT for Simulated Sample}\relax }}{16}{figure.caption.3}\protected@file@percent }
+\newlabel{fig: est}{{2}{16}{\textbf {CSC-IPCA Estimated ATT for Simulated Sample}\relax }{figure.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Bias Comparing with Other Methods}\relax }}{17}{figure.caption.4}\protected@file@percent }
+\newlabel{fig: bias}{{3}{17}{\textbf {Bias Comparing with Other Methods}\relax }{figure.caption.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Finite sample properties}{17}{subsection.4.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces \textbf  {Finite Sample Properties}\relax }}{18}{table.caption.5}\protected@file@percent }
+\newlabel{tab: finite sample}{{1}{18}{\textbf {Finite Sample Properties}\relax }{table.caption.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Empirical Application}{19}{section.5}\protected@file@percent }
+\newlabel{sec: application}{{5}{19}{Empirical Application}{section.5}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{19}{section.6}\protected@file@percent }
 \newlabel{sec: conclusion}{{6}{19}{Conclusion}{section.6}{}}
 \bibstyle{plainnat}
@@ -130,39 +131,60 @@
 \bibcite{li2018inference}{{27}{2018}{{Li}}{{}}}
 \bibcite{splawa1990application}{{28}{1932}{{Neyman}}{{}}}
 \bibcite{pesaran2006estimation}{{29}{2006}{{Pesaran}}{{}}}
-\bibcite{roth2023s}{{30}{2023}{{Roth et~al.}}{{Roth, Sant’Anna, Bilinski, and Poe}}}
-\bibcite{rubin1974estimating}{{31}{1974}{{Rubin}}{{}}}
-\bibcite{rubin2005causal}{{32}{2005}{{Rubin}}{{}}}
-\bibcite{shafer2008tutorial}{{33}{2008}{{Shafer and Vovk}}{{}}}
-\bibcite{stock2002forecasting}{{34}{2002}{{Stock and Watson}}{{}}}
-\bibcite{xu2017generalized}{{35}{2017}{{Xu}}{{}}}
-\@writefile{toc}{\contentsline {section}{\numberline {A}}{23}{appendix.A}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Identification assumptions}{23}{subsection.A.1}\protected@file@percent }
-\newlabel{app: ass consistency}{{A.2}{23}{Identification assumptions}{Item.11}{}}
-\newlabel{app: ass normality}{{A.3}{23}{Identification assumptions}{Item.16}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Estimation of the CSC-IPCA estimator}{24}{subsection.A.2}\protected@file@percent }
-\newlabel{sec: appendix estimation}{{A.2}{24}{Estimation of the CSC-IPCA estimator}{subsection.A.2}{}}
-\newlabel{app: eqn combined}{{A.1}{24}{Estimation of the CSC-IPCA estimator}{equation.A.1}{}}
-\newlabel{app: eqn first step}{{A.2}{24}{Estimation of the CSC-IPCA estimator}{equation.A.2}{}}
-\newlabel{app: eqn update f}{{A.3}{24}{Estimation of the CSC-IPCA estimator}{equation.A.3}{}}
+\bibcite{rosenbaum1983central}{{30}{1983}{{Rosenbaum and Rubin}}{{}}}
+\bibcite{roth2023s}{{31}{2023}{{Roth et~al.}}{{Roth, Sant’Anna, Bilinski, and Poe}}}
+\bibcite{rubin1974estimating}{{32}{1974}{{Rubin}}{{}}}
+\bibcite{rubin1997estimating}{{33}{1997}{{Rubin}}{{}}}
+\bibcite{rubin2005causal}{{34}{2005}{{Rubin}}{{}}}
+\bibcite{shafer2008tutorial}{{35}{2008}{{Shafer and Vovk}}{{}}}
+\bibcite{stock2002forecasting}{{36}{2002}{{Stock and Watson}}{{}}}
+\bibcite{xu2017generalized}{{37}{2017}{{Xu}}{{}}}
+\citation{athey2021matrix}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Technical Details}{23}{appendix.A}\protected@file@percent }
+\newlabel{sec: appendix}{{A}{23}{Technical Details}{appendix.A}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Treatment Assignment}{23}{subsection.A.1}\protected@file@percent }
+\newlabel{app: treatment assignment}{{A.1}{23}{Treatment Assignment}{subsection.A.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.1}{\ignorespaces \textbf  {Block Assignment}\relax }}{23}{figure.caption.6}\protected@file@percent }
+\newlabel{app: block assignment}{{A.1}{23}{\textbf {Block Assignment}\relax }{figure.caption.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.2}{\ignorespaces \textbf  {Staggered Adoption}\relax }}{24}{figure.caption.7}\protected@file@percent }
+\newlabel{app: staggered adoption}{{A.2}{24}{\textbf {Staggered Adoption}\relax }{figure.caption.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.3}{\ignorespaces \textbf  {Random Assignment}\relax }}{24}{figure.caption.8}\protected@file@percent }
+\newlabel{app: random assignment}{{A.3}{24}{\textbf {Random Assignment}\relax }{figure.caption.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Identification assumptions}{24}{subsection.A.2}\protected@file@percent }
+\newlabel{app: ass consistency}{{A.2}{25}{Identification assumptions}{Item.10}{}}
+\newlabel{app: ass normality}{{A.3}{25}{Identification assumptions}{Item.15}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.3}Estimation of the CSC-IPCA estimator}{25}{subsection.A.3}\protected@file@percent }
+\newlabel{sec: appendix estimation}{{A.3}{25}{Estimation of the CSC-IPCA estimator}{subsection.A.3}{}}
+\newlabel{app: eqn combined}{{A.1}{26}{Estimation of the CSC-IPCA estimator}{equation.A.1}{}}
+\newlabel{app: eqn first step}{{A.2}{26}{Estimation of the CSC-IPCA estimator}{equation.A.2}{}}
+\newlabel{app: eqn update f}{{A.3}{26}{Estimation of the CSC-IPCA estimator}{equation.A.3}{}}
+\newlabel{app: eqn update gamma}{{A.4}{26}{Estimation of the CSC-IPCA estimator}{equation.A.4}{}}
 \citation{bai2009panel}
 \citation{xu2017generalized}
 \citation{higham2009cholesky}
-\newlabel{app: eqn update gamma}{{A.4}{25}{Estimation of the CSC-IPCA estimator}{equation.A.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.3}Hyperparameter tuning}{26}{subsection.A.3}\protected@file@percent }
-\newlabel{sec: appendix hyperparameter}{{A.3}{26}{Hyperparameter tuning}{subsection.A.3}{}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {2}{\ignorespaces Leave-One-Out Cross-Validation for Hyperparameter $k$\relax }}{26}{algocf.2}\protected@file@percent }
-\newlabel{algorithm: 2}{{2}{26}{Hyperparameter tuning}{algocf.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {B}Formal Result}{26}{appendix.B}\protected@file@percent }
-\newlabel{sec: formal result}{{B}{26}{Formal Result}{appendix.B}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.4}Hyperparameter tuning}{28}{subsection.A.4}\protected@file@percent }
+\newlabel{sec: appendix hyperparameter}{{A.4}{28}{Hyperparameter tuning}{subsection.A.4}{}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {2}{\ignorespaces Leave-One-Out Cross-Validation for Hyperparameter $k$\relax }}{28}{algocf.2}\protected@file@percent }
+\newlabel{algorithm: 2}{{2}{28}{Hyperparameter tuning}{algocf.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B}Formal Result}{28}{appendix.B}\protected@file@percent }
+\newlabel{sec: formal result}{{B}{28}{Formal Result}{appendix.B}{}}
 \citation{kelly2020instrumented}
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.1}Mapping matrix estimation asympototic properties}{27}{subsection.B.1}\protected@file@percent }
-\newlabel{eqn: target}{{B.7}{27}{Mapping matrix estimation asympototic properties}{equation.B.7}{}}
-\newlabel{eqn: identification}{{B.8}{27}{Mapping matrix estimation asympototic properties}{equation.B.8}{}}
-\newlabel{prop: gamma}{{1}{27}{Mapping matrix estimation asympototic properties}{proposition.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.1}Mapping matrix estimation asympototic properties}{29}{subsection.B.1}\protected@file@percent }
+\newlabel{eqn: target}{{B.7}{29}{Mapping matrix estimation asympototic properties}{equation.B.7}{}}
+\newlabel{eqn: identification}{{B.8}{29}{Mapping matrix estimation asympototic properties}{equation.B.8}{}}
+\newlabel{prop: gamma}{{1}{29}{Mapping matrix estimation asympototic properties}{proposition.1}{}}
 \citation{kelly2020instrumented}
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.2}Factor estimation asympototic properties}{28}{subsection.B.2}\protected@file@percent }
-\newlabel{prop: factor}{{2}{28}{Factor estimation asympototic properties}{proposition.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.3}Consistency and asymptotic property of the ATT estimation}{29}{subsection.B.3}\protected@file@percent }
-\newlabel{thm: bias}{{1}{29}{Consistency and asymptotic property of the ATT estimation}{theorem.1}{}}
-\gdef \@abspage@last{31}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.2}Factor estimation asympototic properties}{30}{subsection.B.2}\protected@file@percent }
+\newlabel{prop: factor}{{2}{30}{Factor estimation asympototic properties}{proposition.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.3}Consistency and asymptotic property of the ATT estimation}{31}{subsection.B.3}\protected@file@percent }
+\newlabel{thm: bias}{{1}{31}{Consistency and asymptotic property of the ATT estimation}{theorem.1}{}}
+\citation{xu2017generalized}
+\@writefile{toc}{\contentsline {section}{\numberline {C}Simulation Study}{32}{appendix.C}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {C.1}Bias comparison with different DGPs}{32}{subsection.C.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {C.2}Finite sample properties}{32}{subsection.C.2}\protected@file@percent }
+\newlabel{app: finite sample}{{C.2}{32}{Finite sample properties}{subsection.C.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {C.4}{\ignorespaces \textbf  {Bias Comparison with Different DGPs}\relax }}{33}{figure.caption.10}\protected@file@percent }
+\newlabel{app: bias 2}{{C.4}{33}{\textbf {Bias Comparison with Different DGPs}\relax }{figure.caption.10}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces \textbf  {Finite Sample Properties of CSC-IFE}\relax }}{33}{table.caption.11}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces \textbf  {Finite Sample Properties of SCM}\relax }}{34}{table.caption.12}\protected@file@percent }
+\gdef \@abspage@last{35}
