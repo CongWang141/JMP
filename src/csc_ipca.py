@@ -133,8 +133,8 @@ class CSC_IPCA(object):
 ##############################################
 # define a function to prepare matrix
 def _prepare_matrix(df, covariates, id, time, outcome):
-    Y = df.pivot(index=id, columns=time, values=outcome).values
-    X = np.array([df.pivot(index=id, columns=time, values=x).values for x in covariates]).transpose(1, 2, 0)    
+    Y = df.pivot(index=id, columns=time, values=outcome).astype(float).values
+    X = np.array([df.pivot(index=id, columns=time, values=x).astype(float).values for x in covariates]).transpose(1, 2, 0)    
     return Y, X
 
 # define a function to conduct ALS estimation
