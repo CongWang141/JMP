@@ -192,10 +192,10 @@ def compute_syn(X, Gama, F):
     return Y_hat
 
 # define a function to generate the null
-def under_null(df, null, treated):
+def under_null(df, null, treated, outcome):
     data = df.copy()
-    y = np.where(data[treated]==1, data['y'] - null, data['y'])
-    return data.assign(**{'y': y})
+    y = np.where(data[treated]==1, data[outcome] - null, data[outcome])
+    return data.assign(**{outcome: y})
 
 # define a function to compute F and Gama
 def update_parameter(Y, X, K, MaxIter=100, MinTol=1e-6, verbose=False):
@@ -240,7 +240,7 @@ def pval_grid(df, id, time, outcome, treated, covariates, nulls, K):
     p_vals = {}
     for null in nulls:
         # assign the null
-        null_df = under_null(df, null, treated)
+        null_df = under_null(df, null, treated, outcome)
 
         # prepare the matrix for control units
         Y0, X0 = _prepare_matrix(null_df[null_df['tr_group']==0], covariates, id, time, outcome)
@@ -256,7 +256,7 @@ def pval_grid(df, id, time, outcome, treated, covariates, nulls, K):
         Y_hat = compute_syn(X1, Gama_tr, F).mean(axis=0)
 
         # compute residual
-        Y_mean = null_df[null_df['tr_group']==1].groupby(time).y.mean()
+        Y_mean = null_df[null_df['tr_group']==1].groupby(time)[outcome].mean()
         # compute p value
         p_val = compute_pvalue(Y_mean, Y_hat, window=1) # window = 1 for period by period estimation
         p_vals[null] = p_val
