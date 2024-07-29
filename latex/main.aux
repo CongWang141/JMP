@@ -2,10 +2,13 @@
 \providecommand\hyper@newdestlabel[2]{}
 \providecommand\HyperFirstAtBeginDocument{\AtBeginDocument}
 \HyperFirstAtBeginDocument{\ifx\hyper@anchor\@undefined
+\global\let\oldcontentsline\contentsline
+\gdef\contentsline#1#2#3#4{\oldcontentsline{#1}{#2}{#3}}
 \global\let\oldnewlabel\newlabel
 \gdef\newlabel#1#2{\newlabelxx{#1}#2}
 \gdef\newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
 \AtEndDocument{\ifx\hyper@anchor\@undefined
+\let\contentsline\oldcontentsline
 \let\newlabel\oldnewlabel
 \fi}
 \fi}
@@ -16,8 +19,8 @@
 \providecommand \oddpage@label [2]{}
 \citation{jollife2016principal}
 \citation{bai2003computation,bai2009panel}
-\citation{chernozhukov2021exact}
 \citation{xu2017generalized}
+\citation{chernozhukov2021exact}
 \citation{xu2017generalized}
 \citation{rosenbaum1983central,rubin1997estimating}
 \citation{card1993minimum}
@@ -36,21 +39,24 @@
 \citation{stock2002forecasting}
 \citation{eberhardt2009cross}
 \citation{hsiao2012panel}
-\citation{gobillon2016regional,xu2017generalized,chan2016policy}
+\citation{gobillon2016regional}
+\citation{xu2017generalized}
+\citation{chan2016policy}
 \citation{li2018inference}
-\citation{kelly2020instrumented,kelly2019characteristics}
+\citation{kelly2020instrumented}
+\citation{kelly2019characteristics}
 \citation{bai2003computation}
 \newlabel{eqn: static}{{1}{2}{Introduction}{equation.1.1}{}}
 \newlabel{eqn: instrumented}{{2}{2}{Introduction}{equation.1.2}{}}
 \citation{kelly2020instrumented,kelly2019characteristics}
 \citation{feng2020taming}
 \citation{brave2009chicago}
+\citation{gobillon2016regional,chan2016policy}
+\citation{xu2017generalized}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Framework}{4}{section.2}\protected@file@percent }
 \newlabel{sec: framework}{{2}{4}{Framework}{section.2}{}}
 \newlabel{ass: function}{{1}{4}{Framework}{assumption.1}{}}
-\citation{gobillon2016regional,chan2016policy}
-\citation{xu2017generalized}
-\newlabel{eqn: functional form}{{3}{5}{Framework}{equation.2.3}{}}
+\newlabel{eqn: functional form}{{3}{4}{Framework}{equation.2.3}{}}
 \citation{splawa1990application}
 \citation{rubin1974estimating,rubin2005causal}
 \newlabel{eqn: potential outcome}{{4}{6}{Framework}{equation.2.4}{}}
@@ -63,11 +69,11 @@
 \@writefile{toc}{\contentsline {section}{\numberline {3}Estimation}{8}{section.3}\protected@file@percent }
 \newlabel{sec: estimation}{{3}{8}{Estimation}{section.3}{}}
 \newlabel{eqn: obj}{{6}{8}{Estimation}{equation.3.6}{}}
+\newlabel{eq: optimization}{{7}{8}{Estimation}{equation.3.7}{}}
 \citation{connor1993test,stock2002forecasting,bai2002determining}
 \citation{bai2009panel,xu2017generalized}
-\newlabel{eq: optimization}{{7}{9}{Estimation}{equation.3.7}{}}
-\newlabel{eqn: normalization}{{9}{9}{Estimation}{equation.3.9}{}}
 \citation{kelly2020instrumented}
+\newlabel{eqn: normalization}{{9}{9}{Estimation}{equation.3.9}{}}
 \citation{hsiao2012panel}
 \citation{chan2016policy}
 \citation{li2018inference}
@@ -77,25 +83,25 @@
 \citation{imbens2024causal}
 \citation{shafer2008tutorial}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Hyper parameter tuning}{10}{subsection.3.1}\protected@file@percent }
-\@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces Bootstrap Hyperparameter Tuning\relax }}{11}{algocf.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Inference}{10}{subsection.3.2}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces Bootstrap Hyperparameter Tuning}}{11}{algocf.1}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{algorithm: 1}{{1}{11}{Hyper parameter tuning}{algocf.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Inference}{11}{subsection.3.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {4}Monte Carlo Simulation}{13}{section.4}\protected@file@percent }
 \newlabel{sec: simulation}{{4}{13}{Monte Carlo Simulation}{section.4}{}}
 \newlabel{eq: dgp}{{13}{13}{Monte Carlo Simulation}{equation.4.13}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}A simulated example}{14}{subsection.4.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {CSC-IPCA Data Generating Process}}}{14}{figure.caption.2}\protected@file@percent }
+\newlabel{fig: sim}{{1}{14}{\textbf {CSC-IPCA Data Generating Process}}{figure.caption.2}{}}
 \citation{abadie2010synthetic}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {CSC-IPCA Data Generating Process}\relax }}{15}{figure.caption.2}\protected@file@percent }
-\newlabel{fig: sim}{{1}{15}{\textbf {CSC-IPCA Data Generating Process}\relax }{figure.caption.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}A simulated example}{15}{subsection.4.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Bias comparision}{15}{subsection.4.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textbf  {CSC-IPCA Estimated ATT for Simulated Sample}\relax }}{16}{figure.caption.3}\protected@file@percent }
-\newlabel{fig: est}{{2}{16}{\textbf {CSC-IPCA Estimated ATT for Simulated Sample}\relax }{figure.caption.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Bias Comparing with Other Methods}\relax }}{17}{figure.caption.4}\protected@file@percent }
-\newlabel{fig: bias}{{3}{17}{\textbf {Bias Comparing with Other Methods}\relax }{figure.caption.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textbf  {CSC-IPCA Estimated ATT for Simulated Sample}}}{16}{figure.caption.3}\protected@file@percent }
+\newlabel{fig: est}{{2}{16}{\textbf {CSC-IPCA Estimated ATT for Simulated Sample}}{figure.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Bias Comparing with Other Methods}}}{17}{figure.caption.4}\protected@file@percent }
+\newlabel{fig: bias}{{3}{17}{\textbf {Bias Comparing with Other Methods}}{figure.caption.4}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Finite sample properties}{17}{subsection.4.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces \textbf  {Finite Sample Properties}\relax }}{18}{table.caption.5}\protected@file@percent }
-\newlabel{tab: finite sample}{{1}{18}{\textbf {Finite Sample Properties}\relax }{table.caption.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces \textbf  {Finite Sample Properties}}}{18}{table.caption.5}\protected@file@percent }
+\newlabel{tab: finite sample}{{1}{18}{\textbf {Finite Sample Properties}}{table.caption.5}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Empirical Application}{19}{section.5}\protected@file@percent }
 \newlabel{sec: application}{{5}{19}{Empirical Application}{section.5}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{19}{section.6}\protected@file@percent }
@@ -144,12 +150,12 @@
 \newlabel{sec: appendix}{{A}{23}{Technical Details}{appendix.A}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Treatment Assignment}{23}{subsection.A.1}\protected@file@percent }
 \newlabel{app: treatment assignment}{{A.1}{23}{Treatment Assignment}{subsection.A.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.1}{\ignorespaces \textbf  {Block Assignment}\relax }}{23}{figure.caption.6}\protected@file@percent }
-\newlabel{app: block assignment}{{A.1}{23}{\textbf {Block Assignment}\relax }{figure.caption.6}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.2}{\ignorespaces \textbf  {Staggered Adoption}\relax }}{24}{figure.caption.7}\protected@file@percent }
-\newlabel{app: staggered adoption}{{A.2}{24}{\textbf {Staggered Adoption}\relax }{figure.caption.7}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.3}{\ignorespaces \textbf  {Random Assignment}\relax }}{24}{figure.caption.8}\protected@file@percent }
-\newlabel{app: random assignment}{{A.3}{24}{\textbf {Random Assignment}\relax }{figure.caption.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.1}{\ignorespaces \textbf  {Block Assignment}}}{23}{figure.caption.6}\protected@file@percent }
+\newlabel{app: block assignment}{{A.1}{23}{\textbf {Block Assignment}}{figure.caption.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.2}{\ignorespaces \textbf  {Staggered Adoption}}}{24}{figure.caption.7}\protected@file@percent }
+\newlabel{app: staggered adoption}{{A.2}{24}{\textbf {Staggered Adoption}}{figure.caption.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.3}{\ignorespaces \textbf  {Random Assignment}}}{24}{figure.caption.8}\protected@file@percent }
+\newlabel{app: random assignment}{{A.3}{24}{\textbf {Random Assignment}}{figure.caption.8}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Identification assumptions}{24}{subsection.A.2}\protected@file@percent }
 \newlabel{app: ass consistency}{{A.2}{25}{Identification assumptions}{Item.10}{}}
 \newlabel{app: ass normality}{{A.3}{25}{Identification assumptions}{Item.15}{}}
@@ -164,7 +170,7 @@
 \citation{higham2009cholesky}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A.4}Hyperparameter tuning}{28}{subsection.A.4}\protected@file@percent }
 \newlabel{sec: appendix hyperparameter}{{A.4}{28}{Hyperparameter tuning}{subsection.A.4}{}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {2}{\ignorespaces Leave-One-Out Cross-Validation for Hyperparameter $k$\relax }}{28}{algocf.2}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {2}{\ignorespaces Leave-One-Out Cross-Validation for Hyperparameter $k$}}{28}{algocf.2}\protected@file@percent }
 \newlabel{algorithm: 2}{{2}{28}{Hyperparameter tuning}{algocf.2}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {B}Formal Result}{28}{appendix.B}\protected@file@percent }
 \newlabel{sec: formal result}{{B}{28}{Formal Result}{appendix.B}{}}
@@ -183,8 +189,8 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {C.1}Bias comparison with different DGPs}{32}{subsection.C.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {C.2}Finite sample properties}{32}{subsection.C.2}\protected@file@percent }
 \newlabel{app: finite sample}{{C.2}{32}{Finite sample properties}{subsection.C.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {C.4}{\ignorespaces \textbf  {Bias Comparison with Different DGPs}\relax }}{33}{figure.caption.10}\protected@file@percent }
-\newlabel{app: bias 2}{{C.4}{33}{\textbf {Bias Comparison with Different DGPs}\relax }{figure.caption.10}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces \textbf  {Finite Sample Properties of CSC-IFE}\relax }}{33}{table.caption.11}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces \textbf  {Finite Sample Properties of SCM}\relax }}{34}{table.caption.12}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {C.4}{\ignorespaces \textbf  {Bias Comparison with Different DGPs}}}{33}{figure.caption.10}\protected@file@percent }
+\newlabel{app: bias 2}{{C.4}{33}{\textbf {Bias Comparison with Different DGPs}}{figure.caption.10}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces \textbf  {Finite Sample Properties of CSC-IFE}}}{33}{table.caption.11}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces \textbf  {Finite Sample Properties of SCM}}}{34}{table.caption.12}\protected@file@percent }
 \gdef \@abspage@last{35}
