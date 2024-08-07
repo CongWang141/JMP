@@ -177,7 +177,7 @@ The main difference between CSC-IPCA and the instrumented principal component an
 
 \subsection{Hyper parameter tuning}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Similar to CSC-IFE methods, researchers often encounter the challenge of selecting the appropriate number of factors, $K$, without prior knowledge of the true data generating process. To facilitate this selection, we introduce data driven approaches for determining the hyperparameter $K$. Utilizing both control and treated units as training and validation data respectively offers a practical solution. To enhance the robustness of this process, we propose two validation methods for hyperparameter tuning. Algorithm \ref{algorithm: 1} describes a bootstrap method to ascertain $K$. This approach involves repeatedly sampling $N_{ctrl}$ control units for training data and $N_{treat}$ treated units for validation data, both with replacement. The optimal $K$ is then determined by minimizing the average of sum squared errors across these validations. We also propose a leave-one-out cross validation method, as detailed in Appendix \ref{sec: appendix hyperparameter}.
+Similar to CSC-IFE methods, researchers often encounter the challenge of selecting the appropriate number of latent factors, $K$, without prior knowledge of the true data generating process. To facilitate this selection, we introduce data driven approaches for determining the hyperparameter $K$. Utilizing both control and treated units as training and validation data respectively offers a practical solution. To enhance the robustness of this process, we propose two validation methods for hyperparameter tuning. Algorithm \ref{algorithm: 1} describes a bootstrap method to ascertain $K$. This approach involves repeatedly sampling $N_{ctrl}$ control units for training data and $N_{treat}$ treated units for validation data, both with replacement. The optimal $K$ is then determined by minimizing the average of sum squared errors across these validations. We also propose a leave-one-out cross validation method, as detailed in Appendix \ref{sec: appendix hyperparameter}.
 
 \begin{algorithm}[!ht]
     \SetAlgoLined
@@ -211,7 +211,7 @@ Similar to CSC-IFE methods, researchers often encounter the challenge of selecti
 \subsection{Inference}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In the context of causal inference, the pioneering application of the interactive fixed effect model is attributed to \cite{hsiao2012panel}. Nonetheless, a formal framework for inference using this method was not established until the works of \cite{chan2016policy} and \cite{li2018inference}. These methods of inference rely on a large number of control units and pre-treatment periods to develop asymptotic properties. In recent years, conformal inference (\cite{chernozhukov2021exact}) has gained popularity in causal inference literature, such as \cite{ben2021augmented}, \cite{roth2023s}, and \cite{imbens2024causal}. Conformal inference is a nonparametric method that provides and exact and robust inference without requiring the specification of the model. Our causal inference framework, designed for predicting missing counterfactual, allows us to construct inference procedures based on conformal prediction introduced by \cite{shafer2008tutorial} for the robustness against misspecification. The causal effect is identified as the difference between the observed outcomes and these estimated counterfactual, expressed mathematically as:
+In the context of causal inference, the pioneering application of factor models is attributed to \cite{hsiao2012panel}. Nonetheless, a formal framework for inference using this method was not established until the works of \cite{chan2016policy} and \cite{li2018inference}. These methods of inference rely on a large number of control units and pre-treatment periods to develop asymptotic properties. In recent years, conformal inference (\cite{chernozhukov2021exact}) has gained popularity in causal inference literature, such as \cite{ben2021augmented}, \cite{roth2023s}, and \cite{imbens2024causal}. Conformal inference is a nonparametric method that provides the exact and robust inference without requiring the specification of the model. Our causal inference framework, designed for predicting missing counterfactual, allows us to construct inference procedures based on conformal prediction introduced by \cite{shafer2008tutorial} for the robustness against misspecification. The causal effect is identified as the difference between the observed outcomes and these estimated counterfactual, expressed mathematically as:
 
 \begin{equation*}
 \theta_{it} = Y^1_{it} - \hat{Y}^0_{it}, \quad \forall i \in N_{treat} \ \& \ T_{pre} + 1 \leq t \leq T,
@@ -251,7 +251,7 @@ We initiate our analysis with a data generating process that incorporates $L=10$
 Y_{it} = D_{i} \delta'_{t} + X_{it}\beta' + (X_{it}\Gamma) F'_{t} + \alpha_i + \xi_t + \epsilon_{it}.
 \label{eq: dgp}
 \end{equation}
-where $X_{it} = [x_{it}^1, \ldots, x_{it}^{L}]$ denotes a vector of $L \times 1$ time-varying covariates, which follows a VAR(1) process. $X_{it} = \mu_i + A_i X_{i,t-1} + \nu_{it}$, where $A_i$ is a $ L \times L$ variance-covariance matrix\footnote{In our methodology, the variance-covariance matrix is not constrained to be diagonal, thus allowing covariates within each unit to be correlated, reflecting the typical scenario in most economic time series data. To emphasize the independence among different units, we generate $N$ unique variance-covariance matrices, each corresponding to a unit, ensuring cross-sectional independence and preserving time-series correlation. Moreover, we impose a condition on these matrices by requiring the eigenvalues of $A_i$ to have characteristic roots that reside inside the unit circle, thereby assuring the stationarity of the VAR(1) process.}, The drift term $\mu_i$ equals 0 for control units and 2 for treated units,\footnote{This configuration underscores that the treatment assignment is not random; rather, it depends on the covariates $X_{it}$.}, and $\nu_{it}$ is a $L \times 1$ vector of i.i.d. standard normal errors. While $F_t = [f_t^1, \ldots, f_t^K]$ denotes the vector of time-varying common factors, adhering to a similar VAR(1) process, the variable $\epsilon_{it}$ represents the idiosyncratic error term. Unit and time fixed effects, $\alpha_i$ and $\xi_{t}$ respectively, are uniformly drawn from the interval $(0,1)$. The coefficient vector $\beta = [\beta^1, \ldots, \beta^{L}]$ associated with the covariates is drawn uniformly from $(0,1)$, and $\Gamma$, the $L \times K$ mapping matrix for the factor loadings, is drawn uniformly from $(-0.1, 0.1)$. The treatment indicator $D_{it}$ is binary, defined as $D_{it} = 1$ for treated units during post-treatment periods, and $D_{it} = 0$ otherwise. The heterogeneous treatment effect is modeled as $\delta_{it} = \bar{\delta}_{it} + e_{it}$, where $e_{it}$ is i.i.d as standard normal, and $\bar{\delta_t} = [0, \cdots, 0, 1,2,\ldots,T_{post}]$ represents a time-varying treatment effect\footnote{Here we simplify the treatment effect to be constant across units, however the heterogeneous treatment effect across units can also be easily employed.}. Only the outcome $Y_{it}$, the covariates $X_{it}$, and the treatment indicator $D_{it}$ are observed, while all other variables remain unobserved.
+where $X_{it} = [x_{it}^1, \ldots, x_{it}^{L}]$ denotes a vector of $L \times 1$ time-varying covariates, which follows a VAR(1) process. $X_{it} = \mu_i + A_i X_{i,t-1} + \nu_{it}$, where $A_i$ is a $ L \times L$ variance-covariance matrix\footnote{In our methodology, the variance-covariance matrix is not constrained to be diagonal, thus allowing covariates within each unit to be correlated, reflecting the typical scenario in most economic time series data. To emphasize the independence among different units, we generate $N$ unique variance-covariance matrices, each corresponding to a unit, ensuring cross-sectional independence and preserving time-series correlation. Moreover, we impose a condition on these matrices by requiring the eigenvalues of $A_i$ to have characteristic roots that reside inside the unit circle, thereby assuring the stationarity of the VAR(1) process.}, The drift term $\mu_i$ equals 0 for control units and 2 for treated units\footnote{This configuration underscores that the treatment assignment is not random; rather, it depends on the covariates $X_{it}$.}, and $\nu_{it}$ is a $L \times 1$ vector of i.i.d. standard normal errors. While $F_t = [f_t^1, \ldots, f_t^K]$ denotes the vector of time-varying common factors, adhering to a similar VAR(1) process, the variable $\epsilon_{it}$ represents the idiosyncratic error term. Unit and time fixed effects, $\alpha_i$ and $\xi_{t}$ respectively, are uniformly drawn from the interval $(0,1)$. The coefficient vector $\beta = [\beta^1, \ldots, \beta^{L}]$ associated with the covariates is drawn uniformly from $(0,1)$, and $\Gamma$, the $L \times K$ mapping matrix for the factor loadings, is drawn uniformly from $(-0.1, 0.1)$. The treatment indicator $D_{it}$ is binary, defined as $D_{it} = 1$ for treated units during post-treatment periods, and $D_{it} = 0$ otherwise. The heterogeneous treatment effect is modeled as $\delta_{it} = \bar{\delta}_{it} + e_{it}$, where $e_{it}$ is i.i.d as standard normal, and $\bar{\delta_t} = [0, \cdots, 0, 1,2,\ldots,T_{post}]$ represents a time-varying treatment effect\footnote{Here we simplify the treatment effect to be constant across units, however the heterogeneous treatment effect across units can also be easily employed.}. Only the outcome $Y_{it}$, the covariates $X_{it}$, and the treatment indicator $D_{it}$ are observed, while all other variables remain unobserved.
 
 \begin{figure}[!ht]
     \centering
@@ -320,7 +320,20 @@ We present the Monte Carlo simulation results in Table \ref{tab: finite sample} 
 \section{Empirical Application}
 \label{sec: application}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+For the empirical application, we study the impact of Brexit on foreign direct investment (FDI) in the United Kingdom (UK). The UK's decision to leave the European Union (EU) has had a profound impact on the country's economy, particularly in terms of FDI. The UK has been a major recipient of FDI, with the EU being the largest source. The Brexit referendum in 2016 has led to significant uncertainty and volatility in the UK economy, which has had a direct impact on FDI. We aim to estimate the causal effect of Brexit on FDI to the UK using the CSC-IPCA method.
 
+The data used in this study is sourced from the World Development Indicators (WDI). The dataset includes information on FDI net inflows to the UK and other OECD countries, as well as other relevant covariates such as GDP, imports and exports, inflation, investment, employment, and demographic indicators, the detailed description of the dataset is presented in the Appendix \ref{app: data}. The dataset covers the period from 1995 to 2022, with the Brexit referendum taking place in 2016. We define the treatment period as the post-Brexit period, starting from 2017, and the pre-treatment period as the period from 1995 to 2016. The treated unit is the UK, while the control units are the rest of the OECD countries\footnote{We also exclude countries with extreme values for FDI to GDP ratio, which may contaminate the prediction. The excluded countries include  Austria, Belgium, Hungary, Iceland, Ireland, Netherlands, Switherland and Luxembourg. For detailed discussion please see \ref{app: data}}.
+
+One of the key challenges in estimating the impact of Brexit on FDI is the high volatility of FDI data. As shown in Figure \ref{app: fdi_oecd}, FDI net inflows to each country can fluctuate significantly from year to year, making it difficult to identify the causal effect of specific events, such as Brexit. The conventional DID method may not be suitable for this type of data, as it requires the parallel trend assumption to hold, which is unlikely in this case. The synthetic control method may also fail to provide an unbiased estimate due to the high volatility of the FDI data on the one hand. On ther other hand, since the treated unit is the UK, a global financial center with significant foreign investment, the FDI to GDP ratio may fall outside the convex hull of the control units, which are predominantly conventional OECD countries with less FDI compared to an international financial center like the UK. The novel CSC-IFE method is suitable for this type of data, as it can handle high volatility, lack of common support, and non-parallel trends. However, there are still caveats with the CSC-IFE method. The first concern is whether we have the correct model specification for the DGPs, since the CSC-IFE method relies on a factor model. The second concern is the high dimensionality of the covariates, as many variables seem to be relevant to FDI. Lastly, there is the issue of omitted variable bias; given the limited research on country-level FDI, there might be important variables that are not yet measured or observed. The CSC-IPCA method can address these issues by providing a more flexible and robust estimation of the causal effect of Brexit on FDI in the UK, as discussed in the previous sections with our simulations.
+
+
+\begin{figure}[!ht]
+    \centering
+    \caption{\textbf{CSC-IPCA Estimated ATT for Brexit}}
+    \includegraphics{figs/ukfdi_ipca.png}
+    \label{fig: ipcs_est}
+    \caption*{\footnotesize{This graphic plots the CSC-IPCA method estimated ATT for the impact of Brexit on FDI in the UK.}}
+    \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -349,6 +362,8 @@ We present the Monte Carlo simulation results in Table \ref{tab: finite sample} 
 \renewcommand{\theassumption}{\thesection.\arabic{assumption}}
 \setcounter{assumption}{1}
 \renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\setcounter{figure}{0}
+\renewcommand{\thetable}{\thesection.\arabic{table}}
 \setcounter{figure}{0}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -683,5 +698,94 @@ In this section, we provide additional simulation results to investigate the fin
         \item This table presents the finite sample properties of the SCM method estimated ATT for simulated data. The number of treated units and post-treatment period are fixed to $N_{treat} = 5, T_1=5$. We vary the number of control units $N_{ctrl}$, pre-treatment period $T_0$, and proportion of observed covariates $\alpha$ to investigate the finite sample properties, the total number of covariates is $L=9$. The bias, RMSE, and STD are estimated based on 1000 simulations.
     \end{tablenotes}
     \end{table}
-    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Empirical Application}
+\subsection{Data Description}
+\label{app: data}
+In this section, we provide additional information on the data used in the empirical application. The main variable of interest is the FDI net inflow to GDP ratio. Based on this ratio, we exclude countries with values higher than 25\% or lower than -25\% to remove countries with extremely volatile FDI data. The excluded countries include Austria, Belgium, Hungary, Iceland, Ireland, Netherlands, Switherland and Luxembourg. As showen in Figure \ref{app: fdi_oecd}, the FDI to GDP ratio is relatively stable in most countries, with the exception of the countries mentioned above. The final sample includes 30 OECD countries from 1995 to 2022.
+
+\begin{figure}[!ht]
+    \centering
+    \caption{\textbf{FDI to GDP Ratio for Selected Countries}}
+    \includegraphics{figs/fdi_oecd.png}
+    \label{app: fdi_oecd}
+    \caption*{\footnotesize{This figure plots the FDI to GDP ratio for selected OECD countries.}}
+    \end{figure}
+
+We provide the summary statistics of the data used in the empirical application in Table \ref{app: data summary}. The variables include log GDP, log GDP per capita, import to GDP ratio, export to GDP ratio, GDP deflator, capital formation to GDP ratio, unemployment rate, employment to population ratio, log population, and FDI to GDP ratio. 
+\begin{table}[!ht]
+    \centering
+    \footnotesize
+    \caption{\textbf{Summary Statistics of the Data}}
+    \label{app: data summary}
+    \begin{tabular}{lrrrrrrrr}
+        \toprule
+         & Count & Mean & Std & Min & 25\% & 50\% & 75\% & Max \\
+        \midrule
+        Log GDP & 840 & 26.65 & 1.64 & 23.05 & 25.77 & 26.46 & 27.89 & 30.69 \\
+        Log GDP per Capita & 840 & 10.01 & 0.71 & 8.28 & 9.46 & 10.14 & 10.60 & 11.28 \\
+        Import to GDP & 840 & 37.60 & 17.08 & 7.57 & 27.07 & 32.72 & 44.08 & 104.65 \\
+        Export to GDP & 840 & 37.60 & 17.78 & 8.82 & 25.78 & 34.20 & 44.72 & 99.30 \\
+        GDP Deflator & 840 & 87.53 & 34.04 & 1.29 & 73.15 & 89.95 & 100.41 & 707.41 \\
+        Capital Formation to GDP & 840 & 23.60 & 4.37 & 11.89 & 20.86 & 23.08 & 25.78 & 41.56 \\
+        Unemployment Rate & 840 & 8.23 & 4.24 & 2.02 & 5.11 & 7.41 & 10.28 & 27.69 \\
+        Employment to Population & 840 & 55.29 & 5.80 & 37.38 & 51.56 & 56.39 & 59.49 & 68.96 \\
+        Log Population & 840 & 16.64 & 1.40 & 14.09 & 15.49 & 16.35 & 17.88 & 19.62 \\
+        FDI to GDP & 840 & 3.11 & 2.90 & -5.03 & 1.30 & 2.53 & 4.32 & 22.95 \\
+        \bottomrule
+        \end{tabular}
+    \begin{tablenotes}
+        \item This table presents the summary statistics of the data used in the empirical application.
+    \end{tablenotes}
+    \end{table}
+
+We use different model specifications to investigate the relationship between the FDI to GDP ratio and other variables. The results are presented in Table \ref{app: reg}. The significance of the variables varies across the models, raising uncertainty about which variables are predictive and should be included in the final model. Fortunately, the CSC-IPCA method allows us to bypass the model selection process by incorporating all variables in the final model.
+
+\begin{table}[!ht]
+    \centering
+    \footnotesize
+    \caption{\textbf{Regression Results}}
+    \label{app: reg}
+    \begin{tabular}{lcccc}
+        \toprule
+         & Model 1 & Model 2 & Model 3 & Model 4 \\
+        \midrule
+        Intercept & 4.2650 & 4.2272 & -30.9338 & -51.1866 \\
+         & (3.4547) & (3.3835) & (24.0543) & (35.8816) \\
+        Log GDP & -0.2595*** & -0.2938*** & 0.4932 & 1.0023 \\
+         & (0.0692) & (0.0674) & (0.5019) & (0.7904) \\
+        Log GDP per Capita & -0.2978** & -0.3432*** & -0.4165 & -0.2885 \\
+         & (0.1171) & (0.1125) & (0.7746) & (0.7574) \\
+        Import to GDP & 0.0076 & -0.0088 & -0.1233*** & -0.0801* \\
+         & (0.0243) & (0.0238) & (0.0409) & (0.0418) \\
+        Export to GDP & 0.0179 & 0.0304 & 0.1389*** & 0.0850** \\
+         & (0.0221) & (0.0214) & (0.0397) & (0.0387) \\
+        GDP Deflator & -0.0056* & -0.0067* & -0.0067* & -0.0039 \\
+         & (0.0030) & (0.0036) & (0.0039) & (0.0039) \\
+        Capital Formation to GDP & 0.0646** & 0.0368 & 0.2544*** & 0.1152** \\
+         & (0.0250) & (0.0257) & (0.0456) & (0.0491) \\
+        Unemployment Rate & 0.0935** & 0.1196*** & 0.0870 & 0.0899 \\
+         & (0.0370) & (0.0362) & (0.0594) & (0.0585) \\
+        Employment to Population & 0.0967*** & 0.1054*** & 0.0425 & 0.0604 \\
+         & (0.0259) & (0.0250) & (0.0639) & (0.0622) \\
+        Log Population & 0.0383 & 0.0494 & 0.9097 & 1.2908 \\
+         & (0.0838) & (0.0805) & (1.0455) & (1.1990) \\
+        \midrule
+        Obs & 840 & 840 & 840 & 840 \\
+        R-squared & 0.1242 & 0.2245 & 0.3485 & 0.4328 \\
+        R-squared Adj. & 0.1158 & 0.1907 & 0.3184 & 0.3860 \\
+        Time FE & No & Yes & No & No \\
+        Country FE & No & No & Yes & No \\
+        TWFE & No & No & No & Yes \\
+        \bottomrule
+        \multicolumn{5}{l}{$^* p<0.1, \ ^{**} p<0.05, \ ^{***} p<0.01$} \\
+    \end{tabular}
+
+    \begin{tablenotes}
+        \item This table presents the regression results of the FDI to GDP ratio on other variables. The standard errors are reported in parentheses.
+    \end{tablenotes}
+\end{table}
+
+
+
 \end{document}

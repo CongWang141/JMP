@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex main"] 1722268160.89799 "main.aux" "main.bbl" "main" 1722269750.56187 0
+["bibtex main"] 1723045718.76368 "main.aux" "main.bbl" "main" 1723045724.43206 0
   "./citation.bib" 1721209516.26981 11133 808de7f5300f23344e6fa6ae2504ca20 ""
   "C:/Users/c.wang/AppData/Roaming/MiKTeX/bibtex/bst/natbib/plainnat.bst" 1284455456 26816 ffe5423d2019860bad9f54bc402fac15 ""
-  "main.aux" 1722269749.3403 13830 f71220237061730db5b9d9429b724205 "pdflatex"
+  "main.aux" 1723045723.22851 15185 647ad29899da535106e4d6e7ef96b206 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1722269745.96577 "c:/Users/c.wang/OneDrive - European Stability Mechanism/C.Wang_doc/personal_doc/project/JMP/latex/main.tex" "main.pdf" "main" 1722269750.56349 0
+["pdflatex"] 1723045719.36098 "c:/Users/c.wang/OneDrive - European Stability Mechanism/C.Wang_doc/personal_doc/project/JMP/latex/main.tex" "main.pdf" "main" 1723045724.43314 0
   "C:/Program Files/MiKTeX/fonts/tfm/jknappen/ec/tcrm0700.tfm" 993062506 1452 97bdc98984cb373fbcd868e2fa55f5f2 ""
   "C:/Program Files/MiKTeX/fonts/tfm/jknappen/ec/tcrm1000.tfm" 993062508 1436 c7f957a372ef2fbe93c0982f96625e12 ""
   "C:/Program Files/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1233951848 1120 1e8878807317373affa7f7bba4cf2f6a ""
@@ -170,17 +170,19 @@
   "C:/Users/c.wang/AppData/Roaming/MiKTeX/tex/latex/threeparttable/threeparttable.sty" 1059520917 13506 a4e71a27db1a69b6fabada5beebf0844 ""
   "C:/Users/c.wang/AppData/Roaming/MiKTeX/tex/latex/titlesec/titlesec.sty" 1699094857 48766 0b93839be28e9744a24c45075c75b2e2 ""
   "C:/Users/c.wang/AppData/Roaming/MiKTeX/tex/latex/ulem/ulem.sty" 1578651445 15682 94f55b803e160cf7fb6e4d77d07cfe1d ""
-  "c:/Users/c.wang/OneDrive - European Stability Mechanism/C.Wang_doc/personal_doc/project/JMP/latex/main.tex" 1722269745.00498 70127 f96dd72eac10be6f8160e7c9a15c225e ""
+  "c:/Users/c.wang/OneDrive - European Stability Mechanism/C.Wang_doc/personal_doc/project/JMP/latex/main.tex" 1723045710.75873 79229 69c7083914f475689c633af89afb840e ""
   "figs/bias_compar1.png" 1721209516.27217 108271 b1913b79e560b9de69d5186e73d7e5a0 ""
   "figs/bias_compar2.png" 1721209516.27217 136741 ff7f9b7ba92b6a74bb932f98f9767a85 ""
   "figs/block_assignment.png" 1721209516.27217 64596 2c2d3d0f3425e3fe98eb5542834279d1 ""
   "figs/data_plot.png" 1721209516.27681 530615 993b7a6859f34bf756d1a97231b4c0a1 ""
   "figs/estimation.png" 1721209516.27681 553677 83e6101af6fdff0defcec2bec128fccd ""
+  "figs/fdi_oecd.png" 1723032762.0648 523127 e64891a3746e0667123f618156962e16 ""
   "figs/random_assignment.png" 1721209516.28483 64363 f62da45030de2fa5193e648061b2fef4 ""
   "figs/staggered_adoption.png" 1721209516.28645 64251 fdcd02b469dcb60e464114c8805905d5 ""
-  "main.aux" 1722269749.3403 13830 f71220237061730db5b9d9429b724205 "pdflatex"
-  "main.bbl" 1722268161.35197 9953 4e7a8788551dc5b3701fde53cb0bef37 "bibtex main"
-  "main.out" 1722269749.35577 4180 914cb297b39c55bf968951d85192513d "pdflatex"
+  "figs/ukfdi_ipca.png" 1723043140.34173 130534 dfc58dad4d9a8764f3ebd2d2d263ba79 ""
+  "main.aux" 1723045723.22851 15185 647ad29899da535106e4d6e7ef96b206 "pdflatex"
+  "main.bbl" 1723045719.24516 9953 4e7a8788551dc5b3701fde53cb0bef37 "bibtex main"
+  "main.out" 1723045723.25098 4475 81d38b5b0f7ff9bd0c6b120ee37ee105 "pdflatex"
   "preamble.sty" 1721209516.30931 2216 5b34290171f15a435a76060f9159a65b ""
   (generated)
   "main.aux"

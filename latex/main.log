@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2024.5.31)  29 JUL 2024 18:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2024.5.31)  7 AUG 2024 17:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -634,7 +634,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 18--19
 [0
 
 {C:/Users/c.wang/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] [1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12] [13]
-<figs/data_plot.png, id=417, 484.209pt x 361.35pt>
+<figs/data_plot.png, id=426, 484.209pt x 361.35pt>
 File: figs/data_plot.png Graphic file (type png)
 <use figs/data_plot.png>
 Package pdftex.def Info: figs/data_plot.png  used on input line 259.
@@ -645,7 +645,7 @@ Overfull \hbox (14.45279pt too wide) in paragraph at lines 259--261
  []
 
 [14 <./figs/data_plot.png>]
-<figs/estimation.png, id=429, 484.209pt x 361.35pt>
+<figs/estimation.png, id=438, 484.209pt x 361.35pt>
 File: figs/estimation.png Graphic file (type png)
 <use figs/estimation.png>
 Package pdftex.def Info: figs/estimation.png  used on input line 272.
@@ -656,7 +656,7 @@ Overfull \hbox (14.45279pt too wide) in paragraph at lines 272--274
  []
 
 [15]
-<figs/bias_compar1.png, id=440, 484.209pt x 252.945pt>
+<figs/bias_compar1.png, id=449, 484.209pt x 252.945pt>
 File: figs/bias_compar1.png Graphic file (type png)
 <use figs/bias_compar1.png>
 Package pdftex.def Info: figs/bias_compar1.png  used on input line 283.
@@ -666,77 +666,103 @@ Overfull \hbox (14.45279pt too wide) in paragraph at lines 283--285
  [][] 
  []
 
-[16 <./figs/estimation.png>] [17 <./figs/bias_compar1.png>] [18] [19] (main.bbl [20
+[16 <./figs/estimation.png>] [17 <./figs/bias_compar1.png>] [18] [19]
+<figs/ukfdi_ipca.png, id=484, 484.209pt x 361.35pt>
+File: figs/ukfdi_ipca.png Graphic file (type png)
+<use figs/ukfdi_ipca.png>
+Package pdftex.def Info: figs/ukfdi_ipca.png  used on input line 333.
+(pdftex.def)             Requested size: 484.20781pt x 361.34912pt.
 
-] [21]) [22]
-<figs/block_assignment.png, id=482, 484.209pt x 180.675pt>
-File: figs/block_assignment.png Graphic file (type png)
-<use figs/block_assignment.png>
-Package pdftex.def Info: figs/block_assignment.png  used on input line 367.
-(pdftex.def)             Requested size: 484.20781pt x 180.67455pt.
-
-Overfull \hbox (14.45279pt too wide) in paragraph at lines 367--369
+Overfull \hbox (14.45279pt too wide) in paragraph at lines 333--335
  [][] 
  []
 
-<figs/staggered_adoption.png, id=485, 469.755pt x 180.675pt>
+[20] [21 <./figs/ukfdi_ipca.png>] (main.bbl [22
+
+] [23]) [24]
+<figs/block_assignment.png, id=509, 484.209pt x 180.675pt>
+File: figs/block_assignment.png Graphic file (type png)
+<use figs/block_assignment.png>
+Package pdftex.def Info: figs/block_assignment.png  used on input line 382.
+(pdftex.def)             Requested size: 484.20781pt x 180.67455pt.
+
+Overfull \hbox (14.45279pt too wide) in paragraph at lines 382--384
+ [][] 
+ []
+
+<figs/staggered_adoption.png, id=512, 469.755pt x 180.675pt>
 File: figs/staggered_adoption.png Graphic file (type png)
 <use figs/staggered_adoption.png>
-Package pdftex.def Info: figs/staggered_adoption.png  used on input line 377.
+Package pdftex.def Info: figs/staggered_adoption.png  used on input line 392.
 (pdftex.def)             Requested size: 469.75386pt x 180.67455pt.
-<figs/random_assignment.png, id=486, 469.755pt x 180.675pt>
+<figs/random_assignment.png, id=513, 469.755pt x 180.675pt>
 File: figs/random_assignment.png Graphic file (type png)
 <use figs/random_assignment.png>
-Package pdftex.def Info: figs/random_assignment.png  used on input line 385.
+Package pdftex.def Info: figs/random_assignment.png  used on input line 400.
 (pdftex.def)             Requested size: 469.75386pt x 180.67455pt.
-[23
+[25
 
- <./figs/block_assignment.png>] [24 <./figs/staggered_adoption.png> <./figs/random_assignment.png>]
+ <./figs/block_assignment.png>] [26 <./figs/staggered_adoption.png> <./figs/random_assignment.png>]
 pdfTeX warning (ext4): destination with the same identifier (name{assumption.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.394 \begin{assumption}
+l.409 \begin{assumption}
                         
 pdfTeX warning (ext4): destination with the same identifier (name{assumption.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.409 \begin{assumption}
-                         [25] [26] [27] [28] [29]
-Overfull \hbox (43.39978pt too wide) in paragraph at lines 576--577
+l.424 \begin{assumption}
+                         [27] [28] [29] [30] [31]
+Overfull \hbox (43.39978pt too wide) in paragraph at lines 591--592
 []\OT1/cmr/m/it/12 Under As-sump-tions [][]1[][], [][]A.2[][], and [][]A.3[][], the CSC-IPCA es-ti-ma-tor $\U/msb/m/n/12 E [] []
  []
 
-[30] [31]
-<figs/bias_compar2.png, id=605, 484.209pt x 252.945pt>
+[32] [33]
+<figs/bias_compar2.png, id=631, 484.209pt x 252.945pt>
 File: figs/bias_compar2.png Graphic file (type png)
 <use figs/bias_compar2.png>
-Package pdftex.def Info: figs/bias_compar2.png  used on input line 624.
+Package pdftex.def Info: figs/bias_compar2.png  used on input line 639.
 (pdftex.def)             Requested size: 484.20781pt x 252.94438pt.
 
-Overfull \hbox (14.45279pt too wide) in paragraph at lines 624--626
+Overfull \hbox (14.45279pt too wide) in paragraph at lines 639--641
  [][] 
  []
 
-[32]
+[34]
 
-LaTeX Warning: Text page 33 contains only floats.
+LaTeX Warning: Text page 35 contains only floats.
 
-[33 <./figs/bias_compar2.png>] [34] (main.aux)
+[35 <./figs/bias_compar2.png>]
+<figs/fdi_oecd.png, id=643, 484.209pt x 361.35pt>
+File: figs/fdi_oecd.png Graphic file (type png)
+<use figs/fdi_oecd.png>
+Package pdftex.def Info: figs/fdi_oecd.png  used on input line 710.
+(pdftex.def)             Requested size: 484.20781pt x 361.34912pt.
+
+Overfull \hbox (14.45279pt too wide) in paragraph at lines 710--712
+ [][] 
+ []
+
+[36]
+
+LaTeX Warning: Text page 37 contains only floats.
+
+[37 <./figs/fdi_oecd.png>] [38] (main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 914CB297B39C55BF968951D85192513D;4180.
+(rerunfilecheck)             Checksum: 81D38B5B0F7FF9BD0C6B120EE37EE105;4475.
  ) 
 Here is how much of TeX's memory you used:
- 15676 strings out of 478582
- 252772 string characters out of 2854156
- 567842 words of memory out of 3000000
- 33383 multiletter control sequences out of 15000+600000
+ 15708 strings out of 478582
+ 253304 string characters out of 2854156
+ 569152 words of memory out of 3000000
+ 33402 multiletter control sequences out of 15000+600000
  488012 words of font info for 95 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 100i,17n,104p,2547b,564s stack positions out of 10000i,1000n,20000p,200000b,80000s
+ 100i,17n,104p,2546b,564s stack positions out of 10000i,1000n,20000p,200000b,80000s
  <C:\Users\c.wang\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm0700.pk> <C:\Users\c.wang\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmib10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (35 pages, 1552515 bytes).
+Output written on main.pdf (39 pages, 2016870 bytes).
 PDF statistics:
- 773 PDF objects out of 1000 (max. 8388607)
- 195 named destinations out of 1000 (max. 500000)
- 228 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 819 PDF objects out of 1000 (max. 8388607)
+ 206 named destinations out of 1000 (max. 500000)
+ 254 words of extra memory for PDF output out of 10000 (max. 10000000)
 
