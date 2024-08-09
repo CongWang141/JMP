@@ -1,15 +1,16 @@
 # Fdb version 4
-["bibtex main"] 1723045718.76368 "main.aux" "main.bbl" "main" 1723045724.43206 0
-  "./citation.bib" 1721209516.26981 11133 808de7f5300f23344e6fa6ae2504ca20 ""
+["bibtex main"] 1723209120.12724 "main.aux" "main.bbl" "main" 1723215421.30432 0
+  "./citation.bib" 1723209106.23645 12259 8a997de27464d65b67aa0a63bbf6d85f ""
   "C:/Users/c.wang/AppData/Roaming/MiKTeX/bibtex/bst/natbib/plainnat.bst" 1284455456 26816 ffe5423d2019860bad9f54bc402fac15 ""
-  "main.aux" 1723045723.22851 15185 647ad29899da535106e4d6e7ef96b206 "pdflatex"
+  "main.aux" 1723215419.95274 16133 a25efe444d67456895eee97efef696ab "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1723045719.36098 "c:/Users/c.wang/OneDrive - European Stability Mechanism/C.Wang_doc/personal_doc/project/JMP/latex/main.tex" "main.pdf" "main" 1723045724.43314 0
+["pdflatex"] 1723215415.1713 "c:/Users/c.wang/OneDrive - European Stability Mechanism/C.Wang_doc/personal_doc/project/JMP/latex/main.tex" "main.pdf" "main" 1723215421.30637 0
   "C:/Program Files/MiKTeX/fonts/tfm/jknappen/ec/tcrm0700.tfm" 993062506 1452 97bdc98984cb373fbcd868e2fa55f5f2 ""
   "C:/Program Files/MiKTeX/fonts/tfm/jknappen/ec/tcrm1000.tfm" 993062508 1436 c7f957a372ef2fbe93c0982f96625e12 ""
+  "C:/Program Files/MiKTeX/fonts/tfm/jknappen/ec/tcrm1440.tfm" 993062510 1460 05250f74aea2bdcfe9d6766811b8b7b2 ""
   "C:/Program Files/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1233951848 1120 1e8878807317373affa7f7bba4cf2f6a ""
   "C:/Program Files/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1233951848 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
   "C:/Program Files/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmbsy7.tfm" 1233951848 1120 7f9f170e8aa57527ad6c49feafd45d54 ""
@@ -127,6 +128,7 @@
   "C:/Users/c.wang/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1720772899.64936 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/c.wang/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm0700.pk" 1717157598.73936 8268 ad141675fb3028b836e57f5cfe805cee ""
   "C:/Users/c.wang/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1000.pk" 1717157600.3235 11548 910508d52a43cf4c953c381846cdae5e ""
+  "C:/Users/c.wang/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1440.pk" 1723212774.16405 16968 8c4da06e00c507ff72961a77a24ff067 ""
   "C:/Users/c.wang/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1717155875.9386 10237149 60f086472956cc6e0ebb220bd3bcea79 ""
   "C:/Users/c.wang/AppData/Roaming/MiKTeX/tex/generic/bigintcalc/bigintcalc.sty" 1576433602 40635 c40361e206be584d448876bba8a64a3b ""
   "C:/Users/c.wang/AppData/Roaming/MiKTeX/tex/generic/bitset/bitset.sty" 1575926576 33961 6b5c75130e435b2bfdb9f480a09a39f9 ""
@@ -170,19 +172,21 @@
   "C:/Users/c.wang/AppData/Roaming/MiKTeX/tex/latex/threeparttable/threeparttable.sty" 1059520917 13506 a4e71a27db1a69b6fabada5beebf0844 ""
   "C:/Users/c.wang/AppData/Roaming/MiKTeX/tex/latex/titlesec/titlesec.sty" 1699094857 48766 0b93839be28e9744a24c45075c75b2e2 ""
   "C:/Users/c.wang/AppData/Roaming/MiKTeX/tex/latex/ulem/ulem.sty" 1578651445 15682 94f55b803e160cf7fb6e4d77d07cfe1d ""
-  "c:/Users/c.wang/OneDrive - European Stability Mechanism/C.Wang_doc/personal_doc/project/JMP/latex/main.tex" 1723045710.75873 79229 69c7083914f475689c633af89afb840e ""
-  "figs/bias_compar1.png" 1721209516.27217 108271 b1913b79e560b9de69d5186e73d7e5a0 ""
-  "figs/bias_compar2.png" 1721209516.27217 136741 ff7f9b7ba92b6a74bb932f98f9767a85 ""
+  "c:/Users/c.wang/OneDrive - European Stability Mechanism/C.Wang_doc/personal_doc/project/JMP/latex/main.tex" 1723214351.13573 86150 ebe0c89c5213b8c7f68b25ce05389e1b ""
+  "figs/bias_compar1.png" 1723213928.98848 109029 372315fb26e881143ed3458b7a71f649 ""
+  "figs/bias_compar2.png" 1723215401.04587 138459 2e6fde592f38047c2484b8d94a6d419a ""
   "figs/block_assignment.png" 1721209516.27217 64596 2c2d3d0f3425e3fe98eb5542834279d1 ""
   "figs/data_plot.png" 1721209516.27681 530615 993b7a6859f34bf756d1a97231b4c0a1 ""
-  "figs/estimation.png" 1721209516.27681 553677 83e6101af6fdff0defcec2bec128fccd ""
+  "figs/estimation.png" 1723207752.49668 549379 ca04e69555178c27c21c75c47d2dae46 ""
+  "figs/factors_ipca.png" 1723199361.58426 163363 0170abd190ca5174ccf496624ae0bec8 ""
   "figs/fdi_oecd.png" 1723032762.0648 523127 e64891a3746e0667123f618156962e16 ""
+  "figs/loadings_ipca.png" 1723199412.238 171940 f2382299d2bc74215e6de86a1a2e7537 ""
   "figs/random_assignment.png" 1721209516.28483 64363 f62da45030de2fa5193e648061b2fef4 ""
   "figs/staggered_adoption.png" 1721209516.28645 64251 fdcd02b469dcb60e464114c8805905d5 ""
-  "figs/ukfdi_ipca.png" 1723043140.34173 130534 dfc58dad4d9a8764f3ebd2d2d263ba79 ""
-  "main.aux" 1723045723.22851 15185 647ad29899da535106e4d6e7ef96b206 "pdflatex"
-  "main.bbl" 1723045719.24516 9953 4e7a8788551dc5b3701fde53cb0bef37 "bibtex main"
-  "main.out" 1723045723.25098 4475 81d38b5b0f7ff9bd0c6b120ee37ee105 "pdflatex"
+  "figs/ukfdi_ipca.png" 1723199298.37582 409512 2fb109a3121c1ff8182fd99813e99a76 ""
+  "main.aux" 1723215419.95274 16133 a25efe444d67456895eee97efef696ab "pdflatex"
+  "main.bbl" 1723209120.70115 11001 eba90bc79e13bf39d9ae4ed9e6ab16a5 "bibtex main"
+  "main.out" 1723215419.96694 4475 81d38b5b0f7ff9bd0c6b120ee37ee105 "pdflatex"
   "preamble.sty" 1721209516.30931 2216 5b34290171f15a435a76060f9159a65b ""
   (generated)
   "main.aux"

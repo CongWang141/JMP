@@ -80,7 +80,7 @@ class CSC_IPCA(object):
 
         # normalize the estimated parameters
         R1 = sla.cholesky(Gama_tr.T @ Gama_tr)
-        R2, _, _ = sla.svd(R1 @ self.F1 @ self.F1.T @ R1)
+        R2, _, _ = sla.svd(R1 @ self.F1 @ self.F1.T @ R1.T)
         # matrix division
         Gama_tr_norm = _mrdivide(Gama_tr, R1) @ R2
         F1_norm = _mldivide(R2, R1 @ self.F1)

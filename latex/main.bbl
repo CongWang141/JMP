@@ -1,4 +1,4 @@
-\begin{thebibliography}{37}
+\begin{thebibliography}{41}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -32,6 +32,12 @@ Dmitry Arkhangelsky, Susan Athey, David~A Hirshberg, Guido~W Imbens, and Stefan
 \newblock Synthetic difference-in-differences.
 \newblock \emph{American Economic Review}, 111\penalty0 (12):\penalty0
   4088--4118, 2021.
+
+\bibitem[Arnorsson and Zoega(2018)]{arnorsson2018causes}
+Agust Arnorsson and Gylfi Zoega.
+\newblock On the causes of brexit.
+\newblock \emph{European Journal of Political Economy}, 55:\penalty0 301--323,
+  2018.
 
 \bibitem[Ashenfelter(1978)]{ashenfelter1978estimating}
 Orley Ashenfelter.
@@ -93,11 +99,23 @@ Victor Chernozhukov, Kaspar W{\"u}thrich, and Yinchu Zhu.
 \newblock \emph{Journal of the American Statistical Association}, 116\penalty0
   (536):\penalty0 1849--1864, 2021.
 
+\bibitem[Colantone and Stanig(2018)]{colantone2018global}
+Italo Colantone and Piero Stanig.
+\newblock Global competition and brexit.
+\newblock \emph{American political science review}, 112\penalty0 (2):\penalty0
+  201--218, 2018.
+
 \bibitem[Connor and Korajczyk(1993)]{connor1993test}
 Gregory Connor and Robert~A Korajczyk.
 \newblock A test for the number of factors in an approximate factor model.
 \newblock \emph{the Journal of Finance}, 48\penalty0 (4):\penalty0 1263--1291,
   1993.
+
+\bibitem[Dhingra et~al.(2016)Dhingra, Ottaviano, Sampson, and
+  Van~Reenen]{dhingra2016impact}
+Swati Dhingra, Gianmarco Ottaviano, Thomas Sampson, and John Van~Reenen.
+\newblock The impact of brexit on foreign investment in the uk.
+\newblock \emph{BREXIT 2016}, 24\penalty0 (2):\penalty0 1--10, 2016.
 
 \bibitem[Eberhardt and Bond(2009)]{eberhardt2009cross}
 Markus Eberhardt and Stephen Bond.
@@ -226,6 +244,13 @@ James~H Stock and Mark~W Watson.
   predictors.
 \newblock \emph{Journal of the American statistical association}, 97\penalty0
   (460):\penalty0 1167--1179, 2002.
+
+\bibitem[Welfens and Baier(2018)]{welfens2018brexit}
+Paul~JJ Welfens and Fabian~J Baier.
+\newblock Brexit and foreign direct investment: Key issues and new empirical
+  findings.
+\newblock \emph{International Journal of Financial Studies}, 6\penalty0
+  (2):\penalty0 46, 2018.
 
 \bibitem[Xu(2017)]{xu2017generalized}
 Yiqing Xu.
