@@ -22,7 +22,7 @@ The `old_test` folder contains earlier tests conducted for this paper. The struc
 ### 5. `papers/`
 The `papers` folder contains some of the related literature and references used in the research.
 
-### 6. `slides/'
+### 6. `slides/`
 The `slides/' folder contains updated slides for discussion.
 
 ### 7. `src/`
