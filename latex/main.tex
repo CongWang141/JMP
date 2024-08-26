@@ -5,8 +5,8 @@
 
 %%%%%%%%%%%%%%%%%frond page%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{titlepage}
-\title{Counterfactual and Synthetic Control Method: Causal Inference with Instrumented Principal Component Analysis\thanks{There is Github repository for this paper, available at \href{https://github.com/CongWang141/JMP.git}{https://github.com/CongWang141/JMP.git}, which contains the latest version of the paper, the code, and the data.}}
-\author{ Cong Wang\thanks{Department of Economics and Law, Sapienza University of Rome}}
+\title{Counterfactual and Synthetic Control Method: Causal Inference with Instrumented Principal Component Analysis\thanks{There is a Github repository for this paper, available at \href{https://github.com/CongWang141/JMP.git}{https://github.com/CongWang141/JMP.git}, which contains the latest version of the paper, the code, and the data.}}
+\author{ Cong Wang\thanks{Department of Economics and Law, Sapienza University of Rome.}}
 \date{\today}
 \maketitle
 \begin{center}
@@ -646,13 +646,13 @@ Under Assumptions \ref{ass: function}, \ref{app: ass consistency}, and \ref{app:
 \begin{aligned}
     &A_{1,it} = \bm{x}_{it}E_{\Gamma}\bm{f}'_t = \mathcal{O}_p\left(1/\sqrt{N_{treat}T_{pre}}\right). \\
     &A_{2,it} = -\bm{x}_{it}\Gamma \bm{e}'_{f_t} = \mathcal{O}_p\left(1/\sqrt{N_{ctrl}}\right). \\
-    &A_{3,it} = -\bm{x}_{it}E_{\Gamma}\bm{e}'_{f_t} = \mathcal{O}_p\left(1/\sqrt{N_{treat}T_{pre}}\right).
+    &A_{3,it} = -\bm{x}_{it}E_{\Gamma}\bm{e}'_{f_t} = \mathcal{O}_p\left(1/\sqrt{N_{treat}T_{pre}N_{ctrl}}\right).
 \end{aligned}
 \end{equation*}
 Since we estimate the factor $\bm{f}_t$ using only control units and update the mapping matrix $\Gamma$ with treated units in the pre-treatment period, both $\bm{f}_t$ and $\Gamma$ converge over different dimensions of $T$ and $N$. Consequently, the error term $\epsilon_{it}$ is assumed to have zero means, leading to the bias of the estimated ATT also converging to zero:
 \begin{equation*}
 \begin{aligned}
-    \hat{\delta}_{it} - \delta_{it} &= \mathcal{O}_p\left(\frac{1}{\sqrt{N_{treat}T_{pre}}}\right) + \mathcal{O}_p\left(\frac{1}{\sqrt{N_{ctrl}}}\right) + \mathcal{O}_p\left(\frac{1}{\sqrt{N_{treat}T_{pre}}}\right) + \epsilon_{it} \\
+    \hat{\delta}_{it} - \delta_{it} &= \mathcal{O}_p\left(\frac{1}{\sqrt{N_{treat}T_{pre}}}\right) + \mathcal{O}_p\left(\frac{1}{\sqrt{N_{ctrl}}}\right) + \mathcal{O}_p\left(\frac{1}{\sqrt{N_{treat}T_{pre}N_{ctrl}}}\right) + \epsilon_{it} \\
     &= \mathcal{O}_p\left(\frac{1}{\sqrt{N_{ctrl}}} \right) + \mathcal{O}_p\left(\frac{1}{\sqrt{N_{treat}T_{pre}}} \right).
 \end{aligned}
 \end{equation*}

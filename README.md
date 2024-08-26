@@ -22,14 +22,17 @@ The `old_test` folder contains earlier tests conducted for this paper. The struc
 ### 5. `papers/`
 The `papers` folder contains some of the related literature and references used in the research.
 
-### 6. `src/`
+### 6. `slides/`
+The `slides/' folder contains updated slides for discussion.
+
+### 7. `src/`
 The `src` folder contains all the scripts and functions required to:
 
 - Generate data
 - Conduct the estimation
 - Compute confidence intervals
 
-### 7. Test Files
+### 8. Test Files
 The following test files are well-structured and organized:
 
 - **`test_file`**: Demonstrates different treatment assignment mechanisms.
