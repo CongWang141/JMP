@@ -216,7 +216,7 @@ In the context of causal inference, the pioneering application of factor models 
 \theta_{it} = Y^1_{it} - \hat{Y}^0_{it}, \quad \forall i \in N_{treat} \ \& \ T_{pre} + 1 \leq t \leq T,
 \end{equation*}
 
-\noindent where $\theta_{it}$ denotes the treatment effect for unit $i$ at time $t$, and $\hat{Y}_{it}$ represents the imputed counterfactual outcome. 
+\noindent where $\theta_{it}$ denotes the treatment effect for unit $i$ at time $t$, and $\hat{Y}^0_{it}$ represents the imputed counterfactual outcome. 
 
 To conduct conformal inference, we first postulate a sharp null hypothesis, $H_0: \theta_{it} = \theta_{it}^0$. Under this null hypothesis, we adjust the outcome for treated units post-treatment as $\tilde{Y}_{it} = Y_{it} - \theta_{it}$. We then replace the original dataset with this adjusted part, $\tilde{Y}_{it}$. 
 
