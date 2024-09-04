@@ -8,7 +8,7 @@
 \usepackage {mathtools}
 
 \title{Counterfactual and  Synthetic Control Method: Causal Inference with Instrumented Principal Component Analysis}
-\author{Cong Wang}
+\author{SIdE PhD Workshop}
 \institute{Sapienza University of Rome}
 \date{\today}
 
@@ -23,7 +23,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % background and motivation
 \begin{frame}{Background \& Motivation}
-All the methods for causal inference can viewed as missing data imputation methods, where some are more explicit than others. -- \textcolor{blue}{Imbens and Rubin (2015)}.
+All the methods for causal inference can be viewed as missing data imputation methods, where some are more explicit than others. -- \textcolor{blue}{Imbens and Rubin (2015)}.
 
 \begin{itemize}
     \item Matching method explicity impute the missing counterfactual of trated $X_i$ by control $X_{j(i)}$.
@@ -42,6 +42,7 @@ All the methods for causal inference can viewed as missing data imputation metho
 \begin{itemize}
     \item After transforming the causal inference problem into a missing data imputation problem, it is natural to think about modeling the data generating process (DGPs).
     \item Factor model is popular for its flexibility and sparsity in DGPs modeling. (\textcolor{blue}{Bai (2003)}, \textcolor{blue}{Stock and Watson (2002), etc.})
+    \item Recent advance in asset pricing using IPCA for stock return prediction (\textcolor{blue}{Kelly et al. (2020)})
 \end{itemize}
 
 \textbf{A brief history of using the factor model for causal inference:}
@@ -147,8 +148,13 @@ Under Nemany's potential outcome framework, our estimand ATT can be expressed as
         \item It inherits the ability of PCA to effectively handle high-dimensional data and enhances the value extracted from numerous covariates.
         \begin{enumerate}
             \item The mapping matrix $\Gamma$ conducts a dimensional reduction process, making it easier to handle high-dimensional financial data.
-            \item Instrumented factor loadings $\Lambda_{it}$ inherit time-varying properties, making them more realistic in practice.
             \item Prediction information from covariates is more effectively handled. When there are unobserved covariates, this method is less biased compared to its peers.
+        \end{enumerate}
+
+        \item It generates time-varying factor loadings which have better economic interpretation and better estimate for common factors.
+        \begin{enumerate}
+            \item Instrumented factor loadings $\Lambda_{it}$ inherit time-varying properties, making them more realistic in practice.
+            \item Dynamic factor loadings help us better estimate common factors.
         \end{enumerate}
     \end{itemize}
 \end{frame}
@@ -174,7 +180,7 @@ $$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % estimation step 1
 \begin{frame}{Estimation}
-    \textbf{Step 1:} Estimate the time-varying factors $\hat{F}_t$ and the mapping matrix $\hat{\Gamma}_{\text{ctrl}}$ with an ALS algorithm, based exclusively on data from the control group for the whole time period.
+    \textbf{Step 1:} Estimate the common factors $\hat{F}_t$ and the mapping matrix $\hat{\Gamma}_{\text{ctrl}}$ with an ALS algorithm, based exclusively on data from the control group for the whole time period.
     \begin{equation*}
     (\hat{\Gamma}_{ctrl}, \hat{F_t}) = \underset{\Gamma, F_t}{\arg\min} \sum_{i \in \mathcal{C}} \sum_{t \leq T}\left( Y_{it} - (X_{it}\Gamma) F'_{t} \right)\left( Y_{it} - (X_{it}\Gamma) F'_{t} \right)'.
     \end{equation*}
@@ -368,7 +374,7 @@ $$
 \begin{assumption}
 Assumption for consistency:
 \begin{enumerate}
-    \item Covariate orthogonality: $E\left[\textbf{x}'_{it} \epsilon_{it}\right] = \textbf{0}_{L\times 1}$,
+    \item \textcolor{red}{Covariate orthogonality: $E\left[\textbf{x}'_{it} \epsilon_{it}\right] = \textbf{0}_{L\times 1}$},
     
     \item The following moments exist: $\mathrm{E}\|\boldsymbol{f}_{t}\boldsymbol{f}'_{t}\|^2$, $\mathrm{E}\|\boldsymbol{x}'_{it}\epsilon_{it}\|^2$, $\mathrm{E}\|\boldsymbol{x}'_{it}\boldsymbol{x}_{it}\|^2$, $\mathrm{E}\left[\|\boldsymbol{x}'_{it}\boldsymbol{x}_{it}\|^2\|\boldsymbol{f}_{t}\boldsymbol{f}'_{t}\|^2 \right]$, 
     
@@ -429,6 +435,8 @@ $$
 $$
 \end{proposition}
 where $H^0:= \frac{\partial S(\Gamma)}{\partial \boldsymbol{\gamma}}|_{\boldsymbol{\gamma} = \boldsymbol{\gamma}^0}$ and $J^0:= \frac{\partial I(\Gamma)}{\partial \boldsymbol{\gamma}}|_{\boldsymbol{\gamma} = \boldsymbol{\gamma}^0}$, $\mathbb{V}^{[1]} = \left( Q^0 \otimes \mathcal{I}_K \right) \Omega^{x\epsilon f} \left( Q^{0'} \otimes \mathcal{I}_K \right)$, and $Q^0 := Q_t(\Gamma^0)$ given that $Q_t(\Gamma) := \mathcal{I}_L - \Omega_t^{xx} \left( \Gamma' \Omega^{xx}_t \Gamma \right)^{-1}\Gamma'$ is constant over $t$ under the normality assumption.
+
+Proof: refer to \textcolor{blue}{Kelly et al. (2020)}
 \end{frame}
 
 \begin{frame}{Formal result}
@@ -495,7 +503,7 @@ The bias of the estimated ATT is the sum of four terms $A_{1,it}$, $A_{2,it}$, $
 Since we estimate the factor $\boldsymbol{f}_t$ using only control units and update the mapping matrix $\Gamma$ with treated units in the pre-treatment period, both $\boldsymbol{f}_t$ and $\Gamma$ converge over different dimensions of $T$ and $N$. Consequently, the error term $\epsilon_{it}$ is assumed to have zero mean, leading to the bias of the estimated ATT also converging to zero:
 \begin{equation*}
 \begin{aligned}
-    \hat{\delta}_{it} - \delta_{it} &= \mathcal{O}_p\left(\frac{1}{\sqrt{N_{treat}T_{pre}}}\right) + \mathcal{O}_p\left(\frac{1}{\sqrt{N_{ctrl}}}\right) + \mathcal{O}_p\left(\frac{1}{\sqrt{N_{treat}T_{pre}N_{ctrl}}}\right) + \epsilon_{it} \\
+    \hat{\delta}_{it} - \delta_{it} &= \mathcal{O}_p\left(\frac{1}{\sqrt{N_{treat}T_{pre}}}\right) + \mathcal{O}_p\left(\frac{1}{\sqrt{N_{ctrl}}}\right) + \mathcal{O}_p\left(\frac{1}{\sqrt{N_{treat}T_{pre}N_{ctrl}}}\right) + \mathcal{O}_p(1) \\
     &= \mathcal{O}_p\left(\frac{1}{\sqrt{N_{ctrl}}} \right) + \mathcal{O}_p\left(\frac{1}{\sqrt{N_{treat}T_{pre}}} \right).
 \end{aligned}
 \end{equation*}

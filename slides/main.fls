@@ -1,6 +1,6 @@
-PWD C:\Users\c.wang\OneDrive - European Stability Mechanism\C.Wang_doc\personal_doc\project\JMP\slides
+PWD \\efsf.local\Users\Profiles\c.wang\Documents\CongWang\personal_doc\project\JMP\slides
 INPUT C:\Users\c.wang\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT c:\Users\c.wang\OneDrive - European Stability Mechanism\C.Wang_doc\personal_doc\project\JMP\slides\main.tex
+INPUT \\efsf.local\Users\Profiles\c.wang\Documents\CongWang\personal_doc\project\JMP\slides\main.tex
 OUTPUT main.log
 INPUT C:\Users\c.wang\AppData\Roaming\MiKTeX\tex\latex\beamer\beamer.cls
 INPUT C:\Users\c.wang\AppData\Roaming\MiKTeX\tex\latex\beamer\beamer.cls
