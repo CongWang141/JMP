@@ -8,7 +8,7 @@
 \usepackage {mathtools}
 
 \title{Counterfactual and  Synthetic Control Method: Causal Inference with Instrumented Principal Component Analysis}
-\author{SIdE PhD Workshop}
+\author{Cong Wang}
 \institute{Sapienza University of Rome}
 \date{\today}
 
@@ -101,20 +101,6 @@ All the methods for causal inference can be viewed as missing data imputation me
 \end{figure}
 \end{frame}
 
-\begin{frame}{Treatment Assignment}
-Staggered adoption: treatment status is assigned at different periods. 
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.45]{figs/staggered_adoption.png}
-\end{figure}  
-
-Random assignment: treatment status is assigned randomly and it can be switched on and off multiple times. (Matrix completion \textcolor{blue}{Athey et al. (2021)})
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.45]{figs/random_assignment.png}
-\end{figure} 
-\end{frame}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Estimand
 \begin{frame}{Estimand}
@@ -171,7 +157,6 @@ $$
 \underset{\Gamma, F_t}{\arg\min} \sum_{i} \sum_{t}\left( Y_{it} -(X_{it}\Gamma) F'_{t} \right)\left( Y_{it} - (X_{it}\Gamma) F'_{t}\right)'.
 $$
 \begin{itemize}
-    \item Unlike PCA, the IPCA optimization challenge cannot be resolved through eigen decomposition.
     \item The optimization, as defined in the equation above, is quadratic with respect to either $\Gamma$ or $\boldsymbol{f}_t$, when the other is held constant.
     \item We can use alternating least squares (ALS) method for the numerical solution of this optimization problem.
 \end{itemize}
@@ -262,13 +247,6 @@ $$
 \begin{figure}
     \centering
     \includegraphics[scale=0.8]{figs/boots_tuning.png}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Hyperparameter tuning}
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.8]{figs/cv_tuning.png}
 \end{figure}
 \end{frame}
 
@@ -374,7 +352,7 @@ $$
 \begin{assumption}
 Assumption for consistency:
 \begin{enumerate}
-    \item \textcolor{red}{Covariate orthogonality: $E\left[\textbf{x}'_{it} \epsilon_{it}\right] = \textbf{0}_{L\times 1}$},
+    \item Covariate orthogonality: $E\left[\textbf{x}'_{it} \epsilon_{it}\right] = \textbf{0}_{L\times 1}$,
     
     \item The following moments exist: $\mathrm{E}\|\boldsymbol{f}_{t}\boldsymbol{f}'_{t}\|^2$, $\mathrm{E}\|\boldsymbol{x}'_{it}\epsilon_{it}\|^2$, $\mathrm{E}\|\boldsymbol{x}'_{it}\boldsymbol{x}_{it}\|^2$, $\mathrm{E}\left[\|\boldsymbol{x}'_{it}\boldsymbol{x}_{it}\|^2\|\boldsymbol{f}_{t}\boldsymbol{f}'_{t}\|^2 \right]$, 
     
@@ -529,5 +507,14 @@ Therefore, as $N_{\text{ctrl}}, \ T_{\text{pre}} \to \infty$, the estimated ATT 
     \centering
     \includegraphics[scale=0.5]{figs/ukfdi_ipca.png}
 \end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Future Direction}
+    \begin{itemize}
+        \item Solve overfitting.
+        \item Better handle bad controls.
+    \end{itemize}
+    
 \end{frame}
 \end{document}
