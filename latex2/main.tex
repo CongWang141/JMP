@@ -1,0 +1,19 @@
+\documentclass[12pt]{article}
+\usepackage{preamble}
+\begin{document}
+%%%%%%%%%%%%%%%%%frond page%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{titlepage}
+\title{Counterfactual and Synthetic Control Method: Causal Inference with Instrumented Principal Component Analysis\thanks{We thank Matteo Lacopini, Emanuele Bacchiocchi for helpful discussion on this paper. There is a Github repository for this paper, available at \href{https://github.com/CongWang141/JMP.git}{https://github.com/CongWang141/JMP.git}, which contains the latest version of the paper, the code, and the data.}}
+
+\author{Cong Wang\thanks{Department of Economics and Law, Sapienza University of Rome.}}
+\date{\today}
+\maketitle
+\begin{center}
+\href{https://github.com/CongWang141/JMP/blob/main/latex/main.pdf}{Job Market Paper, latest version available here.}
+\end{center}
+
+\begin{abstract}
+\noindent We propose a novel method for causal inference within the frameworks of counterfactual and synthetic control methods. Building on the Generalized Synthetic Control method developed by \cite{xu2017generalized}, we instrument factor loadings with predictive covariates rather than including them as direct regressors. These instrumented factor loadings exhibit time-varying dynamics, offering a better economic interpretation. Covariates are instrumented through a transformation matrix, $\Gamma$, when we have a large number of covariates it can be easily reduced in accordance with a small number of latent factors helping us to effectively handle high-dimensional datasets. Most importantly, our simulations show that this method is less biased in the presence of unobserved covariates compared to other mainstream approaches.
+\end{abstract}
+\end{titlepage}
+\end{document}
