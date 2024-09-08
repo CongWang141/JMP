@@ -13,7 +13,79 @@
 \end{center}
 
 \begin{abstract}
-\noindent We propose a novel method for causal inference within the frameworks of counterfactual and synthetic control methods. Building on the Generalized Synthetic Control method developed by \cite{xu2017generalized}, we instrument factor loadings with predictive covariates rather than including them as direct regressors. These instrumented factor loadings exhibit time-varying dynamics, offering a better economic interpretation. Covariates are instrumented through a transformation matrix, $\Gamma$, when we have a large number of covariates it can be easily reduced in accordance with a small number of latent factors helping us to effectively handle high-dimensional datasets. Most importantly, our simulations show that this method is less biased in the presence of unobserved covariates compared to other mainstream approaches.
+\noindent We propose a novel method for causal inference within the frameworks of counterfactual and synthetic control methods. Building on the Generalized Synthetic Control method developed by \cite{xu2017generalized}, the Instrumented Principal Component Analysis method instruments factor loadings with predictive covariates rather than including them as direct regressors. These instrumented factor loadings exhibit time-varying dynamics, offering a better economic interpretation. Covariates are instrumented through a transformation matrix, $\Gamma$, when we have a large number of covariates it can be easily reduced in accordance with a small number of latent factors helping us to effectively handle high-dimensional datasets and making the model parsimonious. Most importantly, our simulations show that this method is less biased in the presence of unobserved covariates compared to other mainstream approaches. In the empirical application, we use the proposed method to evaluate the effect of Brexit on foreign direct investment to the UK.\\
+
+\noindent\textbf{Keywords:} Synthetic Control, Principal Component Analysis, Factor Model, Causal Inference\\
+
+\noindent\textbf{JEL Codes:} G11, G12, G30\\
+\bigskip
 \end{abstract}
+\setcounter{page}{0}
+\thispagestyle{empty}
 \end{titlepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagebreak \newpage
+\doublespacing
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction} 
+\label{sec: introduction}
+In this paper, we introduce a novel counterfactual imputation method for causal inference, called the Counterfactual and Synthetic Control method with Instrumented Principal Component Analysis (CSC-IPCA). This method combines the dimension reduction capabilities of Principal Component Analysis (PCA) described by \cite{jollife2016principal} to handle high-dimensional datasets with the versatility of the factor models studied by \cite{bai2003computation}, \cite{bai2009panel}, among others, which accommodate a wide range of data-generating processes (DGPs). The CSC-IPCA method represents a significant advancement over the Generalized Synthetic Control (GSC) method proposed by \cite{xu2017generalized}, which utilizes the Interactive Fixed Effects (IFE) approach to model DGPs and impute missing counterfactuals for causal inference.
+
+The main difference between our method and CSC-IFE\footnote{In this paper, we consider the Generalized Synthetic Control (GSC) method as part of the broader counterfactual and synthetic control framework. Therefore, throughout the paper, we refer to the GSC method as the Counterfactual and Synthetic Control method with Interactive Fixed Effects (CSC-IFE).} lies in how we handle covariates. CSC-IFE combines the structural component $\Lambda_i F_t$ with the regressors $X_{it} \beta$, as shown in the following equation:
+
+\begin{equation}
+\label{eqn: ife}
+y_{it} = \Lambda_i F_t + X_{it} \beta + \epsilon_{it}
+\end{equation}
+Instead of including the covariates $X_{it}$ linearly as regressors, the CSC-IPCA method instruments the factor loadings $\Lambda_{it}$ with predictive covariates through a transformation matrix $\Gamma$. This method is constructed as fallowing: first, it assumes a simple factor model, as in \cite{bai2003computation}, with only the structural component combined with factor loadings $\Lambda_i$ and common factors $F_t$:
+
+\begin{equation}
+\label{eqn: fe}
+y_{it} = \Lambda_i F_t + \epsilon_{it}
+\end{equation}
+Next, it instruments the static factor loadings $\Lambda_i$ with covariates $X_{it}$ instead of including them as regressors, allowing the factor loadings to incorporate time-varying properties and become dynamic:
+
+\begin{equation}
+\label{eqn: instrument}
+\Lambda_{it} = X_{it}\Gamma + H_{it}
+\end{equation}
+
+The static factor loadings $\Lambda_i$ in Equation \ref{eqn: fe} are assumed to be time-invariant by most studies in the related literature. However, in many economonic and social science context, the factor loadings are not constant but fluctuate over time in response to relevant covariates. By instrumenting the factor loadings $\Lambda_i$ with covariates $X_{it}$ through Equation \ref{eqn: instrument}, we can capture the time-varying properties of the factor loadings. The matrix $\Gamma$, serving as an $L \times K$ mapping function from covariates (with the number of L) to factor loadings (with the number of K), also acts as dimension reduction operation, which aggregates all the information from the covariates into a smaller number of factor loadings, making the model parsimonious.
+
+The CSC-IPCA method offers several key benefits. First, it inherits the dimension reduction capabilities of conventional PCA, where the transformation matrix $\Gamma$ serves as a dimensionality reduction operator. This enables efficient handling of high-dimensional datasets with a large number of predictive covariates while maintaining the sparsity of the factor model. This feature is particularly valuable when working with financial data (\cite{feng2020taming}) and high-dimensional macroeconomic time series data (\cite{brave2009chicago}).
+
+Second, unlike conventional static factor models, the instrumented factor loadings in CSC-IPCA exhibit time-varying dynamics. This is particularly realistic in many economic and social science contexts. For example, consider a company that increases its investment in R\&D, transitioning from a conservative stance to a more aggressive one. This change can also impact its profitability, potentially shifting it from a robust to a weaker position. As a result, the unit effect evolves along with its investment strategy. In such cases, static factor loadings fail to capture the time-varying dynamics of the company's changing fundamentals.
+
+Last but not least, the most valuable benefit of the CSC-IPCA method is its reduced bias when unobserved covariates are present, compared to other similar methods. Instead of including covariates linearly as regressors which is a practice often criticized for model misspecification. The CSC-IPCA method incorporates covariates into the factor loadings through a mapping matrix. This approach provides a more efficient way of handling covariates, allowing for better extraction of predictive information and reducing exposure to model misspecification. Our simulation studies demonstrate that, in the presence of unobserved covariates, the CSC-IPCA method is the least biased among the methods considered.
+
+The IPCA method was developed by \cite{kelly2020instrumented}, and applied by \cite{kelly2019characteristics} for predicting stock returns in the asset pricing literature. The main difference between using the IPCA method for prediction and for causal inference lies in the assumption that the transformation matrix $\Gamma$ differs between treated and control units. In the estimation process, we first use the control units to estimate the common factors $F_t$ over the entire time period. Next, we update the transformation matrix $\Gamma_{tr}$ for the treated units using data from the pre-treatment period. The subsequent step involves normalizing the common factors and the transformation matrix based on prespecified normalization restrictions. Finally, the estimated parameters are used to impute the missing counterfactuals for the treated units after the treatment, allowing us to evaluate the average treatment effect on the treated (ATT).
+
+In the formal result, we derive the asympotic properties based on the unbaisedness and efficient estimation of both $\Gamma$ and $F_t$. We show that the convergence rate of our estimand is the smaller one between $\mathcal{O}_p(\sqrt{N_{ctrl}})$ and $\mathcal{O}_p(\sqrt{N_{treat}T_{pre}})$.
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begingroup
+\setstretch{1.0}
+\bibliographystyle{plainnat}
+\bibliography{citation}
+\endgroup
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%  Appendix  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
+\titleformat{\section}[block]{\normalfont\Large\bfseries}{Appendix \thesection}{1em}{}
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+\setcounter{equation}{0}
+\renewcommand{\theassumption}{\thesection.\arabic{assumption}}
+\setcounter{assumption}{1}
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\setcounter{figure}{0}
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+\setcounter{figure}{0}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \end{document}

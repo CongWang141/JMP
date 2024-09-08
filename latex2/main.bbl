@@ -1,0 +1,48 @@
+\begin{thebibliography}{8}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Bai(2009)]{bai2009panel}
+Jushan Bai.
+\newblock Panel data models with interactive fixed effects.
+\newblock \emph{Econometrica}, 77\penalty0 (4):\penalty0 1229--1279, 2009.
+
+\bibitem[Bai and Perron(2003)]{bai2003computation}
+Jushan Bai and Pierre Perron.
+\newblock Computation and analysis of multiple structural change models.
+\newblock \emph{Journal of applied econometrics}, 18\penalty0 (1):\penalty0 1--22, 2003.
+
+\bibitem[Brave(2009)]{brave2009chicago}
+Scott Brave.
+\newblock The chicago fed national activity index and business cycles.
+\newblock \emph{Chicago Fed Letter}, \penalty0 (Nov), 2009.
+
+\bibitem[Feng et~al.(2020)Feng, Giglio, and Xiu]{feng2020taming}
+Guanhao Feng, Stefano Giglio, and Dacheng Xiu.
+\newblock Taming the factor zoo: A test of new factors.
+\newblock \emph{The Journal of Finance}, 75\penalty0 (3):\penalty0 1327--1370, 2020.
+
+\bibitem[Jollife and Cadima(2016)]{jollife2016principal}
+Ian~T Jollife and Jorge Cadima.
+\newblock Principal component analysis: A review and recent developments.
+\newblock \emph{Philos. Trans. R. Soc. A Math. Phys. Eng. Sci}, 374\penalty0 (2065):\penalty0 20150202, 2016.
+
+\bibitem[Kelly et~al.(2019)Kelly, Pruitt, and Su]{kelly2019characteristics}
+Bryan~T Kelly, Seth Pruitt, and Yinan Su.
+\newblock Characteristics are covariances: A unified model of risk and return.
+\newblock \emph{Journal of Financial Economics}, 134\penalty0 (3):\penalty0 501--524, 2019.
+
+\bibitem[Kelly et~al.(2020)Kelly, Pruitt, and Su]{kelly2020instrumented}
+Bryan~T Kelly, Seth Pruitt, and Yinan Su.
+\newblock Instrumented principal component analysis.
+\newblock \emph{Available at SSRN 2983919}, 2020.
+
+\bibitem[Xu(2017)]{xu2017generalized}
+Yiqing Xu.
+\newblock Generalized synthetic control method: Causal inference with interactive fixed effects models.
+\newblock \emph{Political Analysis}, 25\penalty0 (1):\penalty0 57--76, 2017.
+
+\end{thebibliography}
