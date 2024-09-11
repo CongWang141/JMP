@@ -84,6 +84,10 @@ This paper is structured as follows. Section \ref{sec: framework} introduces the
 \section{Framework} 
 \label{sec: framework}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Set up and notation} 
+\label{sec: set up}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Consider $Y_{it}$ as the observed outcome for a specific unit $i \ (i = 1, \dots, N)$ at time $t \ (t = 1, \dots, T)$. The total number of observed units in the panel is $N = N_{treat} + N_{ctrl}$, where $N_{treat}$ represents the number of units in the treatment group $\mathcal{T}$ and $N_{ctrl}$ represents the number of units in the control group $\mathcal{C}$. Each unit is observed over $T = T_{pre} + T_{post}$ periods, where $T_{pre}$ is the number of periods before treatment and $T_{post}$ is the number of periods after treatment. We observe the treatment effect at $T_{pre} + 1$ right after the beginning of the treatment and continue to observe thereafter until the end of the observation periods, a scenario commonly referred to as block assignment\footnote{We can also adopt this method for the more commonly observed staggered adoption scenario. We demonstrate different treatment assignment mechanisms in Appendix \ref{app: treatment assignment}}. Following Equations \ref{eqn: fe} and \ref{eqn: instrument}, we assume that the outcome variable $Y_{it}$ is given by a simple factor model with factor loadings instrumented by covariates. The functional form is given by:
 
 \begin{assumption}
@@ -119,6 +123,45 @@ where Equation \ref{eqn: potential outcome} represents the actual outcome for th
 \begin{equation}
 \widehat{ATT}_{t} = \frac{1}{N_{treat}}\sum_{i \in \mathcal{T}} \left( Y_{it}^1 - \hat{Y}_{it}^0 \right) = \frac{1}{N_{treat}}\sum_{i \in \mathcal{T}}\hat{\delta}_{it}.
 \end{equation}
+
+\subsection{Assumptions for identification} 
+\label{sec: assumptions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+To ensure the identification of the treatment effect, we introduce a series of assumptions about the DGPs, in addition to the assumption regarding the functional form. These assumptions are crucial for achieving consistent estimation of the ATT, yet they are easy to satisfy in practice.
+
+\begin{assumption}
+Assumption for consistency:
+\begin{enumerate}
+    \item Covariate orthogonality: $\mathbb{E}\left[X'_{it} \epsilon_{it}\right] = \textbf{0}_{L\times 1}$,
+    
+    \item Moment condition of factors and covariates. The following moments exist: $\mathbb{E}\|F_{t}F'_{t}\|^2$, $\mathbb{E}\|X'_{it}\epsilon_{it}\|^2$, $\mathbb{E}\|X'_{it}X_{it}\|^2$, $\mathbb{E}\left[\|X'_{it}X_{it}\|^2\|F_{t}F'_{t}\|^2 \right]$, 
+
+    \item Almost surely, $X_{it}$ is bounded, and define $\Omega_t^{xx} := \mathbb{E}\left[ X_{it}' X_{it} \right]$, then almost surely, $\Omega_t^{xx} > \epsilon$ for some $\epsilon > 0$.
+    
+    \item The parameter space $\Psi$ of $\Gamma$ is compact and away from rank deficient: $\det{\Gamma' \Gamma} > \epsilon$ for some $\epsilon>0$,
+    
+\end{enumerate}
+\label{app: ass consistency}
+\end{assumption}
+
+The assumptions outlined above serve as regularity conditions necessary for ensuring the consistency of the estimator. The first condition reflects the exclusion restriction commonly associated with instrumental variable regression, indicating that the instruments (in this case, covariates) are orthogonal to the error terms. This orthogonality ensures that the covariates do not correlate with any unobserved error terms influencing the outcome. Similarly, the functional form described in Equation \ref{eqn: functional form} aligns with the framework utilized in two-stage instrumental regression. The second condition imposes a limitation on the second moment of a series of random variables, ensuring that their variances remain finite and do not escalate indefinitely. The third condition mandates that the parameter space for the mapping matrix $\Gamma$ be compact, thereby circumventing issues related to rank deficiency. This compactness is vital for the estimability of $\Gamma$ and the existence of its inverse, mirroring standard factor analysis assumptions.
+
+To derive the asymptotic properties of the CSC-IPCA estimator, we introduce additional assumptions. Assumption \ref{app: ass normality} encompasses panel-wise and cross-sectional central limit theorems for various variables, which are fulfilled by diverse mixing processes. These conditions are pivotal for determining the asymptotic distribution of common factors $F_t$ and mapping matrix $\Gamma$ estimations. For an in-depth discussion, we refer to \cite{kelly2020instrumented}. The requirement of bounded dependence stipulates that both time series and cross-sectional dependencies of $X_{it}\epsilon_{it}$ are bounded, a crucial step for establishing asymptotic normality. Meanwhile, the assumption of cross-sectional homoskedasticity simplifies the expressions for the asymptotic variances of the estimated mapping matrix $\Gamma$. It should be noted that relaxing this assumption would not alter the convergence rate.
+\begin{assumption}
+Assumptions for asymptotic normality:
+\begin{enumerate}
+    \item $\text{As } N, T \to \infty, \: \frac{1}{\sqrt{NT}} \sum_{i,t} \text{vect}\left( X'_{i,t} \epsilon_{i,t} F'_{t} \right) \xrightarrow{d} \text{Normal} \left(0, \Omega^{x\epsilon f} \right)$,
+    
+    \item $\text{As } N \to \infty, \: \frac{1}{\sqrt{N}} \sum_{i} \text{vect}\left( X'_{i} \epsilon_{i} \right) \xrightarrow{d} \text{Normal} \left(0, \Omega^{x\epsilon} \right) \: \text{for} \: \forall t$,
+    
+    \item $\text{As } N, T \to \infty, \: \frac{1}{\sqrt{T}} \sum_{t} \text{vect}\left( F_{t}F'_{t} - \mathbb{E}[F_{t}F'_{t}] \right) \xrightarrow{d} \text{Normal} \left(0, \Omega^{f} \right)$.
+    
+    \item Bounded dependence: $\frac{1}{NT} \sum_{i,j,t,s}\|\tau_{ij, ts}\| < \infty$, where $\tau_{ij, ts} := \mathbb{E} \left[ X'_{it} \epsilon_{it} \epsilon'_{js} X_{js} \right]$
+    
+    \item Constant second moments of the covariates: $\Omega_t^{xx} = \mathbb{E}\left[ X_{t} X'_{t} \right]$ is constant across time periods.
+    \end{enumerate}
+    \label{app: ass normality}
+\end{assumption}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Estimation} 
