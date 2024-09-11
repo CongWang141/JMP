@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex main"] 1726060254 "main.aux" "main.bbl" "main" 1726060769 0
+["bibtex main"] 1726060254 "main.aux" "main.bbl" "main" 1726061005 0
   "./citation.bib" 1725743579 11841 f0eec29e31e01fdf0189a42b63518192 ""
   "/usr/local/texlive/2023/texmf-dist/bibtex/bst/natbib/plainnat.bst" 1233624470 26816 ffe5423d2019860bad9f54bc402fac15 ""
-  "main.aux" 1726060769 10862 515b9bf303aeb2b85780c18d44e0a493 "pdflatex"
+  "main.aux" 1726061004 10862 515b9bf303aeb2b85780c18d44e0a493 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1726060768 "/Users/wang/Desktop/JMP/latex2/main.tex" "main.pdf" "main" 1726060769 0
-  "/Users/wang/Desktop/JMP/latex2/main.tex" 1726060768 53638 22918d308efa99284433b5bd70195c19 ""
+["pdflatex"] 1726061003 "/Users/wang/Desktop/JMP/latex2/main.tex" "main.pdf" "main" 1726061005 0
+  "/Users/wang/Desktop/JMP/latex2/main.tex" 1726061003 53639 f3292d048f260d79259487da8675dbcf ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/jknappen/ec/tcrm0700.tfm" 1136768653 1536 73da8e8f1d2a4c957d51ca133585586b ""
@@ -177,10 +177,10 @@
   "figs/bias_compar1.png" 1725743579 109029 372315fb26e881143ed3458b7a71f649 ""
   "figs/data_plot.png" 1725743579 530615 993b7a6859f34bf756d1a97231b4c0a1 ""
   "figs/estimation.png" 1725743579 549379 ca04e69555178c27c21c75c47d2dae46 ""
-  "main.aux" 1726060769 10862 515b9bf303aeb2b85780c18d44e0a493 "pdflatex"
+  "main.aux" 1726061004 10862 515b9bf303aeb2b85780c18d44e0a493 "pdflatex"
   "main.bbl" 1726060254 10428 93d296cc978feb0e8ea7bb4257e7896c "bibtex main"
-  "main.out" 1726060769 2475 10749698279e4a259535ca82da5e51ff "pdflatex"
-  "main.tex" 1726060768 53638 22918d308efa99284433b5bd70195c19 ""
+  "main.out" 1726061004 2475 10749698279e4a259535ca82da5e51ff "pdflatex"
+  "main.tex" 1726061003 53639 f3292d048f260d79259487da8675dbcf ""
   "preamble.sty" 1725743579 2250 73e584126c94952eca07a21a566ea15c ""
   (generated)
   "main.aux"
