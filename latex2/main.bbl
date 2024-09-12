@@ -1,4 +1,4 @@
-\begin{thebibliography}{40}
+\begin{thebibliography}{41}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -108,6 +108,11 @@ Guanhao Feng, Stefano Giglio, and Dacheng Xiu.
 Laurent Gobillon and Thierry Magnac.
 \newblock Regional policy evaluation: Interactive fixed effects and synthetic controls.
 \newblock \emph{Review of Economics and Statistics}, 98\penalty0 (3):\penalty0 535--551, 2016.
+
+\bibitem[Higham(2009)]{higham2009cholesky}
+Nicholas~J Higham.
+\newblock Cholesky factorization.
+\newblock \emph{Wiley interdisciplinary reviews: computational statistics}, 1\penalty0 (2):\penalty0 251--254, 2009.
 
 \bibitem[Hsiao et~al.(2012)Hsiao, Steve~Ching, and Ki~Wan]{hsiao2012panel}
 Cheng Hsiao, H~Steve~Ching, and Shui Ki~Wan.
