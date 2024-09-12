@@ -62,7 +62,6 @@ The IPCA method was developed by \cite{kelly2020instrumented}, and applied by \c
 
 We provide bootstrap and leave-one-out cross-validation procedures for hyperparameter tuning to select the optimal number of latent factors, $K$. Additionally, we construct confidence intervals using the novel and increasingly popular conformal inference method developed by \cite{chernozhukov2021exact}. In our formal results, we derive the asymptotic properties based on the unbiased and efficient estimation of both $\Gamma$ and $F_t$. We show that the convergence rate of our estimand, i.e. the ATT, is the smaller of $\mathcal{O}p(\sqrt{N_{ctrl}})$ and $\mathcal{O}p(\sqrt{N_{treat}T_{pre}})$, so large $T_{pre}$ and $N_{ctrl}$ would be necessary for us to get the accurate estimation.
 
-
 In the empirical application, we apply this newly developed method to assess the impact of Brexit on foreign direct investment (FDI) in the U.K. We use 9 covariates with predictive power over FDI, including GDP, GDP per capita, imports, exports, employment, and demographic data. Our empirical results indicate that Brexit had a negative effect on FDI in the U.K., and the findings are highly robust based on conformal inference. However, the prediction accuracy deteriorates after 2020, primarily due to the impact of COVID-19, which significantly altered some of the covariates.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
