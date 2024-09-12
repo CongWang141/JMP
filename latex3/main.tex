@@ -569,8 +569,112 @@ We can also utilize leave-one-out cross-validation to select the hyperparameter 
 \section{Formal Result} 
 \label{sec: formal result}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+In this section, we derive the formal result for the CSC-IPCA estimator. We first establish the consistency and other asympototic properties of the mapping matrix $\Gamma$ and the factor $F_t$, based on which we then derive the formal result for the CSC-IPCA estimated ATT. 
+
+\subsection{Mapping matrix estimation asympototic properties}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+In this section, we delve into the asymptotic properties of the estimation error associated with the mapping matrix. \cite{kelly2020instrumented} have proven it in their paper, referring to Theorem 3. The following proposition \ref{prop: gamma}, is a special case of their result. Based on our estimation methods, we estimate the mapping matrix $\Gamma$ first by concentrating out the factor $F_t$, as shown in Equation \ref{eqn: obj}, we can formulate a target function for $\Gamma$ as follows:
+
+\begin{equation}
+\label{eqn: target}
+G(\Gamma) = \frac{1}{2NT}\sum_{i,t} \left( Y_{it} - X_{it}\Gamma \hat{F}_t \right)^2.
+\end{equation}
+we define the score function $S(\Gamma)$ as the derivative of the target function $G(\Gamma)$ with respect to $\Gamma$: $S(\Gamma) = \frac{\partial G(\Gamma)}{\partial \Gamma}$. The Hessian matrix $H(\Gamma)$ is defined as the second derivative of the target function $G(\Gamma)$ with respect to $\Gamma$: $H(\Gamma) = \frac{\partial^2 G(\Gamma)}{\partial \Gamma \partial \Gamma'}$. 
+
+It is crucial to highlight that our normalization criterion, delineated in Equation \ref{eqn: normalization}, mandates that the mapping matrix $\Gamma$ adheres to orthonormality and the factor $F_t F_t'/T$ is required to exhibit orthogonality. To satisfy these requirements we define the following identification function:
+\begin{equation}
+\label{eqn: identification}
+I(\Gamma) := \begin{bmatrix}
+    \text{veca}(\Gamma' \Gamma - \mathcal{I}_K) \\
+    \text{vecb}\left(\frac{1}{T} \sum_{t} \hat{F}_t\hat{F}_t' - V^{FF}\right)
+    \end{bmatrix}
+\end{equation}
+where $V^{ff} = E\left[F_t F'_t\right]$, meanwhile, $\text{veca}(\cdot)$ and $\text{vecb}(\cdot)$ vectorize the upper triangular entries of a square matrix. The difference is $\text{veca}(\cdot)$ includes the diagonal elements, while $\text{vecb}(\cdot)$ excludes them. We define the Jacobian matrix $J(\Gamma)$ as the derivative of the identification function $I(\Gamma)$ with respect to $\Gamma$: $J(\Gamma) = \frac{\partial I(\Gamma)}{\partial \Gamma}$.
+
+\begin{proposition}
+\label{prop: gamma}
+Under Assumption \ref{app: ass consistency} and \ref{app: ass normality}, mapping matrix estimation error centered against the normalized true mapping matrix converges to a normal distribution at the rate of $\sqrt{NT}$: as $N, T \rightarrow \infty$ such that $T/N \rightarrow \infty$,
+
+$$
+\sqrt{NT} \left( \hat{\bm{\gamma}} - \bm{\gamma}^0 \right) \xrightarrow{d} - \left( H^{0'}H^0 + J^{0'}J^0 \right)^{-1}H^{0'}Normal(0, \mathbb{V}^{[1]})
+$$
+\end{proposition}
+where $H^0:= \frac{\partial^2 G(\Gamma)}{\partial \bm{\gamma}\partial \bm{\gamma}'}|_{\bm{\gamma} = \bm{\gamma}^0}$ and $J^0:= \frac{\partial I(\Gamma)}{\partial \bm{\gamma}}|_{\bm{\gamma} = \bm{\gamma}^0}$, $\mathbb{V}^{[1]} = \left( Q^0 \otimes \mathcal{I}_K \right) \Omega^{x\epsilon f} \left( Q^{0'} \otimes \mathcal{I}_K \right)$, and $Q^0 := Q_t(\Gamma^0)$ given that $Q_t(\Gamma) := \mathcal{I}_L - \Omega_t^{xx} \left( \Gamma' \Omega^{xx}_t \Gamma \right)^{-1}\Gamma'$ is constant over $t$ under Assumption \ref{app: ass normality}.
+
+\textbf{Proof}: referring to \cite{kelly2020instrumented}.
+
+\subsection{Factor estimation asympototic properties}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{proposition}
+\label{prop: factor}
+Under Assumption \ref{app: ass consistency} and \ref{app: ass normality}, factor estimation error centered against the normalized true factor converges to a normal distribution at the rate of $\sqrt{N}$: as $N, T \to \infty$ for $\forall t$,
+$$
+\sqrt{N}\left(\hat{F}_t - F^0_t\right) \xrightarrow{d} N\left(0, \mathbb{V}_t^{[2]}\right),
+$$
+\end{proposition}
+where the variance term $\mathbb{V}_{t}^{[2]}$, which is given by $\mathbb{V}_{t}^{[2]} = \left( \Gamma^\top \Omega_{t}^{xx} \Gamma\right)^{-1} \Gamma^\top \Omega_{t}^{x\epsilon} \Gamma \left(\Gamma^\top\Omega_{t}^{xx} \Gamma\right)^{-1}$.
+
+\textbf{Proof:} Decompose the left-hand side equation:
+\begin{equation*}
+\begin{aligned}
+\sqrt{N}\left(\hat{F}_t - F_t\right) &= \sqrt{N}\left(\left( \hat{\Gamma}'X'_tX_t\hat{\Gamma} \right)^{-1}\hat{\Gamma}'X_t' \left(X_t\hat{\Gamma}F_t+ \tilde{\epsilon}_t \right) - F_t\right)\\
+&= \sqrt{N}\left(\left( \hat{\Gamma}'X'_tX_t\hat{\Gamma} \right)^{-1}\hat{\Gamma}'X_t' \left(X_t \hat{\Gamma}F_t\right) - F_t\right) + \sqrt{N}\left( \hat{\Gamma}'X'_tX_t\hat{\Gamma} \right)^{-1}\hat{\Gamma}'X_t'\tilde{\epsilon}_t
+\end{aligned}
+\end{equation*}
+where $\tilde{\epsilon}_t$ is the estimation error term with estimated $\hat\Gamma$ and true $F_t$. Given Proposition \ref{prop: gamma}, $\hat{\Gamma} - \hat{\Gamma}^0 = \mathcal{O}_p \left( 1/\sqrt{NT} \right)$. The first term is simply $\mathcal{O}_p\left(1/\sqrt{NT}\right)$. For the second term:
+
+\begin{equation*}
+\begin{aligned}
+\sqrt{N}\left( \hat{\Gamma}'X'_tX_t\hat{\Gamma} \right)^{-1}\hat{\Gamma}'X_t'\tilde{\epsilon}_t = &\sqrt{N}\left( \Gamma'X'_tX_t\Gamma \right)^{-1}\Gamma'X_t'\epsilon_t + \mathcal{O}_p(1) \\
+& \xrightarrow{d} Normal(0, \mathbb{V}_t^{[2]})
+\end{aligned}
+\end{equation*}
+
+Assumption \ref{app: ass normality} delineates the properties of $\Omega_t^{xx}$ and $\Omega_t^{x\epsilon}$. Notably, despite the presence of multiple matrix multiplications, the matrices $\Omega_t^{xx}$ and $\Omega_t^{x\epsilon}$ remain invariant under these operations. Consequently, the term $\mathbb{V}_t^{[2]}$ is constant across all observational units.
+
+\subsection{Consistency and asymptotic property of the ATT estimation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{theorem}
+\label{thm: bias}
+Under Assumptions \ref{ass: function}, \ref{app: ass consistency}, and \ref{app: ass normality}, the CSC-IPCA estimator $\mathbb{E}\left(\widehat{ATT}_{t} | D, X, \Gamma, F\right) \xrightarrow{P} ATT_{t}$, where $ATT_{t} = \frac{1}{N_{treat}}\sum_{i \in \mathcal{T}}\delta_{it}$ is the true treatment effect. for all $t > T_{pre}$ as both $N_{ctrl}, \ T_{pre} \to \infty$.
+\end{theorem}
+
+\textbf{Proof:} Denote $i$ as the treated unit on which the treatment effect is of interest, the bias of estimated ATT is given by:
+
+\begin{equation*}
+\begin{aligned}
+\hat{\delta}_{it} - \delta_{it} &= Y_{it}^1 - \hat{Y}_{it}^0 - \delta_{it}, \\    
+&= X_{it}\Gamma F'_t - X_{it}\hat{\Gamma}\hat{F}'_t + \epsilon_{it}, \\
+&= X_{it}\left( \left(\mathcal{I}_L\otimes F_t \right) \bm{\gamma} - (\mathcal{I}_L\otimes \hat{F}_t ) \hat{\bm{\gamma}} \right) + \epsilon_{it}, \\
+&= X_{it}\left( \left(\mathcal{I}_L\otimes F_t \right) \bm{\gamma} - \mathcal{I}_L\otimes (F_t + e_{f_t}) (\bm{\gamma}+ e_{\gamma}) \right) + \epsilon_{it}, \\
+&= -X_{it}\left( (\mathcal{I}_L \otimes F_t) e_{\gamma} - (\mathcal{I}_L \otimes e_{f_t} \bm{\gamma}) - (\mathcal{I}_L \otimes e_{f_t}) e_{\gamma} \right) + \epsilon_{it}\\
+&= -X_{it}e_{\Gamma} F'_t - X_{it}\Gamma e'_{f_t} - X_{it}e_{\Gamma} e'_{f_t} + \epsilon_{it}, \\
+&= A_{1,it} + A_{2,it} + A_{3,it} + \epsilon_{it}.
+\end{aligned}
+\end{equation*}
+
+\noindent where $e_{f_t} = F_t - \hat{F}_t$ is a vector of estimation error of the factor $F_t$, $e_{\gamma}$ is vectorized estimation error of the mapping matrix $e_{\Gamma} = \Gamma - \hat{\Gamma}$. The third step converts the vector-matrix multiplication into vector multiplications with the Kronecker product, $X_{it}\Gamma F'_t = X_{it}(\mathcal{I}_L \otimes F_t)\bm{\gamma}$, where $\mathcal{I}_L$ is an $L \times L$ identity matrix. The bias of the estimated ATT is the sum of four terms $A_{1,it}$, $A_{2,it}$, $A_{3,it}$, and $\epsilon_{it}$. By proposition \ref{prop: gamma} and \ref{prop: factor}, we have the following results:
+\begin{equation*}
+\begin{aligned}
+    &A_{1,it} = -X_{it}E_{\Gamma} F'_t = \mathcal{O}_p\left(1/\sqrt{N_{treat}T_{pre}}\right). \\
+    &A_{2,it} = -X_{it}\Gamma e'_{f_t} = \mathcal{O}_p\left(1/\sqrt{N_{ctrl}}\right). \\
+    &A_{3,it} = -X_{it}E_{\Gamma} e'_{f_t} = \mathcal{O}_p\left(1/\sqrt{N_{treat}T_{pre}N_{ctrl}}\right).
+\end{aligned}
+\end{equation*}
+Since we estimate the factor $F_t$ using only control units and update the mapping matrix $\Gamma$ with treated units in the pre-treatment period, both $F_t$ and $\Gamma$ converge over different dimensions of $T$ and $N$. Consequently, the error term $\epsilon_{it}$ is assumed to have zero means, leading to the bias of the estimated ATT also converging to zero:
+\begin{equation*}
+\begin{aligned}
+    \hat{\delta}_{it} - \delta_{it} &= \mathcal{O}_p\left(\frac{1}{\sqrt{N_{treat}T_{pre}}}\right) + \mathcal{O}_p\left(\frac{1}{\sqrt{N_{ctrl}}}\right) + \mathcal{O}_p\left(\frac{1}{\sqrt{N_{treat}T_{pre}N_{ctrl}}}\right) + \epsilon_{it} \\
+    &= \mathcal{O}_p\left(\frac{1}{\sqrt{N_{ctrl}}} \right) + \mathcal{O}_p\left(\frac{1}{\sqrt{N_{treat}T_{pre}}} \right).
+\end{aligned}
+\end{equation*}
+Therefore, as $N_{\text{ctrl}}, \ T_{\text{pre}} \to \infty$, the estimated ATT converges to the true ATT:
+\begin{equation*}
+\begin{aligned}
+    \mathbb{E}\left(\widehat{ATT}_{t} | D, X, \Gamma, F\right) \xrightarrow{P} ATT_{t}.
+\end{aligned}
+\end{equation*}
+The convergence rate is the smaller one between $1/\sqrt{N_{ctrl}}$ and $1/\sqrt{N_{treat}T_{pre}}$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
