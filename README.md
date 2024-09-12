@@ -42,7 +42,7 @@ The following test files are well-structured and organized:
 - **`test4_conformal_inference`**: Computes confidence intervals using conformal inference.
 - **`test5_finite_sample`**: Conducts finite sample property analysis.
 - **`test6_normalization`**: Demonstrates the process of normalization.
-- **`test7_empirical_dkfdi`**: Conducts the empirical study on FDI.
+- **`test7_empirical_study`**: Conducts the empirical study on FDI.
 
 ## Getting Started
 
