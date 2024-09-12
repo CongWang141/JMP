@@ -1,0 +1,44 @@
+\documentclass[12pt]{article}
+\usepackage{preamble}
+\begin{document}
+%%%%%%%%%%%%%%%%%frond page%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{titlepage}
+    \title{Counterfactual and Synthetic Control Method: Causal Inference with Instrumented Principal Component Analysis\thanks{We thank Matteo Lacopini, Emanuele Bacchiocchi for helpful discussion on this paper. There is a Python Package and a Github repository for this paper, available at \href{https://github.com/CongWang141/JMP.git}{https://github.com/CongWang141/JMP.git}, which contains the latest version of the paper, the code, and the data.}} 
+
+    \author{Cong Wang\thanks{Department of Economics and Law, Sapienza University of Rome.}}
+    \date{\today}
+    \maketitle
+    \begin{center}
+        \href{https://github.com/CongWang141/JMP/blob/main/latex/main.pdf}{Job Market Paper, latest version available here.}
+    \end{center}
+
+    \begin{abstract}
+        \noindent In this paper, we propose a novel method for causal inference within the framework of counterfactual and synthetic control. Matching forward the generalized synthetic control method developed by \cite{xu2017generalized}, our instrumented principal component analysis method instruments factor loadings with predictive covariates rather than including them as regressors. These instrumented factor loadings exhibit time-varying dynamics, offering a better economic interpretation. Covariates are instrumented through a transformation matrix, $\Gamma$, when we have a large number of covariates it can be easily reduced in accordance with a small number of latent factors helping us to effectively handle high-dimensional datasets and making the model parsimonious. Finally, the novel way of handling covariates is less exposed to model misspecification and achieved better prediction accuracy. Our simulations show that this method is less biased in the presence of unobserved covariates compared to other mainstream approaches. In the empirical application, we use the proposed method to evaluate the effect of Brexit on foreign direct investment to the UK.\\
+
+        \noindent\textbf{JEL Codes:} G11, G12, G30\\
+        \bigskip
+    \end{abstract}
+
+    \setcounter{page}{0}
+    \thispagestyle{empty}
+\end{titlepage}
+
+\pagebreak \newpage
+\doublespacing
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction} 
+\label{sec: introduction}
+In this paper, we introduce a novel counterfactual imputation method for causal inference, called the Counterfactual and Synthetic Control method with Instrumented Principal Component Analysis (CSC-IPCA). This method combines the dimension reduction capabilities of Principal Component Analysis (PCA) described by \cite{jollife2016principal} to handle high-dimensional datasets with the versatility of the factor models studied by \cite{bai2003computation}, \cite{bai2009panel}, among others, which accommodate a wide range of data-generating processes (DGPs). The CSC-IPCA method represents a significant advancement over the Generalized Synthetic Control (GSC) method proposed by \cite{xu2017generalized}, which utilizes the Interactive Fixed Effects (IFE) approach to model DGPs and impute missing counterfactuals for causal inference.
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begingroup
+\setstretch{1.0}
+\bibliographystyle{plainnat}
+\bibliography{citation}
+\endgroup
+
+\end{document}
