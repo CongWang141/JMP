@@ -2,10 +2,13 @@
 \providecommand\hyper@newdestlabel[2]{}
 \providecommand\HyperFirstAtBeginDocument{\AtBeginDocument}
 \HyperFirstAtBeginDocument{\ifx\hyper@anchor\@undefined
+\global\let\oldcontentsline\contentsline
+\gdef\contentsline#1#2#3#4{\oldcontentsline{#1}{#2}{#3}}
 \global\let\oldnewlabel\newlabel
 \gdef\newlabel#1#2{\newlabelxx{#1}#2}
 \gdef\newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
 \AtEndDocument{\ifx\hyper@anchor\@undefined
+\let\contentsline\oldcontentsline
 \let\newlabel\oldnewlabel
 \fi}
 \fi}
@@ -92,38 +95,38 @@
 \newlabel{sec: hyperparameter}{{4.1}{12}{Hyper parameter tuning}{subsection.4.1}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Inference}{12}{subsection.4.2}\protected@file@percent }
 \newlabel{sec: inference}{{4.2}{12}{Inference}{subsection.4.2}{}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces Bootstrap Hyperparameter Tuning\relax }}{13}{algocf.1}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces Bootstrap Hyperparameter Tuning}}{13}{algocf.1}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{algorithm: 1}{{1}{13}{Hyper parameter tuning}{algocf.1}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Monte Carlo Simulation}{15}{section.5}\protected@file@percent }
 \newlabel{sec: simulation}{{5}{15}{Monte Carlo Simulation}{section.5}{}}
 \newlabel{eq: dgp}{{14}{15}{Monte Carlo Simulation}{equation.5.14}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {CSC-IPCA Data Generating Process}\relax }}{16}{figure.caption.2}\protected@file@percent }
-\newlabel{fig: sim}{{1}{16}{\textbf {CSC-IPCA Data Generating Process}\relax }{figure.caption.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \textbf  {CSC-IPCA Data Generating Process}}}{16}{figure.caption.2}\protected@file@percent }
+\newlabel{fig: sim}{{1}{16}{\textbf {CSC-IPCA Data Generating Process}}{figure.caption.2}{}}
 \citation{abadie2010synthetic}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.1}A simulated example}{17}{subsection.5.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Bias comparison}{17}{subsection.5.2}\protected@file@percent }
 \newlabel{sec: bias comparing}{{5.2}{17}{Bias comparison}{subsection.5.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textbf  {CSC-IPCA Estimated ATT for Simulated Sample}\relax }}{18}{figure.caption.3}\protected@file@percent }
-\newlabel{fig: est}{{2}{18}{\textbf {CSC-IPCA Estimated ATT for Simulated Sample}\relax }{figure.caption.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Bias Comparing with Other Methods}\relax }}{19}{figure.caption.4}\protected@file@percent }
-\newlabel{fig: bias}{{3}{19}{\textbf {Bias Comparing with Other Methods}\relax }{figure.caption.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textbf  {CSC-IPCA Estimated ATT for Simulated Sample}}}{18}{figure.caption.3}\protected@file@percent }
+\newlabel{fig: est}{{2}{18}{\textbf {CSC-IPCA Estimated ATT for Simulated Sample}}{figure.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Bias Comparing with Other Methods}}}{19}{figure.caption.4}\protected@file@percent }
+\newlabel{fig: bias}{{3}{19}{\textbf {Bias Comparing with Other Methods}}{figure.caption.4}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Finite sample properties}{19}{subsection.5.3}\protected@file@percent }
 \newlabel{sec: finite sample}{{5.3}{19}{Finite sample properties}{subsection.5.3}{}}
 \citation{arnorsson2018causes}
 \citation{colantone2018global}
 \citation{dhingra2016impact}
 \citation{welfens2018brexit}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces \textbf  {Finite Sample Properties}\relax }}{20}{table.caption.5}\protected@file@percent }
-\newlabel{tab: finite sample}{{1}{20}{\textbf {Finite Sample Properties}\relax }{table.caption.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces \textbf  {Finite Sample Properties}}}{20}{table.caption.5}\protected@file@percent }
+\newlabel{tab: finite sample}{{1}{20}{\textbf {Finite Sample Properties}}{table.caption.5}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {6}Empirical application}{21}{section.6}\protected@file@percent }
 \newlabel{sec: application}{{6}{21}{Empirical application}{section.6}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \textbf  {CSC-IPCA Estimated ATT for Brexit}\relax }}{23}{figure.caption.6}\protected@file@percent }
-\newlabel{fig: ipca_est}{{4}{23}{\textbf {CSC-IPCA Estimated ATT for Brexit}\relax }{figure.caption.6}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \textbf  {Estimated Common Factors}\relax }}{24}{figure.caption.7}\protected@file@percent }
-\newlabel{fig: factors}{{5}{24}{\textbf {Estimated Common Factors}\relax }{figure.caption.7}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces \textbf  {Factor Loadings of Selected Countries}\relax }}{25}{figure.caption.8}\protected@file@percent }
-\newlabel{fig: loadings}{{6}{25}{\textbf {Factor Loadings of Selected Countries}\relax }{figure.caption.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \textbf  {CSC-IPCA Estimated ATT for Brexit}}}{23}{figure.caption.6}\protected@file@percent }
+\newlabel{fig: ipca_est}{{4}{23}{\textbf {CSC-IPCA Estimated ATT for Brexit}}{figure.caption.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \textbf  {Estimated Common Factors}}}{24}{figure.caption.7}\protected@file@percent }
+\newlabel{fig: factors}{{5}{24}{\textbf {Estimated Common Factors}}{figure.caption.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces \textbf  {Factor Loadings of Selected Countries}}}{25}{figure.caption.8}\protected@file@percent }
+\newlabel{fig: loadings}{{6}{25}{\textbf {Factor Loadings of Selected Countries}}{figure.caption.8}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion}{26}{section.7}\protected@file@percent }
 \newlabel{sec: conclusion}{{7}{26}{Conclusion}{section.7}{}}
 \bibstyle{plainnat}
@@ -174,12 +177,12 @@
 \newlabel{sec: tech details}{{A}{31}{Technical Details}{appendix.A}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Treatment Assignment}{31}{subsection.A.1}\protected@file@percent }
 \newlabel{app: treatment assignment}{{A.1}{31}{Treatment Assignment}{subsection.A.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.1}{\ignorespaces \textbf  {Block Assignment}\relax }}{31}{figure.caption.9}\protected@file@percent }
-\newlabel{app: block assignment}{{A.1}{31}{\textbf {Block Assignment}\relax }{figure.caption.9}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.2}{\ignorespaces \textbf  {Staggered Adoption}\relax }}{32}{figure.caption.10}\protected@file@percent }
-\newlabel{app: staggered adoption}{{A.2}{32}{\textbf {Staggered Adoption}\relax }{figure.caption.10}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.3}{\ignorespaces \textbf  {Random Assignment}\relax }}{32}{figure.caption.11}\protected@file@percent }
-\newlabel{app: random assignment}{{A.3}{32}{\textbf {Random Assignment}\relax }{figure.caption.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.1}{\ignorespaces \textbf  {Block Assignment}}}{31}{figure.caption.9}\protected@file@percent }
+\newlabel{app: block assignment}{{A.1}{31}{\textbf {Block Assignment}}{figure.caption.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.2}{\ignorespaces \textbf  {Staggered Adoption}}}{32}{figure.caption.10}\protected@file@percent }
+\newlabel{app: staggered adoption}{{A.2}{32}{\textbf {Staggered Adoption}}{figure.caption.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.3}{\ignorespaces \textbf  {Random Assignment}}}{32}{figure.caption.11}\protected@file@percent }
+\newlabel{app: random assignment}{{A.3}{32}{\textbf {Random Assignment}}{figure.caption.11}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Estimation of the CSC-IPCA estimator}{32}{subsection.A.2}\protected@file@percent }
 \newlabel{sec: appendix estimation}{{A.2}{32}{Estimation of the CSC-IPCA estimator}{subsection.A.2}{}}
 \newlabel{app: eqn combined}{{A.1}{33}{Estimation of the CSC-IPCA estimator}{equation.A.1}{}}
@@ -191,7 +194,7 @@
 \citation{higham2009cholesky}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A.3}Hyperparameter tuning}{35}{subsection.A.3}\protected@file@percent }
 \newlabel{sec: appendix hyperparameter}{{A.3}{35}{Hyperparameter tuning}{subsection.A.3}{}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {2}{\ignorespaces Leave-One-Out Cross-Validation for Hyperparameter $k$\relax }}{35}{algocf.2}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {2}{\ignorespaces Leave-One-Out Cross-Validation for Hyperparameter $k$}}{35}{algocf.2}\protected@file@percent }
 \newlabel{algorithm: 2}{{2}{35}{Hyperparameter tuning}{algocf.2}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {B}Formal Result}{35}{appendix.B}\protected@file@percent }
 \newlabel{sec: formal result}{{B}{35}{Formal Result}{appendix.B}{}}
@@ -211,18 +214,18 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {C.1}Bias comparison with different DGPs}{39}{subsection.C.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {C.2}Finite sample properties}{39}{subsection.C.2}\protected@file@percent }
 \newlabel{app: finite sample}{{C.2}{39}{Finite sample properties}{subsection.C.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {C.4}{\ignorespaces \textbf  {Bias Comparison with Different DGPs}\relax }}{40}{figure.caption.13}\protected@file@percent }
-\newlabel{app: bias 2}{{C.4}{40}{\textbf {Bias Comparison with Different DGPs}\relax }{figure.caption.13}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {C.2}{\ignorespaces \textbf  {Finite Sample Properties of CSC-IFE}\relax }}{40}{table.caption.14}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {C.3}{\ignorespaces \textbf  {Finite Sample Properties of SCM}\relax }}{41}{table.caption.15}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {C.4}{\ignorespaces \textbf  {Bias Comparison with Different DGPs}}}{40}{figure.caption.13}\protected@file@percent }
+\newlabel{app: bias 2}{{C.4}{40}{\textbf {Bias Comparison with Different DGPs}}{figure.caption.13}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {C.2}{\ignorespaces \textbf  {Finite Sample Properties of CSC-IFE}}}{40}{table.caption.14}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {C.3}{\ignorespaces \textbf  {Finite Sample Properties of SCM}}}{41}{table.caption.15}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {D}Empirical Applicatoin}{41}{appendix.D}\protected@file@percent }
 \newlabel{sec: application app}{{D}{41}{Empirical Applicatoin}{appendix.D}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {D.1}Data Description}{41}{subsection.D.1}\protected@file@percent }
 \newlabel{app: data}{{D.1}{41}{Data Description}{subsection.D.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {D.5}{\ignorespaces \textbf  {FDI to GDP Ratio for Selected Countries}\relax }}{42}{figure.caption.16}\protected@file@percent }
-\newlabel{app: fdi_oecd}{{D.5}{42}{\textbf {FDI to GDP Ratio for Selected Countries}\relax }{figure.caption.16}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {D.4}{\ignorespaces \textbf  {Summary Statistics of the Data}\relax }}{42}{table.caption.17}\protected@file@percent }
-\newlabel{app: data summary}{{D.4}{42}{\textbf {Summary Statistics of the Data}\relax }{table.caption.17}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {D.5}{\ignorespaces \textbf  {Regression Results}\relax }}{43}{table.caption.18}\protected@file@percent }
-\newlabel{app: reg}{{D.5}{43}{\textbf {Regression Results}\relax }{table.caption.18}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {D.5}{\ignorespaces \textbf  {FDI to GDP Ratio for Selected Countries}}}{42}{figure.caption.16}\protected@file@percent }
+\newlabel{app: fdi_oecd}{{D.5}{42}{\textbf {FDI to GDP Ratio for Selected Countries}}{figure.caption.16}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {D.4}{\ignorespaces \textbf  {Summary Statistics of the Data}}}{42}{table.caption.17}\protected@file@percent }
+\newlabel{app: data summary}{{D.4}{42}{\textbf {Summary Statistics of the Data}}{table.caption.17}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {D.5}{\ignorespaces \textbf  {Regression Results}}}{43}{table.caption.18}\protected@file@percent }
+\newlabel{app: reg}{{D.5}{43}{\textbf {Regression Results}}{table.caption.18}{}}
 \gdef \@abspage@last{44}
