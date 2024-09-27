@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex main"] 1727421409.40676 "main.aux" "main.bbl" "main" 1727421855.60215 0
+["bibtex main"] 1727422201.37611 "main.aux" "main.bbl" "main" 1727422232.29673 0
   "./citation.bib" 1725742691.93838 12259 8a997de27464d65b67aa0a63bbf6d85f ""
   "C:/Users/c.wang/AppData/Roaming/MiKTeX/bibtex/bst/natbib/plainnat.bst" 1284455456 26816 ffe5423d2019860bad9f54bc402fac15 ""
-  "main.aux" 1727421840.21631 16903 a138c3a5501d9fcf0bcae136e145d788 "pdflatex"
+  "main.aux" 1727422217.57534 16903 a138c3a5501d9fcf0bcae136e145d788 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1727421829.96042 "//efsf.local/Users/Profiles/c.wang/Documents/CongWang/personal_doc/project/JMP/latex/main.tex" "main.pdf" "main" 1727421856.19586 0
-  "//efsf.local/Users/Profiles/c.wang/Documents/CongWang/personal_doc/project/JMP/latex/main.tex" 1727421821.12993 89146 afff0919d57614d05c10f1fd25c4e244 ""
+["pdflatex"] 1727422206.82827 "//efsf.local/Users/Profiles/c.wang/Documents/CongWang/personal_doc/project/JMP/latex/main.tex" "main.pdf" "main" 1727422232.77722 0
+  "//efsf.local/Users/Profiles/c.wang/Documents/CongWang/personal_doc/project/JMP/latex/main.tex" 1727422193.51857 89021 be7feae50733f14e12183baf526a505a ""
   "C:/Program Files/MiKTeX/fonts/tfm/jknappen/ec/tcrm0700.tfm" 993062506 1452 97bdc98984cb373fbcd868e2fa55f5f2 ""
   "C:/Program Files/MiKTeX/fonts/tfm/jknappen/ec/tcrm1000.tfm" 993062508 1436 c7f957a372ef2fbe93c0982f96625e12 ""
   "C:/Program Files/MiKTeX/fonts/tfm/jknappen/ec/tcrm1440.tfm" 993062510 1460 05250f74aea2bdcfe9d6766811b8b7b2 ""
@@ -185,10 +185,10 @@
   "figs/random_assignment.png" 1725742694.34253 64363 f62da45030de2fa5193e648061b2fef4 ""
   "figs/staggered_adoption.png" 1725742694.56857 64251 fdcd02b469dcb60e464114c8805905d5 ""
   "figs/ukfdi_ipca.png" 1725742694.80985 409512 2fb109a3121c1ff8182fd99813e99a76 ""
-  "main.aux" 1727421840.21631 16903 a138c3a5501d9fcf0bcae136e145d788 "pdflatex"
-  "main.bbl" 1727421410.38128 11001 eba90bc79e13bf39d9ae4ed9e6ab16a5 "bibtex main"
-  "main.out" 1727421840.26231 4572 2f72ae7093bfdc73f9a97091917acc4b "pdflatex"
-  "main.tex" 1727421821.12993 89146 afff0919d57614d05c10f1fd25c4e244 ""
+  "main.aux" 1727422217.57534 16903 a138c3a5501d9fcf0bcae136e145d788 "pdflatex"
+  "main.bbl" 1727422202.35423 11001 eba90bc79e13bf39d9ae4ed9e6ab16a5 "bibtex main"
+  "main.out" 1727422217.62735 4572 2f72ae7093bfdc73f9a97091917acc4b "pdflatex"
+  "main.tex" 1727422193.51857 89021 be7feae50733f14e12183baf526a505a ""
   "preamble.sty" 1726219841.2862 2291 9d609c6609f807249e8faee2ca69e1ca ""
   (generated)
   "main.aux"
