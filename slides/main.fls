@@ -1221,6 +1221,7 @@ INPUT main.nav
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmss8.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmss12.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmss8.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmssi10.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmss8.tfm
 INPUT C:\Users\c.wang\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmmi10.tfm
@@ -1254,7 +1255,6 @@ INPUT C:\Users\c.wang\AppData\Roaming\MiKTeX\fonts\tfm\public\sansmathaccent\mat
 INPUT C:\Users\c.wang\AppData\Roaming\MiKTeX\fonts\tfm\public\sansmathaccent\mathkerncmssi8.tfm
 INPUT C:\Users\c.wang\AppData\Roaming\MiKTeX\fonts\tfm\public\sansmathaccent\mathkerncmssi8.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmssbx10.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmssi10.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmss12.tfm
 INPUT .\figs\block_assignment.png
 INPUT .\figs\block_assignment.png

@@ -18,6 +18,8 @@
 % title page
 \begin{frame}
 \titlepage
+    \centering \textcolor{blue}{\textit{This is my Job Market Paper}} \\
+    \centering 2025 European Winter Meeting
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -42,7 +44,6 @@ All the methods for causal inference can be viewed as missing data imputation me
 \begin{itemize}
     \item After transforming the causal inference problem into a missing data imputation problem, it is natural to think about modeling the data generating process (DGPs).
     \item Factor model is popular for its flexibility and sparsity in DGPs modeling. (\textcolor{blue}{Bai (2003)}, \textcolor{blue}{Stock and Watson (2002), etc.})
-    \item Recent advance in asset pricing using IPCA for stock return prediction (\textcolor{blue}{Kelly et al. (2020)})
 \end{itemize}
 
 \textbf{A brief history of using the factor model for causal inference:}
@@ -52,6 +53,11 @@ All the methods for causal inference can be viewed as missing data imputation me
     \item Interactive fixed effects model. \textcolor{blue}{Xu (2016)} use factor model plus regression terms.
     $$y_{it} = \lambda_{i} F_t + X_{it} \beta + \epsilon_{it}$$
 \end{enumerate}
+
+\begin{itemize}
+    \item Recent advance in asset pricing using IPCA for stock return prediction. (\textcolor{blue}{Kelly et al. (2020)})
+\end{itemize}
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -61,7 +67,6 @@ All the methods for causal inference can be viewed as missing data imputation me
         \item $Y_{it}$ is the observed outcome for unit $i=1,2,\cdots, N$ at time $t=1,\cdots,T.$
         \item Total number of observed units is $N=N_{treat}+N_{ctrl},$ for $N_{ctrl}$ number of units in the control group $\mathcal{C}$ and $N_{treat}$ units in the treated group $\mathcal{T}$.
         \item Each unit is observed over $T=T_{pre}+T_{post}$ periods.
-        \item Our target estimand is the average treatment effect for the treated units (ATT) in the post-treatment periods.
     \end{itemize}
 
 \begin{assumption}
@@ -75,14 +80,17 @@ All the methods for causal inference can be viewed as missing data imputation me
 
 \begin{frame}{Set up}
 \begin{itemize}
-    \item where $X_{it} = [x^1_{it}, \cdots, x^L_{it}]$ is a vector of observed covariates. $F_t = [f^1_t, \cdots, f^K_t]$ is a vector of unobserved time-varying factors. $\Lambda_{it} = [\lambda^1_{it}, \cdots, \lambda^K_{it}]$ is a vector of unobserved factor loading instrumented by covariates $X_{it}$.
-    \item We use \textcolor{blue}{Neyman (1932)} and \textcolor{blue}{Rubin (2003)} potential outcome framework to specify the potential outcome for treated and control units:
+    \item where $X_{it} = [x^1_{it}, \cdots, x^L_{it}]$ is a vector of observed covariates. 
+    \item $F_t = [f^1_t, \cdots, f^K_t]$ is a vector of unobserved time-varying factors. 
+    \item $\Lambda_{it} = [\lambda^1_{it}, \cdots, \lambda^K_{it}]$ is a vector of unobserved factor loadings instrumented by covariates $X_{it}$.
+    \item $\Gamma$ is a $L \times K$ transformation matrix, mapping $L$ covariates into $K$ latent factor loadings. 
 \end{itemize}
 
 \begin{equation*}
 \begin{cases}
-      Y_{it}^1 = \delta_{it} + X_{it} \Gamma F'_t + \epsilon_{it} & if \ i \in \mathcal{T} \ \& \ t > T_{pre} \\
-      Y_{it}^0 = X_{it} \Gamma F'_t + \epsilon_{it} & otherwise.
+      Y_{it}^1 = \delta_{it} + X_{it} \Gamma_{treat} F'_t + \epsilon_{it} & if \ i \in \mathcal{T} \ \& \ t > T_{pre} \\
+      Y_{it}^0 = X_{it} \Gamma_{treat} F'_t + \epsilon_{it} & if \ i \in \mathcal{T} \ \& \ t <= T_{pre} \\
+      Y_{it}^0 = X_{it} \Gamma_{ctrl} F'_t + \epsilon_{it} & if \ i \in \mathcal{C}.
 \end{cases}
 \end{equation*}
 \end{frame}
@@ -104,7 +112,10 @@ All the methods for causal inference can be viewed as missing data imputation me
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Estimand
 \begin{frame}{Estimand}
-Under Nemany's potential outcome framework, our estimand ATT can be expressed as:
+\begin{itemize}
+    \item We use \textcolor{blue}{Neyman (1932)} and \textcolor{blue}{Rubin (2003)} potential outcome framework to specify the potential outcome for treated and control units.
+    \item Under Nemany's potential outcome framework, our estimand ATT can be expressed as:
+\end{itemize}
 \begin{equation*}
     \widehat{ATT}_{t} = \frac{1}{N_{treat}}\sum_{i \in \mathcal{T}} \left( Y_{it}^1 - \hat{Y}_{it}^0 \right) = \frac{1}{N_{treat}}\sum_{i \in \mathcal{T}}\hat{\delta}_{it}.
 \end{equation*}
@@ -117,32 +128,25 @@ Under Nemany's potential outcome framework, our estimand ATT can be expressed as
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % advantages of the CSC-IPCA method
-\begin{frame}{Advantages of the CSC-IPCA Method}
-    \begin{itemize}
-        \item It incorporates the strengths of previous SCM approaches, such as the relaxation of the untestable parallel trends assumption (PTA).
-        \item It complements the SCM method when targeted outcomes are outside the convex hull formulated by controls.
-        \item It eliminates the need for correct model specification.
-        \begin{enumerate}
-            \item Estimates data with different DGPs other than the functional form, our method still excels.
-            \item Covariates are incorporated into the model through a mapping matrix $\Gamma$ instead of a specific model specification.
-        \end{enumerate}
-    \end{itemize}
-\end{frame}
 
 \begin{frame}{Advantages of the CSC-IPCA Method}
-    \begin{itemize}
-        \item It inherits the ability of PCA to effectively handle high-dimensional data and enhances the value extracted from numerous covariates.
-        \begin{enumerate}
-            \item The mapping matrix $\Gamma$ conducts a dimensional reduction process, making it easier to handle high-dimensional financial data.
-            \item Prediction information from covariates is more effectively handled. When there are unobserved covariates, this method is less biased compared to its peers.
-        \end{enumerate}
+    \begin{enumerate}
+        \item It inherits the ability of PCA to effectively handle high-dimensional data.
+        \begin{itemize}
+            \item The mapping matrix $\Gamma$ conducts a dimensional reduction process, making it easier to handle high-dimensional datasets.
+            \item Prediction information from covariates is more effectively handled.
+        \end{itemize}
 
-        \item It generates time-varying factor loadings which have better economic interpretation and better estimate for common factors.
-        \begin{enumerate}
+        \item It generates time-varying factor loadings which have better economic interpretation.
+        \begin{itemize}
             \item Instrumented factor loadings $\Lambda_{it}$ inherit time-varying properties, making them more realistic in practice.
-            \item Dynamic factor loadings help us better estimate common factors.
-        \end{enumerate}
-    \end{itemize}
+        \end{itemize}
+
+        \item It enhances the value extracted from numerous covariates, and dynamic factor loadings can help to better estimate common factors.
+        \begin{itemize}
+            \item Reduced bias when unobserved covariates are present, compared to other similar methods.
+        \end{itemize}
+    \end{enumerate}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -193,7 +197,7 @@ $$
     
     The $\Gamma_{treat}$ is estimated through:
     \begin{equation*}
-        \hat{\gamma} = \left( \sum_{i,t} (\boldsymbol{x}_{it}' \otimes \boldsymbol{f}_t) (\boldsymbol{x}_{it} \otimes \boldsymbol{f}_t') \right)^{-1} \left( \sum_{i,t} (\boldsymbol{x}_{it}' \otimes \boldsymbol{f}_t) y_{it} \right).
+        \hat{\gamma} = \left( \sum_{i,t} (\boldsymbol{x}_{it}' \otimes \boldsymbol{\hat{f}}_t) (\boldsymbol{x}_{it} \otimes \boldsymbol{\hat{f}}_t') \right)^{-1} \left( \sum_{i,t} (\boldsymbol{x}_{it}' \otimes \boldsymbol{\hat{f}}_t) y_{it} \right).
     \end{equation*}
     $$for \ i \in \mathcal{T}, T<= T_{pre}.$$
 \end{frame}
@@ -514,7 +518,11 @@ Therefore, as $N_{\text{ctrl}}, \ T_{\text{pre}} \to \infty$, the estimated ATT 
     \begin{itemize}
         \item Solve overfitting.
         \item Better handle bad controls.
-    \end{itemize}
+    \end{itemize} 
+
+\vspace{0.5cm}
+
+    A GitHub \textcolor{blue}{\href{https://github.com/CongWang141/JMP}{repository}} contains not only the package to apply this new method, but a Jupyter Notebook includes a step-by-step demonstration of the estimation.
     
 \end{frame}
 \end{document}
