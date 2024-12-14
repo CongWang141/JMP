@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1734194930.6205 "//efsf.local/Users/Profiles/c.wang/Documents/CongWang/personal_doc/project/JMP/slides/main.tex" "main.pdf" "main" 1734194948.53439 0
-  "//efsf.local/Users/Profiles/c.wang/Documents/CongWang/personal_doc/project/JMP/slides/main.tex" 1734194924.25591 29577 6ea4ee7352471324990029d9182bd07e ""
+["pdflatex"] 1734195073.21165 "//efsf.local/Users/Profiles/c.wang/Documents/CongWang/personal_doc/project/JMP/slides/main.tex" "main.pdf" "main" 1734195091.39403 0
+  "//efsf.local/Users/Profiles/c.wang/Documents/CongWang/personal_doc/project/JMP/slides/main.tex" 1734195066.43008 29598 71831a71abe014bfe10688f3a8359ab3 ""
   "C:/Program Files/MiKTeX/fonts/tfm/jknappen/ec/ecso0800.tfm" 993062212 3412 072def38d6d0012a4634ec9342e1c75e ""
   "C:/Program Files/MiKTeX/fonts/tfm/jknappen/ec/ecso0900.tfm" 993062212 3380 c005fc0949fc8e64d72f839519b41343 ""
   "C:/Program Files/MiKTeX/fonts/tfm/jknappen/ec/ecso1000.tfm" 993062214 3352 e0c1f9db9b36126db0457e2b60fb63ee ""
@@ -253,10 +253,10 @@
   "figs/estimation.png" 1725742709.44237 549379 ca04e69555178c27c21c75c47d2dae46 ""
   "figs/finite_sample.png" 1725742710.08958 72990 509ff96a1f07e7eea6063c7db1b71978 ""
   "figs/ukfdi_ipca.png" 1725742710.93194 409512 2fb109a3121c1ff8182fd99813e99a76 ""
-  "main.aux" 1734194938.99051 5456 83658beae62d7f3b44c6d2865cc55ee2 "pdflatex"
-  "main.nav" 1734194939.03739 3062 d5d23346c34923d7d980a69ef7227025 "pdflatex"
-  "main.out" 1734194934.3967 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "main.tex" 1734194924.25591 29577 6ea4ee7352471324990029d9182bd07e ""
+  "main.aux" 1734195081.41468 5456 83658beae62d7f3b44c6d2865cc55ee2 "pdflatex"
+  "main.nav" 1734195081.47719 3062 d5d23346c34923d7d980a69ef7227025 "pdflatex"
+  "main.out" 1734195076.94586 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "main.tex" 1734195066.43008 29598 71831a71abe014bfe10688f3a8359ab3 ""
   (generated)
   "main.aux"
   "main.log"
