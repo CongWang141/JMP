@@ -50,7 +50,7 @@ All the methods for causal inference can be viewed as missing data imputation me
 \begin{enumerate}
     \item Pure factor models. \textcolor{blue}{Hsiao et al. (2012)} appear to be the first to use factor models for causal inference.
     $$y_{it} = \lambda_i F_t + \epsilon_{it}$$
-    \item Interactive fixed effects model. \textcolor{blue}{Xu (2016)} use factor model plus regression terms.
+    \item Generalized synthetic control method. \textcolor{blue}{Xu (2016)} use factor model plus regression terms (CSC-IFE).
     $$y_{it} = \lambda_{i} F_t + X_{it} \beta + \epsilon_{it}$$
 \end{enumerate}
 
@@ -522,7 +522,7 @@ Therefore, as $N_{\text{ctrl}}, \ T_{\text{pre}} \to \infty$, the estimated ATT 
 
 \vspace{0.5cm}
 
-    A GitHub \textcolor{blue}{\href{https://github.com/CongWang141/JMP}{repository}} contains not only the package to apply this new method, but a Jupyter Notebook includes a step-by-step demonstration of the estimation.
+    A GitHub \textcolor{blue}{\href{https://github.com/CongWang141/JMP}{repository}} contains not only the package to apply this new method, but a Jupyter Notebook includes a step-by-step demonstration of the estimation, simulation, and more.
     
 \end{frame}
 \end{document}
